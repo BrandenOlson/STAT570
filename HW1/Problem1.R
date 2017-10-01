@@ -41,11 +41,21 @@ tValue <- function(betas, se) {
     return(betas/se)
 }
 
+pValue <- function(t_value, n, p) {
+    p_val <- 2*(1 - pt(t_value, df=(n - p - 1)))
+    return(p_val)
+}
+
+
 beta_hat <- computeBetaCoefficients(y, X)
 se <- coefficientStandardErrors(y, X)
 yhat <- fittedValues(X, beta_hat)
 t_value <- tValue(beta_hat, se)
+p_value <- pValue(t_value, n=length(y), p=(ncol(X) - 1))
 
-print(beta_hat %>% signif(5))
-print(se %>% signif(5))
-print(t_value %>% signif(5))
+options(digits=4)
+print(beta_hat %>% signif(digits=5))
+print(se %>% signif(digits=5))
+options(digits=3)
+print(t_value %>% signif(digits=5))
+print(p_value %>% signif(digits=3))
