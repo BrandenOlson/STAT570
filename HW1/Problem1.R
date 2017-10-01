@@ -54,8 +54,9 @@ t_value <- tValue(beta_hat, se)
 p_value <- pValue(t_value, n=length(y), p=(ncol(X) - 1))
 
 options(digits=4)
-print(beta_hat %>% signif(digits=5))
-print(se %>% signif(digits=5))
-options(digits=3)
-print(t_value %>% signif(digits=5))
-print(p_value %>% signif(digits=3))
+
+reg_summary <- cbind(beta_hat, se, t_value, p_value)
+colnames(reg_summary) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+row.names(reg_summary) <- c("(Intercept)", "lcavol", "svi", "lcavol:svi")
+
+print(reg_summary)
