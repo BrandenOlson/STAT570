@@ -15,26 +15,37 @@ computeBetaCoefficients <- function(y, X) {
     return(betas)
 }
 
-fittedValues <- function(y, X) {
-    beta <- computeBetaCoefficients(y, X)
-    return( X %*% beta )
+fittedValues <- function(X, beta) {
+    yhat <- X %*% beta
+    return(yhat)
 }
 
-meanSquaredError <- function(y, yhat) {
-    return( (y - yhat)^2 %>% mean )
+meanSquaredError <- function(y, X) {
+    n <- length(y)
+    degrees_of_freedom <- ncol(X) - 1
+    beta_hat <- computeBetaCoefficients(y, X)
+    yhat <- fittedValues(X, beta_hat)
+    mse <- ( (y - yhat)^2 %>% sum )/(n - degrees_of_freedom - 1)
+    return(mse)
 }
 
-# Not in agreement yet...
 coefficientStandardErrors <- function(y, X) {
-    yhat <- fittedValues(y, X)
-    s2 <- meanSquaredError(y, yhat)
-    se <- (s2*solve( t(X) %*% X )) %>% diag %>% sqrt
+    beta_hat <- computeBetaCoefficients(y, X)
+    yhat <- fittedValues(X, beta_hat)
+    s2 <- meanSquaredError(y, X)
+    se <- sqrt(s2*diag(solve(t(X) %*% X)))
     return(se)
 }
 
-beta <- computeBetaCoefficients(y, X)
-se <- coefficientStandardErrors(y, X)
-yhat <- fittedValues(y, X)
+tValue <- function(betas, se) {
+    return(betas/se)
+}
 
-print(beta)
-print(se)
+beta_hat <- computeBetaCoefficients(y, X)
+se <- coefficientStandardErrors(y, X)
+yhat <- fittedValues(X, beta_hat)
+t_value <- tValue(beta_hat, se)
+
+print(beta_hat %>% signif(5))
+print(se %>% signif(5))
+print(t_value %>% signif(5))
