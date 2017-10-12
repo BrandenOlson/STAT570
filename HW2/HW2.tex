@@ -1,0 +1,403 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\conj{\overline}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\derivation{\begin{tabular} { >{$}l<{$}  >{$}c<{$}  >{$}l<{$}  >{$}r<{$} }}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\text{Var}\left[#1\right]}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bK{\mathbf{K}}
+\newcommand*\bL{\mathbf{L}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\tens{P}_{#1}\left[#2\right]}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left[#1\right] }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+
+\begin{document}
+\title{STAT 570: Homework 2}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\begin{enumerate}[label=(\roman*)]
+\item
+$\eps_i \sim N(0, 3^2)$:
+\\
+We know that the OLS estimator of $\bbeta$ is
+\ba
+\estim{\bbeta} = (\bX^T \bX)^{-1} \bX^T \bY
+\ea
+and thus
+\ba
+\E{\estim{\bbeta}} & = (\bX^T \bX)^{-1} \bX^T \E{ \bX \bbeta + \beps} \\
+	& = (\bX^T \bX)^{-1} \bX^T \bX \bbeta + (\bX^T \bX)^{-1} \bX^T \E{\beps} \\
+	& = \bbeta + (\bX^T \bX)^{-1} \bX^T \cdot \bzero \\
+	& = \bbeta
+\ea
+so that, as long as the error terms in our linear model are mean-zero, the OLS estimator will be unbiased. 
+\item
+Here, we have
+\ba
+\Var{\estim{\bbeta}} & = 
+	(\bX^T \bX)^{-1} \bX^T \Var{\bY} \bX (\bX^T \bX)^{-T} \\
+	& = (\bX^T \bX)^{-1} \bX^T \Var{\eps_1} \bI \bX (\bX^T \bX)^{-T} \\
+	& = \Var{\eps_1} (\bX^T \bX)^{-1}
+\ea
+so that the variance of the OLS estimator will depend on the variance of the true errors. 
+\begin{enumerate}[label=(\roman*)]
+\item If $\eps_i \sim \mathcal N(0, 3^2)$, then
+$\Var{\estim{\bbeta}} = 9 (\bX^T \bX)^{-1}$.
+\item If $\eps_i \sim \mathcal U(-3, 3)$, then 
+$\Var{\estim{\bbeta}} = \frac{(3 - (-3))^2}{12} (\bX^T \bX)^{-1}
+= 3 (\bX^T \bX)^{-1}$
+\item If 
+$\eps_i \sim \text{SN}\left(\alpha=5, \omega=1, \xi=-\omega \delta \sqrt{2\over\pi}\right)$, with $\delta = {\alpha \over \sqrt{1 + \alpha^2}}$, then we see that
+\ba
+\E{\eps_i} = \xi + \omega \delta \sqrt{2\over\pi} = 0
+\ea
+\ba
+\Var{\eps_i} & = \omega^2 \left(1 - \frac{2\delta^2}{\pi}\right) \\
+	& = 1 - \frac{2 \left(\frac{5}{\sqrt{1 + 5^2}}\right)^2}{ \pi} \\
+	& = 1 - \frac{2 \cdot 25}{\pi \cdot 26} \\
+	& = 1 - \frac{25}{13\pi}  \htab (\approx 0.387)
+\ea
+So that $\Var{\bbeta} = \left(1 - \frac{25}{13\pi}\right) (\bX^T \bX)^{-1}$. 
+\item
+Below is a table of the theoretical and empirical variances for $\estim{\bbeta}$ for each distribution.
+\input{var_df.tex}
+\end{enumerate}
+
+\end{enumerate}
+
+\section*{Problem 2}
+\enum
+\item
+\ba
+L(\bbeta) & \propto p(\by | \lambda_i) \\
+	& = \prod_{i=1}^n p(y_i | \lambda_i) \\
+	& = \prod_{i=1}^n \lambda_i \e^{-\lambda_i y_i} \\
+	& = \prod_{i=1}^n \lambda_i \exp\left(-\sum_{i=1}^n \lambda_i y_i \right) \\
+	& = \prod_{i=1}^n \exp(\beta_0 + \beta_1 x_i)
+		\exp\left(-\sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) y_i \right) \\
+	& = \exp\left\{ \sum_{i=1}^n (\beta_0 + \beta_1 x_i) \right\}
+		\exp\left(-\sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) y_i \right) \\
+	& = \exp\left\{ \sum_{i=1}^n (\beta_0 + \beta_1 x_i)
+			- \sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) y_i \right\} \\
+	& = \boxed{ \exp\left\{ n\beta_0 + \sum_{i=1}^n \left[
+			 \beta_1 x_i - \exp(\beta_0 + \beta_1 x_i) y_i \right]
+		\right\} }
+\ea
+Thus, the log-likelihood is
+\ba
+\boxed{ 
+\ell(\bbeta)  = n\beta_0 + \sum_{i=1}^n \left[
+			 \beta_1 x_i - \exp(\beta_0 + \beta_1 x_i) y_i \right] }.
+\ea
+Next, we see that
+\ba
+{\pd{\ell}\over \pd{\beta_0}} = n 
+	- \sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) y_i 
+\ea
+and
+\ba
+\pderiv{\ell}{\beta_1} & = \sum_{i=1}^n \left[ x_i -
+	\exp(\beta_0 + \beta_1 x_i) y_i x_i \right] \\
+	& = \sum_{i=1}^n x_i \left[1 - \exp(\beta_0 + \beta_1 x_i) y_i \right]
+\ea
+Hence, the score function is
+\ba
+\boxed{
+\bS(\bbeta) = \deriv{\ell}{\bbeta}
+	= \begin{pmatrix}
+		n - \sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) y_i \\
+		\sum_{i=1}^n x_i \left[1 - \exp(\beta_0 + \beta_1 x_i) y_i \right]
+		\end{pmatrix}
+		}
+\ea
+For the Fisher information matrix, we need to compute four more derivatives.
+\ba
+\pderiv{S_1}{\beta_0} =
+	- \sum_{i=1}^n y_i \exp(\beta_0 + \beta_1 x_i),
+	\htab
+	\pderiv{S_1}{\beta_1} =
+	- \sum_{i=1}^n y_i \exp(\beta_0 + \beta_1 x_i) \cdot x_i
+\ea
+\ba
+\pderiv{S_2}{\beta_0} = 
+	- \sum_{i=1}^n x_i y_i \exp(\beta_0 + \beta_1 x_i), 
+	\htab 
+	\pderiv{S_2}{\beta_1} =
+		-\sum_{i=1}^n x_i y_i \exp(\beta_0 + \beta_1 x_i) \cdot x_i
+\ea
+Hence, the information matrix is 
+\ba
+\bI(\bbeta) & \equiv 
+- \E{\pderiv{\bS}{\bbeta}} \\
+	& = - \E{ \begin{pmatrix}
+		- \sum_{i=1}^n Y_i \exp(\beta_0 + \beta_1 x_i)
+		& - \sum_{i=1}^n x_i Y_i \exp(\beta_0 + \beta_1 x_i) \\
+		- \sum_{i=1}^n x_i Y_i \exp(\beta_0 + \beta_1 x_i)
+		& -\sum_{i=1}^n x_i^2 Y_i \exp(\beta_0 + \beta_1 x_i)
+		\end{pmatrix}
+		} \\
+	& = \begin{pmatrix}
+		\sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i) \E{Y_i}
+		& \sum_{i=1}^n x_i \exp(\beta_0 + \beta_1 x_i) \E{Y_i} \\
+		\sum_{i=1}^n x_i \exp(\beta_0 + \beta_1 x_i) \E{Y_i}
+		& \sum_{i=1}^n x_i^2 \exp(\beta_0 + \beta_1 x_i) \E{Y_i}
+	\end{pmatrix} \\
+	& = \begin{pmatrix}
+		\sum_{i=1}^n \exp(\beta_0 + \beta_1 x_i)
+		 \frac{1}{\exp(\beta_0 + \beta_1 x_i)}
+		& \sum_{i=1}^n x_i \exp(\beta_0 + \beta_1 x_i) 
+		\frac{1}{\exp(\beta_0 + \beta_1 x_i)} \\
+		\sum_{i=1}^n x_i \exp(\beta_0 + \beta_1 x_i) 
+		\frac{1}{\exp(\beta_0 + \beta_1 x_i)}
+		& \sum_{i=1}^n x_i^2 \exp(\beta_0 + \beta_1 x_i) 
+		\frac{1}{\exp(\beta_0 + \beta_1 x_i)}
+	\end{pmatrix} \\
+	& = \begin{pmatrix}
+		n & \sum_{i=1}^n x_i \\
+		\sum_{i=1}^n x_i & \sum_{i=1}^n x_i^2
+		\end{pmatrix}
+\ea
+\item
+The maximum likelihood estimate $\estim{\bbeta}$ is the value such that 
+$\estim{\bbeta} = \argmax_{\bbeta} \ell(\bbeta)$, meaning that (for differentiable log-likelihood functions)
+\ba
+\pderiv{\ell}{\bbeta} \bigg|_{\bbeta= \estim{\bbeta}} 
+= \begin{pmatrix} 0 \\ 0 \end{pmatrix},
+\ea
+that is,
+\ba
+\begin{pmatrix}
+		n - \sum_{i=1}^n \exp(\estim{\beta_0} + \estim{\beta_1} x_i) y_i \\
+		\sum_{i=1}^n x_i \left[1 - \exp(\estim{\beta_0} 
+			+ \estim{\beta_1} x_i) y_i \right]
+		\end{pmatrix}
+		= \begin{pmatrix} 0 \\ 0 \end{pmatrix}.
+\ea
+Here, we cannot get an analytic form for $\estim{\beta_0}$ and $\estim{\beta_1}$, but we can implement a numerical solver for the implied system of equations above.
+\item
+The source code for this is in Appendix B.
+\item
+
+\enumend
+
+\newpage
+
+\lstinputlisting{Problem1.R}
+\lstinputlisting{Problem2.R}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
