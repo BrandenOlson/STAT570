@@ -1,0 +1,473 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\conj{\overline}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\derivation{\begin{tabular} { >{$}l<{$}  >{$}c<{$}  >{$}l<{$}  >{$}r<{$} }}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\text{Var}\left[#1\right]}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bK{\mathbf{K}}
+\newcommand*\bL{\mathbf{L}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\tens{P}_{#1}\left[#2\right]}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left[#1\right] }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+
+\begin{document}
+\title{STAT 570: Homework 1}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+As an initial examination of the data, we can inspect a scatter plot of the response $\by = \log(\text{prostate specific antigen}) = \log(\text{PSA})$ versus 
+$\bx_1 = \text{lcavol} = \log(\text{cancer volume})$, grouping by presence of a seminal vesicle invasion ($\bx_2 = \text{SVI})$. This will give us both a sense of the overall relationship of $\bY$ and lcavol, and of a possible effect change if SVI is included.
+\begin{center}
+\includegraphics[width=\linewidth]{Explore.pdf}
+\end{center}
+From the plot, there appears to be a positive association between log(cancer volume) and log(PSA). The contribution of SVI is difficult to ascertain because, while a presence of SVI seems to correspond to a high value of log(PSA), SVI only occurs for higher values of log(cancer volume), which may lead to confounding. SVI could be a significant covariate beyond only log(PSA) and/or its presence could affect the association of log(PSA) and log(cancer volume), or it could be an insignificant factor.
+\item
+To interpret the parameters $\bbeta$, it is useful to consider 
+$\E{Y_i}$ in two cases: when SVI $= 0$ and when SVI $=1$. In the first case,
+\ba
+\E{Y_i} = \beta_0 + \beta_1 \text{lcavol},
+\ea
+and in the second case,
+\ba
+\E{Y_i} & = \beta_0 + \beta_1 \text{lcavol} + \beta_2 \cdot 1 + \beta_3 \text{lcavol} \cdot 1 \\
+	& = (\beta_0 + \beta_2) + (\beta_1 + \beta_3) \text{lcavol}.
+\ea
+Thus, $\E{Y_i}$ can have a different slope and intercept depending on the value of SVI. This suggests the following interpretations of each parameter:
+\begin{itemize}
+\item $\beta_0$ is the global $y$-intercept of log(PSA), that is, the value of log(PSA), on average, given none of the covariates are considered.
+\item $\beta_1$ is the shift in the value of log(PSA), on average, given a unit shift of log(cancer volume), and an absence of SVI.
+\item $\beta_2$ is the offset, on average, to the $y$-intercept given by $\beta_0$ if SVI is observed.
+\item $\beta_3$ is the offset, on average, to the slope given by $\beta_2$ if SVI is observed.
+\end{itemize}
+Another way to interpret the model as a whole, given that all of the $\beta$'s are nonzero, is that the linear relationship of log(PSA) and log(cancer volume) is different depending on whether or not SVI is present.
+\item
+The full source code is included in Appendix A. All functions were implemented using arithmetic and matrix operations, based on the formulas in part (c) and using the corresponding tests. I do make use of the \texttt{pt} function in R to compute  quantiles of a normal distribution.
+The output of the R program is shown below verbatim when run on my machine. 
+\newpage
+\begin{lstlisting}[language=bash]
+> source("Problem1.R")
+            Estimate Std. Error t value  Pr(>|t|)
+(Intercept)  1.53970    0.12070 12.7566 0.000e+00
+lcavol       0.58640    0.08207  7.1451 1.981e-10
+svi          0.51385    0.67784  0.7581 4.503e-01
+lcavol:svi   0.06479    0.26614  0.2435 8.082e-01
+
+Multiple R-squared: 0.5806, Adjusted R-squared: 0.5671
+\end{lstlisting}
+\item
+\begin{enumerate}[label=(\roman*)]
+\item
+We know (e.g. from the lecture notes) that the least-squares estimator given our model is
+\ba
+\estim{\bbeta} = (\bX^T \bX)^{-1} \bX^T \bY.
+\ea
+Taking the expectation of $\estim{\bbeta}$,
+\ba
+\E{\estim{\bbeta}} & = (\bX^T \bX)^{-1} \bX^T \E{ \bX \bbeta + \beps } \\
+	& = (\bX^T \bX)^{-1} \bX^T \bX \bbeta + (\bX^T \bX)^{-1} \bX^T \E{\beps} \\
+	& = \bbeta + (\bX^T \bX)^{-1} \bX^T \E{\eps}.
+\ea
+Thus, it's clear that $\estim{\bbeta}$ will be unbiased only if 
+$\E{\eps} = 0$, so that our error terms are mean-zero, which is the usual, sensible case.
+\item
+Taking the variance of $\estim{\bbeta}$,
+\ba
+\Var{\bbeta} & = \E{ \bbeta \bbeta^T } \\
+	& = \E{ (\bX^T \bX)^{-1} \bX^T \bY \bY^T \bX (\bX^T \bX)^{-T} } \\
+	& = (\bX^T \bX)^{-1} \bX^T \E{ \bY \bY^T } (\bX^T \bX)^{-1} \\
+	& = (\bX^T \bX)^{-1} \bX^T \Var{\bY} (\bX^T \bX)^{-1}.
+\ea
+If we take $\Var{\bY} = \sigma^2 \bI$, then this becomes
+\ba
+\Var{\bbeta} & = (\bX^T \bX)^{-1} \bX^T 
+	\cdot \sigma^2 \bI \bX (\bX^T \bX)^{-1}  \\
+	& = \sigma^2 (\bX^T \bX)^{-1} 
+\ea
+We know that the standard error of the coefficients, $\estim{\text{SE}}(\bbeta)$, is given by 
+\ba
+\estim{\text{SE}} (\bbeta) = \sqrt{\estim{\sigma^2} \left(\bX^T \bX \right)^{-1} },
+\ea
+where $\estim{\sigma}$ is an unbiased, MSE-based error of $\sigma^2$. Thus, if
+$\Var{\bY} = \Var{\beps} = \sigma^2 \bI$, then we have an accurate estimate of the standard error. That is, we need the errors to be uncorrelated with a common variance, but we do not necessarily need normality.
+\item
+Here, we need normality of the data and for the variance $\sigma^2$ to be known. However, Wakefield p. 211 notes that for asymptotic accuracy, the only requirement is that $\estim{\sigma}$ converges in probability to $\sigma^2$, due to the standardization of $\estim{\beta}_j$. Moreover, if the sample size is large enough, 
+the approximation to normality becomes more accurate, increasing the accuracy of the coverage probabilities.
+\item
+Here, assume that $\eps | \sigma^2 \sim \mathcal{N}_n(\bzero, \sigma^2 \bI)$, and let $s^2$ be the standard, unbiased estimator of $\sigma^2$:
+\ba
+s^2 = \frac{1}{n - 1} \sum_{i=1}^n (y_i - \overline{y})^2.
+\ea
+Then a classical result yields that $\estim{\bbeta}$ is distributed as a 
+a $(4)$-dimensional $t$-distribution with $n - 4$ degrees of freedom, location parameter $\bbeta$, and scale matrix $s^2 (\bX^T \bX)^{-1}$. 
+This yields the confidence interval in question. The accuracy is very sensitive to the assumption of normality. 
+\item
+Here, an observed response at $\bx_0$ will have the form $\bx_0 \bbeta + \eps_0$, with an estimator $\bx_0 \estim{\bbeta} + \estim{\eps_0}$. It is well-known that if $\eps_0 \sim N(0, \sigma^2)$, we have that
+\ba
+\frac{ \bx_0 \estim{\bbeta} + \estim{\eps_0} - \left(\bx_0 \bbeta + \eps_0\right) }
+{ 1 + \bx_0 (\bX^T \bX)^{-1} \bx_0^T }
+\sim N(0, \sigma^2)
+\ea
+Thus, we need the errors $\eps_i$ to be identically distributed, $N(0,1)$ random variables for an accurate confidence interval estimate based on $z_{\alpha/2}$ quantiles.
+\end{enumerate}
+
+\item
+According to our analysis, there is strong evidence of a linear association between log(PSA) and log(cancer volume). On the other hand, there is insufficient evidence to establish a further significant linear association with log(PSA) and SVI, or an impact of SVI on the association between log(PSA) and log(cancer volume).
+\end{enumerate}
+
+\section*{Problem 2}
+\begin{enumerate}[label=(\alph*)]
+\item
+\begin{enumerate}[label=(\roman*)]
+\item
+We have
+\ba
+p(y|\mu) = \frac{ \e^{-\mu} \mu^y }{ y! } 
+	& = \exp\left( -\mu + y \log(\mu) - \log(y!) \right) \\
+	& = \exp\left( \frac{y \log(\mu) - \mu}{1} + \left[-\log(y!)\right] \right)
+\ea
+This would imply that
+\ba
+\theta & = \log(\mu) \\
+\alpha & \equiv 1 \\
+b(\theta) & = \mu = \e^\theta \\
+a(\alpha) & \equiv 1 \\
+c(y, \alpha) & = -\log(y!)
+\ea
+
+\item
+Here, we have
+\ba
+p(y|a, b) & = \exp\left( a \log(b) - \log(\Gamma(a)) + (a - 1) \log(y) 
+		- by \right) \\
+	& = \exp\left( -by + (a - 1) \log(y) + a \log(b) - \log(\Gamma(a)) \right) \\
+	& = \exp\left( -by + a\log(b) - \log(\Gamma(a)) + (a - 1)\log(y) \right) \\
+	& = \exp\left( \frac{y(-b/a) + \log(b)}{\frac{1}{a}}
+			+ \left[- \log(\Gamma(a)) + (a - 1)\log(y) \right] \right)
+\ea 
+Here, we see that $\theta = -\frac{b}{a}$,  which yields
+\ba
+b = -a\theta \implies \log(b) = \log(-a\theta).
+\ea
+Furthermore,
+$\alpha = a$, so that $a(\alpha) = 1/\alpha$ and
+$c(y, \alpha) = - \log(\Gamma(\alpha)) + (\alpha - 1)\log(y)$
+\item
+Here, we have
+\ba
+p(y|\mu, \delta) & = 
+	\exp\left( \frac{1}{2} \log\left(\frac{\delta}{2\pi y^3}\right)
+		- \frac{ \delta(y - \mu)^2 }{ 2\mu^2 y } \right) \\
+	& = \exp\left( \frac{\log \delta}{2} - \frac{ \log(2\pi y^3) }{2}
+		- \frac{\delta(y^2 - 2 y \mu + \mu^2)}{2\mu^2 y} \right) \\
+	& = \exp\left( \frac{\log \delta}{2} - \frac{ \log(2\pi y^3) }{2}
+		- \frac{\delta y}{2\mu^2} + \frac{\delta}{\mu}
+		- \frac{\delta}{2y} \right) \\
+	& = \exp\left( - \frac{\delta y}{2 \mu^2} + \frac{\delta}{\mu}
+	 	+ \frac{\log \delta}{2} - \frac{\delta}{2y}
+		 - \frac{\log(2\pi y^3)}{2} \right) \\
+	& = \exp\left( \frac{ y \left[-\frac{1}{2\mu^2}\right] 
+		- \left[-\frac{1}{\mu} \right] }
+			{\frac{1}{\delta}} 
+		+ \frac{\log \delta}{2} - \frac{\delta}{2y}
+		 - \frac{\log(2\pi y^3)}{2} \right) \\
+\ea
+Thus, setting $\theta := -\frac{1}{2\mu^2}$, and assuming $\mu > 0$, we have that
+\ba
+2 \mu^2 = -\frac{1}{\theta} & \implies \mu = \sqrt{ - \frac{1}{2\theta} } \\
+& \implies -\frac{1}{\mu} = - \sqrt{-2\theta} \\
+\implies b(\theta) = - \sqrt{-2\theta}.
+\ea
+Furthermore, letting $\alpha = \delta$, we get
+$a(\alpha) = 1/\alpha$ and 
+$c(y, \alpha) = \frac{\log \alpha}{2} - \frac{1}{2y} - \frac{\log(2\pi y^3)}{2}$.
+\end{enumerate}
+
+\item
+We know (e.g. Wakefield p. 257) that for a one-parameter exponential family,
+\ba
+\E{Y | \theta, \alpha} = b'(\theta)
+\ea
+and
+\ba
+\Var{Y | \theta, \alpha} = a(\alpha) b''(\theta).
+\ea
+\begin{enumerate}[label=(\roman*)]
+\item
+Here, we have
+\ba
+\E{Y | \theta, \alpha} = b'(\theta) = \boxed{\e^\theta} = \mu
+\ea
+and
+\ba
+\Var{Y | \theta, \alpha} = 1 \cdot \e^\theta = \boxed{\e^\theta} = \mu.
+\ea
+\item
+Next, we have
+\ba
+\E{Y | \theta, \alpha } = \deriv{}{\theta} \log(-a\theta) = - a \cdot \frac{1}{a \theta} = \boxed{ - \frac{1}{\theta} } = \frac{a}{b}
+\ea
+and
+\ba
+\Var{Y | \theta, \alpha} & = \frac{1}{\alpha} \deriv{}{\theta}\left[-\frac{1}{\theta}\right] \\
+	& = \boxed{ \frac{1}{\alpha \theta^2} } \\
+	& = \frac{1}{a} \cdot \frac{a^2}{b^2} \\
+	& = \frac{a}{b^2}.
+\ea
+Finally, we have
+\ba
+\E{Y|\theta, \alpha} & = \deriv{}{\theta} \left[ -\sqrt{-2\theta} \right] \\
+	& = - \frac{1}{2} (-2\theta)^{-1/2} \cdot (-2) \\
+	& = \boxed{ \frac{1}{\sqrt{-2\theta}} } \\
+	& = \frac{1}{\sqrt{-2 \cdot \frac{-1}{2\mu^2} } } \\
+	& = \sqrt{\mu^2} \\
+	& = \mu
+\ea
+and
+\ba
+\Var{Y|\theta, \alpha} & = \frac{1}{\alpha} \deriv{}{\theta} \left[ \frac{1}{\sqrt{-2\theta}} \right] \\
+	& = \frac{1}{\alpha} \cdot \left(-\frac{1}{2}\right) (-2\theta)^{-3/2} \cdot (-2) \\
+	& = \boxed{ \frac{1}{ \alpha (-2\theta)^{3/2}  } } \\
+	& = \frac{1}{ \delta \left(-2 \cdot \frac{-1}{2\mu^2} \right)^{3/2} } \\
+	& = \frac{(\mu^2)^{3/2}}{\delta} \\
+	& = \frac{\mu^3}{\delta}. 
+\ea
+\end{enumerate}
+\item
+\begin{enumerate}[label=(\roman*)]
+\item
+Let $\boxed{g(x) = \log(x)}$. Then $g(\mu) = \log(\mu) = \log(\e^\theta) = \theta$.
+\item
+Let $\boxed{g(x) = - \frac{1}{x} }$. Then $g(\mu) = g\left(\frac{1}{\theta}\right) = -\frac{1}{-\frac{1}{\theta}} = \theta$.  
+\item
+Note that
+\ba
+\mu = \frac{1}{\sqrt{-2\theta}} & \implies \sqrt{-2\theta} = \frac{1}{\mu} \\
+	& \implies -2 \theta = \frac{1}{\mu^2} \\
+	& \implies \theta = - \frac{1}{2\mu^2}
+\ea
+This implies that $\boxed{ g(x) = - \frac{1}{2x^2} }$. 
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\section*{Appendix A: Source code for problem 1}
+\lstinputlisting{Problem1.R}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
