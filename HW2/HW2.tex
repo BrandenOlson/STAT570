@@ -203,7 +203,7 @@
 \maketitle
 
 \section*{Problem 1}
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}[label=(\alph*)]
 \item
 $\eps_i \sim N(0, 3^2)$:
 \\
@@ -245,11 +245,52 @@ $\eps_i \sim \text{SN}\left(\alpha=5, \omega=1, \xi=-\omega \delta \sqrt{2\over\
 	& = 1 - \frac{2 \cdot 25}{\pi \cdot 26} \\
 	& = 1 - \frac{25}{13\pi}  \htab (\approx 0.387)
 \ea
-So that $\Var{\bbeta} = \left(1 - \frac{25}{13\pi}\right) (\bX^T \bX)^{-1}$. 
-\item
-Below is a table of the theoretical and empirical variances for $\estim{\bbeta}$ for each distribution.
-\input{var_df.tex}
+So that $\Var{\bbeta} = \left(1 - \frac{25}{13\pi}\right) (\bX^T \bX)^{-1}$.
 \end{enumerate}
+ 
+Below is a table of the theoretical and empirical variances for $\estim{\bbeta}$ for each distribution, using 5,000 simulation trials.
+The source code for this part, and the remainder of the problem, is found in Appendix A.
+\input{var_df.tex}
+We see that the theoretical and empirical estimates tend to align very well. As expected, the variance decreases with $n$ in each case, and also decreases as you move from normal to uniform to skew-normal, since these distributions have decreasing variances. 
+\item
+First, we can examine normal QQ-plots for each distribution, and each $n$.
+
+QQ-plot of $\beta_0, \beta_1$ for normal errors, $n = 10$:
+\begin{center}
+\includegraphics[width=\linewidth]{norm_10.pdf}
+\end{center}
+These align well as expected.
+
+Next, the QQ-plot of $\beta_0, \beta_1$ for uniform errors, $n = 10$:
+\begin{center}
+\includegraphics[width=\linewidth]{unif_10.pdf}
+\end{center}
+These exhibit some skew in the tails, but are not terribly far from the theoretical line. 
+
+Next, the QQ-plot of $\beta_0, \beta_1$ for skew-normal errors, $n = 10$:
+\begin{center}
+\includegraphics[width=\linewidth]{skew_10.pdf}
+\end{center}
+These have some traces of skew, especially $beta_1$ on the right tail, as expected. 
+
+QQ-plot of $\beta_0, \beta_1$ for normal errors, $n = 25$:
+\begin{center}
+\includegraphics[width=\linewidth]{norm_25.pdf}
+\end{center}
+
+QQ-plot of $\beta_0, \beta_1$ for uniform errors, $n = 25$:
+\begin{center}
+\includegraphics[width=\linewidth]{unif_25.pdf}
+\end{center}
+
+QQ-plot of $\beta_0, \beta_1$ for skew-normal errors, $n = 25$:
+\begin{center}
+\includegraphics[width=\linewidth]{skew_25.pdf}
+\end{center}
+
+Below is the table of coverages, using confidence intervals based on quantiles from a student's $t$-distibution. For each case, the coverage is very close to $1 - \alpha$. 
+
+\input{coverage.tex}
 
 \end{enumerate}
 
@@ -348,10 +389,10 @@ Hence, the information matrix is
 \item
 The maximum likelihood estimate $\estim{\bbeta}$ is the value such that 
 $\estim{\bbeta} = \argmax_{\bbeta} \ell(\bbeta)$, meaning that (for differentiable log-likelihood functions)
-\ba
+\begin{equation}\label{score}
 \pderiv{\ell}{\bbeta} \bigg|_{\bbeta= \estim{\bbeta}} 
 = \begin{pmatrix} 0 \\ 0 \end{pmatrix},
-\ea
+\end{equation}
 that is,
 \ba
 \begin{pmatrix}
@@ -363,15 +404,97 @@ that is,
 \ea
 Here, we cannot get an analytic form for $\estim{\beta_0}$ and $\estim{\beta_1}$, but we can implement a numerical solver for the implied system of equations above.
 \item
-The source code for this is in Appendix B.
+The source code for this is in Appendix B. We use the \texttt{multiroot} function in the \texttt{rootSolve} package to numerically solve equation \eqref{score}.
+We find that
+\ba
+\beta_0 =  -2.82, \htab \beta_1 =  0.301.
+\ea
+Using the expression for the information matrix $\bI(\bbeta)$ above, we compute the asymptotic covariance matrix $\Sigma$ via
+\ba
+\Sigma = \bI^{-1}(\bbeta) \approx
+\begin{pmatrix}
+ 0.345 & -0.0463 \\
+-0.0463 & 0.00770
+\end{pmatrix}
+\ea
+This leads to the confidence intervals
+\ba
+\beta_0 & \in \estim{\beta_0} \pm 1.96 \sqrt{0.345}  = (-6.46, 0.819)\\
+\beta_1 & \in \estim{\beta_1} \pm 1.96 \sqrt{0.00770} = (0.129, 0.473)
+\ea
 \item
-
+Instead of a 2D surface plot of the joint likelihood, we elect to display profile log-likelihood plots around the MLE
+$(\estim{\beta_0}, \estim{\beta_1})$ for ease of interpretation.
+First, we show the log-likelihood and the normal approximation for $\beta_0$, standardized to the same interval of $\beta_0$:
+\begin{center}
+\includegraphics[width=\linewidth]{plot1.pdf}
+\end{center}
+Here, it is evident that the normal approximation is good, as the likelihood, while slightly skewed to the left, exhibits quadratic behavior.
+\begin{center}
+\includegraphics[width=\linewidth]{plot2.pdf}
+\end{center}
+Here, however, the normal approximation is not as good on the left side of the curve, but gets better asymptotically on the right side.
+\item
+From (c), our MLE-based confidence interval is (0.129, 0.473) for $\beta_1$ which indicates strong evidence, under our model assumptions, that $\beta_1 > 0$. 
+This indicates a positive association of $\log\lambda_i$ with $x_i$, and hence a positive association of $\lambda_i$ with $x_i$. Since $\lambda_i$ is interpreted as the rate of the exponential, a higher rate corresponds to a lower average survival time. Thus, if the $i$th rate is positively associated with concentration of the contaminant, then higher concentrations of the contaminant indicate a lower survival rate.
 \enumend
+
+\section*{Problem 3}
+First, we look at marginal moments,
+\ba
+\E{Y_i} & = \E{\E{Y_i | \theta_i}} \\
+	& = \E{ \E{ \text{Poisson}(\mu_i \theta_i) } } \\
+	& = \E{ \mu_i \theta_i } \\
+	& = \mu_i \E{\theta_i} \\
+	& = \mu_i \frac{b}{b} \\
+	& = \mu_i
+\ea
+and
+\ba
+\Var{Y_i} & = \Var{\E{Y_i | \theta_i}} + \E{\Var{Y_i | \theta_i}} \\
+	& = \Var{ \mu_i \theta_i } + \E{ \Var{ \text{Poisson}(\mu_i \theta_i) } } \\
+	& = \mu_i^2 \Var{\theta_i} + \E{ \mu_i \theta_i } \\
+	& = \mu_i^2 \cdot \frac{b}{b^2} + \mu_i \\
+	& = \mu_i\left(1 + \frac{\mu_i}{b}\right) \\
+	& = \E{Y_i} \cdot \alpha
+\ea
+
+We used the \texttt{glm} package to fit both the Poisson likelihood-based model and the quasi-Poisson model, using
+\texttt{family="poisson"} and \texttt{family="quasipoisson"}, respectively. 
+We report separate tables for the coverage of $\beta_0$ and $\beta_1$ by model, with each table broken down by $n$ and $b$. 
+For sandwich estimation, we use the \texttt{sandwich} package. 
+We use 1000 simulation trials. 
+Below we list the coverage tables for $\beta_0$ and $\beta_1$ for the Poisson model:
+\begin{center}
+\input{beta0_lik.tex}
+\input{beta1_lik.tex}
+\end{center}
+\newpage
+Next, we list coverage tables for $\beta_0$ and $\beta_1$ for the quasi-likelihood model:
+\begin{center}
+\input{beta0_quasi.tex}
+\input{beta1_quasi.tex}
+\end{center}
+\newpage
+Finally, we list coverage tables for $\beta_0$ and $\beta_1$ for the sandwich model. 
+
+\begin{center}
+\input{beta0_sand.tex}
+\input{beta1_sand.tex}
+\end{center}
+
+As expected, coverage increases with $n$ for each case, and also increases with $b$. This makes sense, because as $b$ increases, the variance given above decreases, and the presence of an overdispersion parameter causes the coverage to be affected. There are not remarkable differences between the three models, although the sandwich estimator may have slightly worse coverage than the other two.
 
 \newpage
 
+\section*{Appendix A: Problem 1 Source}
 \lstinputlisting{Problem1.R}
+\newpage
+\section*{Appendix B: Problem 2 Source}
 \lstinputlisting{Problem2.R}
+\newpage
+\section*{Appendix C: Problem 3 Source}
+\lstinputlisting{Problem3.R}
 
 \end{document}
 
