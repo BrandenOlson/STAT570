@@ -1,0 +1,763 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\conj{\overline}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\derivation{\begin{tabular} { >{$}l<{$}  >{$}c<{$}  >{$}l<{$}  >{$}r<{$} }}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\text{Var}\left[#1\right]}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bK{\mathbf{K}}
+\newcommand*\bL{\mathbf{L}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bT{\mathbf{T}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bU{\mathbf{U}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bV{\mathbf{V}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\tens{P}_{#1}\left[#2\right]}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left[#1\right] }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+
+\begin{document}
+\title{STAT 570: Homework 2}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\enum
+\item
+First, we show that $\Var{\eps_t} = \frac{\sigma^2}{1 - \phi^2}$ for all $t$ by induction. The base case is trivial, since we are given that 
+$\eps_1 \sim \mathcal N\left(0, \frac{\sigma^2}{1 - \phi^2}\right)$. 
+For the inductive step, assume that 
+$\Var{\eps_{t-1}} = \frac{\sigma^2}{1 - \phi^2}$. Then we have, assuming independence of all $\eps_t$ and $\delta_t$,
+\ba
+\Var{\eps_t} & = \Var{\phi \eps_{t-1} + \delta_t} \\
+	& = \phi^2 \Var{\eps_{t-1}} + \Var{\delta_t} \\
+	& = \phi^2 \cdot \frac{\sigma^2}{1 - \phi^2} + \sigma^2 \\
+	& = \frac{ \phi^2 \sigma^2 + \sigma^2(1 - \phi^2) }{1 - \phi^2} \\
+	& = \frac{ \sigma^2 }{ 1 - \phi^2 }.
+\ea
+Thus, the result follows by mathematical induction (truncating, of course, at $t = n$). 
+Next, we examine $\Cov{\eps_i, \eps_j}$ for $i \ne j$. Assume WLOG that $j > i$, since for example we can swap $j$ and $i$ by symmetry of covariance. We see that
+\ba
+\Cov{\eps_i, \eps_j} & = \E{ \eps_i \eps_j } - \E{\eps_i} \E{\eps_j } \\
+	& = \E{\eps_i\left(\phi \eps_{j-1} + \delta_j\right) } - 0 \\
+	& = \E{\eps_i\left(\phi\left(\phi \eps_{j - 2} 
+		+ \delta_{j - 1} \right) + \delta_j \right) } \\
+	& \htab \vdots \htab (j - i \;\;\; \text{times total}) \\
+	& = \E{ \eps_i ( \phi( \dotsc (\phi \eps_i + \delta_i) + \dotsc + \delta_{j-1} ) + \delta_j } \\
+	& = \E{ \phi^{j-i} \eps_i^2 + \phi^{j-i-1} \eps_i \delta_i +
+		 \dotsc + \phi^2 \eps_i \delta_{j-2} 
+		 + \phi \eps_i \delta_{j-1}} + \E{\delta_j} \\
+	& = \phi^{j-i} \E{\eps_i^2} + \phi^{j-i-1} \E{\eps_i} \E{\delta_i}
+		+ \dotsc + \phi^2 \E{\eps_i} \E{\delta_{j-2}} 
+		+ \phi \E{\eps_i} \E{\delta_{j-1}} + 0
+\ea
+where we used that $\E{\eps_i \delta_k} = \E{\eps_i}\E{\delta_k}, \forall k$. But $\E{\eps_i} = 0 \; \forall i$ and $\E{\delta_k} = 0 \; \forall k$, so that
+\ba
+\Cov{\eps_i, \eps_j}
+	& = \phi^{j-i} \left(\Var{\eps_i} + \E{\eps_i}^2\right) + 0 + \dotsc + 0 \\
+	& = \phi^{j-i} \frac{\sigma^2}{1 - \phi^2}
+\ea
+$\forall j \ne i$, which, combined with the above result for $\Var{\eps_t}$ when $i = j$, yields exactly the form to be shown. 
+\item
+Computing the gradient directly (using a few formulae in Wakefield Appendix A),
+\ba
+\pderiv{}{\bbeta} \left[ (\by - \bx \bbeta)^T \bV(\phi)^{-1} (\by - \bx \bbeta) 
+	\right]
+	& = 2 \pderiv{}{\bbeta} \left[ (\by - \bx \bbeta)^T \right]
+		\bV(\phi)^{-1} (\by - \bx \bbeta) \\
+	& = 2 \pderiv{}{\bbeta} \left[ \by^T - \bbeta^T \bx^T \right]
+		\bV(\phi)^{-1} (\by - \bx \bbeta) \\
+	& = 2 \left( - \bI_p \bx^T \right) 
+		\bV(\phi)^{-1} (\by - \bx \bbeta) \\
+	& = -2 \bx^T \bV^{-1} \by + 2 \bx^T \bV^{-1} \bx \bbeta \\
+	& \overset{\text{set}}{=} \bzero
+\ea
+Solving for $\bbeta$, we have
+\ba
+2 \bx^T \bV^{-1} \bx \bbeta = 2 \bx^T \bV^{-1} \by  \\
+	\implies \boxed{ \estim\bbeta = \estim{\bbeta}_{\text{GLS}} =
+		(\bx^T \bV^{-1}(\phi) \bx)^{-1} \bx^T \bV^{-1}(\phi) \by }.
+\ea
+Furthermore,
+\ba
+\Var{\estim{\bbeta}} & = 
+	\Var{ (\bx^T \bV^{-1}(\phi) \bx)^{-1} \bx^T \bV^{-1}(\phi) \by } \\
+	& = (\bx^T \bV^{-1}(\phi) \bx)^{-1} \bx^T \bV^{-1}(\phi) \Var{\by} 
+		\left[ (\bx^T \bV^{-1}(\phi) \bx)^{-1} \bx^T \bV^{-1}(\phi) \right]^T \\
+	& = (\bx^T \bV^{-1} \bx)^{-1} \bx^T \bV^{-1} \Var{\beps}
+		\bV^{-T} \bx (\bx \bV^{-1} \bx)^{-T} \\
+	& = (\bx^T \bV^{-1} \bx)^{-1} \bx^T \underbrace{\bV^{-1} \bV}_{\equiv \bI}
+		 \bV^{-T} \bx (\bx \bV^{-1} \bx)^{-T} \\
+	& = (\bx^T \bV^{-1} \bx)^{-1} \bx^T \bV^{-T}  
+		 \bx (\bx \bV^{-1} \bx)^{-T} \\
+	& = (\bx^T \bV^{-1} \bx)^{-1} 
+		\underbrace{\left(\bx^T \bV^{-1} \bx\right)^T  
+		 (\bx \bV^{-1} \bx)^{-T}}_{\equiv \bI} \\
+	& = \left(\bx^T \bV^{-1} \bx\right)^{-1}
+\ea
+\item
+We use \texttt{lm} to perform an OLS regression to estimate $\estim{\bbeta}$. Estimates along with their standard errors are shown below in part (d).
+
+We also examine the autocorrelation plot of the OLS residuals:
+\begin{center}
+\includegraphics[width=\linewidth]{lm_acf.pdf}
+\end{center}
+Here, there is evidence of correlation between errors of lag length one, which matches the assumption of the model that $\eps_t$ is a function of $\eps_{t - 1}$.
+The oscillatory pattern for larger lags suggests that there is dependence on more than just the first, and the magnitude of the dependence shrinks with increase in lag. 
+\item
+Below, the full table of OLS and GLS coefficients and standard errors is included, using $\phi=0.2$. All source code for this problem can be found in Appendix A.
+\input{ls_df.tex} 
+We find high agreement between the estimates of $\beta_1$, which represents the estimated decline in the Nile volume from the original mean (estimated by $\beta_0$.  
+\item
+We aim to find the maximum likelihood estimator with respect to the joint pdf 
+\\
+$p(y_2, \dotsc, y_n | y_1, \bbeta, \sigma^2, \phi)$. 
+Note that
+\ba
+y_t & = \beta_0 + \beta_1 x_t + \eps_t \\
+	& = \beta_0 + \beta_1 x_t + \phi\eps_{t - 1} + \delta_t \\
+	& = \beta_0 + \beta_1 x_t + 
+		\phi\left(y_{t-1} - \beta_0 - \beta_1 x_{t-1}\right)
+		+ \delta_t \\
+	& = \mu_t + \phi(y_{t-1} - \mu_{t-1}) + \delta_t
+\ea
+so that $y_t$ only (directly) depends on the previous $y_{t - 1}$. By (a), and letting
+ $\bmu = (\beta_0 + \beta_1 x_1, \dotsc, \beta_0 + \beta_1 x_n)^T$,  we have that
+\ba
+\by \sim \mathcal{N}_n \left( \bmu, \bV \right)
+\ea
+which means that the conditional marginals $y_t | y_{t-1}$ are also normal. Hence, it will suffice to find the conditional means and variances to specify these distributions. Indeed, we find
+\ba
+\E{y_t | y_{t_1}} 
+	& = \E{ \mu_t + \phi(y_{t-1} - \mu_{t-1}) + \delta_t } \\
+	& = \mu_t + \phi(y_{t-1} - \mu_{t-1})
+\ea
+and
+\ba
+\Var{y_t | y_{t_1}}
+	& = \Var{ \mu_t + \phi(y_{t-1} - \mu_{t-1}) + \delta_t | y_{t-1}} \\
+	& = \Var{\delta_t} \\
+	& = \sigma^2
+\ea
+so that
+\ba
+y_t | y_{t-1} \sim \mathcal{N}\left( \mu_t + \phi(y_{t-1} - \mu_{t-1}), \sigma^2 \right)
+\ea
+Thus,
+\ba
+L(\phi | y_2, \dotsc, y_n, \bbeta, \sigma^2) 
+	& = p(y_2, \dotsc, y_n | y_1, \bbeta, \sigma^2, \phi) \\
+	& = \prod_{i=2}^n p(y_i | y_{i - 1}, \bbeta, \sigma^2) \\
+	& = \prod_{i=2}^n \frac{1}{\sqrt{2\pi\sigma^2}}
+		\exp\left( 
+		- \frac{ \left[y_i - \mu_i - \phi(y_{i-1} - \mu_{i-1})\right]^2 }
+						{ 2 \sigma^2 } \right) \\
+	& \propto \exp\left\{-\frac{1}{2\sigma^2} \sum_{i=2}^{n} \left[
+			y_i - \mu_i - \phi(y_{i-1} - \mu_{i - 1}) \right]^2
+			\right\}
+\ea
+Hence,
+\ba
+\ell(\phi | y_2, \dotsc, y_n, \bbeta, \sigma^2)
+	& = -\frac{1}{2\sigma^2} \sum_{i=2}^{n}
+		 \left[
+			y_i - \mu_i - \phi(y_{i-1} - \mu_{i - 1}) \right]^2
+\ea
+and
+\ba
+\pderiv{\ell}{\phi} & = 
+	-\frac{1}{2\sigma^2} \sum_{i=2}^{n}
+		2 \left[
+			y_i - \mu_i - \phi(y_{i-1} - \mu_{i - 1}) \right]
+		\cdot (\mu_{i-1} - y_{i-1})
+		= 0 \\
+	& \implies
+	 \sum_{i=2}^{n} (y_i - \mu_i) (\mu_{i-1} - y_{i-1})
+	 + \sum_{i=2}^{n} \phi(y_{i-1} - \mu_{i-1})^2 = 0 \\
+	& \implies
+	\phi \sum_{i=1}^{n-1} (y_i - \mu_i)^2 
+		= \sum_{i=2}^n (y_i - \mu_i)(y_{i-1} - \mu_{i-1}) \\
+	& \implies
+	\estim{\phi} = \frac{ \sum_{i=2}^n (y_i - \mu_i)(y_{i-1} - \mu_{i-1}) }
+		{ \sum_{i=1}^{n-1} (y_i - \mu_i)^2  }. \qed
+\ea
+Now, we have that
+\ba
+\pderiv{^2 \ell}{\phi^2} & =
+	\frac{1}{\sigma^2} \sum_{i=2}^n (y_{i-1} - \mu_{i-1})(\mu_{i-1} - y_{i-1}) \\
+	& = - \frac{1}{\sigma^2} \sum_{i=1}^{n-1} (y_i - \mu_i)^2
+\ea
+so that
+\ba
+I_{n-1}(\phi) 
+	& =  \E{ - \pderiv{^2\ell}{\phi^2} } \\
+	& =  \cdot \frac{1}{\sigma^2} \sum_{i=1}^{n-1} \E{ (Y_i - \mu_i)^2 } \\
+	& = \frac{1}{\sigma^2} \sum_{i=1}^{n-1} \E{ \eps_i^2 } \\
+	& = \frac{1}{\sigma^2} \sum_{i=1}^{n-1} 
+		\left(\Var{\eps_i} + \E{\eps_i}^2 \right) \\
+	& = \frac{1}{\sigma^2} \sum_{i=1}^{n-1} \left( \frac{\sigma^2}{1 - \phi^2}
+			+ 0 \right) \htab \text{(by (a))} \\
+	& = \frac{n - 1}{1 - \phi^2}.
+\ea
+Thus, since MLEs are CANE estimators, we have
+\ba
+\sqrt{\frac{n-1}{1 - \phi^2}}\left(\estim{\phi} - \phi\right)
+	\to_d \mathcal N\left(0, \frac{1}{I_{n-1}(\phi)}\right) \\
+	\implies
+	\sqrt{n - 1} \left( \estim{\phi} - \phi\right)
+	\to_d \mathcal N(0, 1 - \phi^2). \qed
+\ea
+\item
+By (a), we have that $\by \sim \mathcal{N}_n(\mu, \bV)$, so that
+\ba
+L(\bbeta, \sigma^2, \phi | \by) 
+	& \propto p(\by | \bbeta, \sigma^2, \phi) \\
+	& = \left( 2 \pi \det(\bV) \right)^{-n/2}
+		\exp\left\{ - \frac{(\by - \mu(\bbeta))^T \bV^{-1} 
+		(\by - \mu(\bbeta))}{2}  \right\} 
+\ea
+yielding
+\ba
+\ell(\bbeta, \sigma^2, \phi | \by ) & = 
+	- \frac{n}{2} \log\left( 2 \pi \det(\bV) \right)
+	- \frac{(\by - \mu(\bbeta))^T \bV^{-1} 
+		(\by - \mu(\bbeta))}{2}.
+\ea
+Using Wakefield appendix A,
+\ba
+S(\bbeta) =
+\pderiv{\ell}{\bbeta} 
+	& = - \frac{1}{2} \pderiv{}{\bbeta} \left[
+		(\by - \mu(\bbeta))^T \bV^{-1} 
+		(\by - \mu(\bbeta))
+		\right] \\
+	& = - \frac{1}{2}
+		\cdot 2 \pderiv{(\by - \bX \bbeta)^T}{\bbeta} 
+		\bV^{-1} (\by - \bX \bbeta) \\
+	& = - \left( - \bX^T \right) V^{-1} \left( \by - \bX \bbeta \right) \\
+	& = \boxed{ \bX^T \bV^{-1} \left(\by - \bX \bbeta\right) }
+\ea
+
+\ba
+\pderiv{^2\ell}{\bbeta^2} =
+	\bX^T \bV^{-1} (- \bX) = - \bX^T \bV^{-1} \bX
+\ea
+So that
+\ba
+I(\bbeta) = - \E{ \deriv{^2 \ell}{\bbeta^2} } = \bX^T \bV^{-1} \bX.
+\ea
+Hence, we have
+\ba
+\sqrt{n} \left[ \estim{\bbeta} - \bbeta \right]
+	\to_d \mathcal{N} \left(0, I^{-1}(\bbeta) \right)
+	= \mathcal{N} \left(0, \left(\bX^T \bV^{-1} \bX\right)^{-1} \right).
+\ea
+That is, the variance of the MLE converges to the variance of the GLS estimator found in (b).
+\item
+Note that the issue in computing the MLE of $\bbeta$ is that $\phi$ is also an unknown parameter that must be estimated. (Note that $\sigma^2$ does not actually need to be estimated, since it drops out of the GLS estimator.)
+Hence, we can start by getting an OLS estimate of $\bbeta$, using this to estimate $\estim\phi$ by conditional likelihood via (e), and then impute this estimate to solve the $\bbeta$ score equation. More explicitly, we have:
+\ba
+\text{Step 1}: & \htab  \estim{\bbeta} \gets \left(\bX^T \bX\right)^{-1} \bX^T \bY \\
+\text{Step 2}: & \htab \estim{\phi} | \estim{\bbeta} \gets \frac{ \sum_{i=2}^n (y_i - \mu_i(\estim{\bbeta})(y_{i-1} - \mu_{i-1}(\estim{\bbeta}) }
+		{ \sum_{i=1}^{n-1} (y_i - \mu_i(\estim{\bbeta}))^2  } \\
+\text{Step 3}: & \htab \estim{\bbeta} \gets \left(\bX^T \bV^{-1}(\estim{\phi}) \bX\right)^{-1}
+	 \bX^T \bV^{-1}(\estim{\phi}) \bY \\
+\text{Step 4}: & \htab \text{If } \norm{\estim{\bbeta}_n - \estim{\bbeta}_{n-1}} > \eps, \text{ goto Step 2}
+\ea
+where $\eps > 0$ is some error threshold.
+\item
+Below, we display the MLE estimate from our algorithm in (g). Our estimate of the decline, -249.09, is slightly larger than the GLS estimate found in (d), with a slightly smaller standard error. The decrease in SE is likely due to estimating $\phi$ rather than assuming its value.
+\input{beta_mle.tex}
+\enumend
+
+\section*{Problem 2}
+\enum
+\item
+\ba
+h(y|\lambda)  = \frac{p(y|\lambda)}{\Pr{Y > y | \lambda}}  = \frac{ \lambda \e^{-\lambda y} }{ \e^{-\lambda y} }
+\ea
+Let $y_1, \dotsc, y_n \iid \text{Exponential}(\lambda)$. Then
+\ba
+L(\lambda | \by) & \propto p_{\bY}(\by | \lambda) \\
+	& = \prod_{i=1}^n \lambda \e^{-\lambda y_i} \\
+	& = \lambda^n \exp\left( - \lambda \sum_{i=1}^n y_i \right) \\
+\ea
+This yields the log-likelihood
+\ba
+\ell(\lambda | \by) = n \log(\lambda) - \lambda \sum_{i=1}^n y_i.
+\ea
+Taking the derivative and setting to zero,
+\ba
+\pderiv{\ell}{\lambda} = 
+\frac{n}{\lambda} - \sum_{i=1}^n y_i = 0 
+	& \implies \frac{n}{\lambda} = \sum_{i=1}^n y_i \\
+	& \implies \estim\lambda = \estim\lambda_{\text{MLE}} = \frac{n}{\sum_{i=1}^n y_I} = \frac{1}{\overline{\by}}
+\ea
+Note that
+\ba
+\pderiv{^2 \ell}{\lambda^2} = - \frac{n}{\lambda^2}
+\ea
+so that
+\ba
+I(\lambda) = - \E{ \pderiv{^2 \ell}{\lambda^2} } = \frac{n}{\lambda^2}.
+\ea
+Hence, since MLEs are CANE for their parameter, we have
+\ba
+\Var{\estim{\lambda}} \to_d \frac{1}{nI(\lambda)} = \lambda^2.
+\ea
+That is,
+\ba
+\sqrt{n} \left( \estim{\lambda} - \lambda \right) \to_d \mathcal{N}(0, \lambda^2)
+\ea
+which suggests the standard error
+\ba
+\estim{\text{SE}} = \sqrt{ \frac{\estim{\lambda}^2}{n} } 
+= \frac{\estim{\lambda}}{\sqrt n}.
+\ea
+\item
+Below lists the estimates $\estim{\lambda}$ and their corresponding standard errors, for each length given in the dataset. 
+\input{mles.tex}
+We examine our model assumptions by looking at an exponential QQ-plot for each value of length.
+\begin{center}
+\includegraphics[width=0.5\linewidth]{qqplots.pdf}
+\end{center}
+The QQ plots show that the data are very clearly not exponentially distributed, as there is left-skew in both tails. This matches what is seen in the histograms:
+\begin{center}
+\includegraphics[width=0.7\linewidth]{histograms.pdf}
+\end{center}
+\item
+Here we see that 
+\ba
+\mu(\lambda) = \E{\bY | \lambda} = \frac{1}{\lambda}
+\ea
+and
+\ba
+\alpha \frac{1}{\lambda^2} & = \alpha \left(\frac{1}{\lambda}\right)^2
+	= \alpha (\mu(\lambda))^2 = \alpha V(\mu(\lambda)) \\
+	& \implies V(x) = x^2
+\ea
+An estimate of $\alpha$ is given by
+\ba
+\estim{\alpha}_n & := \frac{1}{n - 1}
+	\sum_{i=1}^n \frac{ (Y_i - \estim{\mu}_i(\lambda))^2 }{ V(\estim{\mu}_i(\lambda)) } \\
+	& = \frac{1}{n - 1}
+	\sum_{i=1}^n \frac{ (Y_i - \frac{1}{\estim{\lambda}})^2 }
+		{ \frac{1}{\estim{\lambda}^2} } \\
+	& = \frac{1}{n - 1} \sum_{i=1}^n 
+		\left( \estim{\lambda} Y_i - 1 \right)^2.
+\ea
+Now, our estimate $\estim{\lambda}$ solves the quasi-score equation
+\ba
+\bU_n(\lambda) & = \frac{1}{n} \sum_{i=1}^n \bU \left(\lambda, Y_i\right) \\
+	& = \frac{1}{n} \sum_{i=1}^n \frac{D^T V^{-1} (Y_i - \mu_i(\lambda) )}{\alpha} \\
+	& = \frac{1}{\alpha n} \sum_{i=1}^n \left(-\frac{1}{\lambda^2}\right) \lambda^2 \left(Y_i - \frac{1}{\lambda} \right) \\
+	& = - \frac{1}{\alpha n} \sum_{i=1}^n \left(Y_i - \frac{1}{\lambda} \right) \\
+	& = \frac{1}{\alpha} \left[ \frac{1}{\lambda} - \frac{1}{n} \sum_{i=1}^n Y_i \right] 
+\ea
+So that
+\ba
+\frac{1}{\estim \lambda} - \overline{\bY} = 0 \implies \estim{\lambda} = \frac{1}{\overline{\bY}}. 
+\ea
+This yields the asymptotic distribution given via
+\ba
+\left( \frac{\estim D^T \estim{V}^{-1} \estim D}{\estim{\alpha}_n} \right)^{1/2} 
+	\left[ \estim \lambda - \lambda \right] 
+	\to_d \mathcal N \left( 0, 1  \right) \\
+	\implies 
+\ea
+where
+\ba
+D = \deriv{\mu}{\lambda} = \deriv{}{\lambda} \left[ \frac{1}{\lambda} \right]
+ = - \frac{1}{\lambda^2}
+\ea
+and
+\ba
+\estim{V}^{-1} = \frac{1}{1/\estim{\lambda}^2} = \estim{\lambda}^2
+\ea
+which yields
+\ba
+\left( \frac{\frac{-1}{\estim{\lambda}^2} \estim{\lambda}^2 
+	\frac{-1}{\estim{\lambda}^2}}{\estim{\alpha}_n} \right)^{1/2} \left[ \estim{\lambda} - \lambda \right] \to_d \mathcal{N} \left(0, 1 \right) \\
+	\implies 
+	\left( \frac{1}{\estim{\alpha}_n \estim{\lambda}^2} \right)^{1/2} 
+		\left[ \estim{\lambda} - \lambda \right] \to_d 
+		\mathcal N \left( 0, 1 \right) \\
+	\implies
+	\sqrt{\frac{n-1}{ \estim{\lambda}^2 \sum_{i=1}^n \left(\estim\lambda Y_i - 1\right)^2 } }
+	\left[ \estim{\lambda} - \lambda \right] \to_d \mathcal N(0, 1)
+\ea
+Thus, 
+\ba
+\text{SE}\left(\estim{\lambda}\right) = 
+	\sqrt{ \frac{ \estim{\lambda}^2 \sum_{i=1}^n \left(\estim\lambda Y_i - 1\right)^2 }{n - 1}}
+\ea
+\input{lambda_alpha.tex}\\
+The very low alphas strongly suggest that an exponential model is not the correct fit. 
+\item
+The empirical sandwich estimator for the variance is
+\ba
+\Var{\estim{\lambda}} = \frac{ \estim\bA^{-1} \estim\bB \estim\bA^{-T} }{n }
+\ea
+where
+\ba
+\bA = \bA_n = \frac{1}{n} \sum_{i=1}^n \pderiv{}{\lambda} G(\estim\lambda, Y_i)
+\ea
+and
+\ba
+\bB = \bB_n = \frac{1}{n} \sum_{i=1}^n G(\lambda, Y_i)^2
+\ea
+Using the \texttt{sandwich} package in R, we get the resultant table of SE estimates.
+\begin{table}
+\centering
+\begin{tabular}{c|c|c|c|c}
+Length & 1 & 10 & 20 & 50 \\
+\hline
+SE($\estim{\lambda}_\text{sandwich}$) & 0.00285 & 0.00153 & 0.00318 & 0.00209
+\end{tabular}
+\end{table}
+\item
+By definition we have
+\ba
+\E{Y} & = \int_0^\infty y \cdot \eta \alpha^{-\eta} y^{\eta - 1} 
+	\exp\left[ -\left(\frac{y}{\alpha}\right)^\eta \right] \; \der y \\
+	& = \frac{\eta}{\alpha^\eta} \int_0^\infty y^\eta 
+		\exp\left[-\frac{y^\eta}{\alpha^\eta} \right] \; \der y.
+\ea
+Let $u = \frac{y^\eta}{\alpha^\eta}$, so that 
+$\der u = \frac{\eta y^{\eta - 1}}{\alpha^\eta} \der y \implies \frac{\alpha^\eta}{\eta y^{\eta - 1}} \der u = \der y$.
+Morever, this implies $y = (\alpha^\eta u)^{1/\eta} = \alpha u^{1/\eta}$, $u(0) = 0$, and $u(\infty) = \infty$. Thus,
+\ba
+\E{Y} & = \frac{\eta}{\alpha^\eta} \int_0^\infty y \cdot y^{\eta - 1} \e^{-u} \; \frac{\alpha^\eta}{\eta y^{\eta - 1}} \der u \\
+	& = \int_0^\infty \alpha u^{1/\eta} \e^{-u} \; \der u \\
+	& = \alpha \int_0^\infty u^{\left(\frac{1}{\eta} + 1\right) - 1} \e^{-u} \; \der u \\
+	& = \boxed{ \alpha \Gamma\left(\frac{1}{\eta} + 1\right) }.
+\ea
+Furthermore, we have by a similar argument that
+\ba
+\E{Y^2} & = \eta \alpha^{-\eta} \int_0^\infty y^{n + 1} \exp\left(- \frac{y^\eta}{\alpha^\eta} \right) \; \der y \\
+	& = \int_0^\infty y^2 \e^{-u} \; \der u \\
+	& = \int_0^\infty (\alpha u^{1/\eta})^2 \e^{-u} \; \der u  \\
+	& = \alpha^2 \int_0^\infty u^{\left(\frac{2}{\eta} + 1\right) - 1} \e^{-u} \; \der u \\
+	& = \alpha^2 \Gamma\left( \frac{2}{\eta} + 1 \right) 
+\ea
+which yields
+\ba
+\Var{Y} & = \alpha^2 \Gamma\left(\frac{2}{\eta} + 1\right) - \left[ \alpha \Gamma\left(\frac{1}{\eta} + 1 \right) \right] \\
+	& = \boxed{ \alpha^2 \left[ \Gamma\left(\frac{2}{\eta} + 1\right) - \Gamma^2\left(\frac{1}{\eta} + 1 \right) \right] }
+\ea
+As for the hazard function, we see that
+\ba
+S_Y(y | \eta, \alpha) & \equiv \Pr{ Y > y | \eta, \alpha } \\
+	& = \int_y^\infty \eta \alpha^{-\eta} \xi^{\eta-1} \exp\left(- \frac{\xi^\eta}{\alpha^\eta} \right) \; \der u
+\ea
+Let $u = \frac{\xi^\eta}{\alpha^\eta}$, so that $\der u = \frac{\eta}{\alpha^\eta} \xi^{\eta - 1} \; \der \xi$. 
+Moreover, $u(y) = \frac{y^\eta}{\alpha^\eta}$ and $u(\infty) = \infty$. Thus,
+\ba
+S_Y(y | \eta, \alpha) & = 
+	\int_{y^\eta/\alpha^\eta}^\infty \e^{-u} \; \der u
+	= \boxed{ \exp\left(- \left(\frac{y}{\alpha}\right)^\eta \right) }
+\ea
+Since $S(y) = \exp(-\lambda y)$ for an Exponential($\lambda$) random variable, we see that setting $\eta = 1$ and $\alpha = \frac{1}{\lambda}>0$ leads to an exponential hazard and thus an exponential distribution. 
+\item
+Note that
+\ba
+p(y | \eta, \alpha) & = \exp\left( \log(n) - \eta \log(\alpha) + (\eta - 1) \log(y) - \left(\frac{y}{\alpha}\right)^\eta \right) \\
+	& = \exp\left( (\eta - 1) \log(y) - \frac{y^\eta}{\alpha^\eta} + \log(n) - \eta \log(\alpha) \right) \\
+	& \ne \exp\left( \mathbf{a}(\eta, \alpha)^T \bT(\by) - A(\eta, \alpha) \right)
+\ea
+since, for example, we cannot multiplicatively decouple $\eta$ and $y$ in the factor $y^\eta$. Hence, the Weibull distribution is not a member of the exponential family. 
+This implies a number of consequences for inference. Perhaps most important in this situation is that we are not guaranteed consistent estimators under model misspecification, e.g. in score-based estimation.
+\item
+Here, we have
+\ba
+L(\eta, \alpha | \by) & \propto p(\by | \eta, \alpha) \\
+	& = \prod_{i=1}^n \eta \alpha^{-\eta} y_i^{\eta - 1} \exp\left[ - \left(\frac{y_i}{\alpha}\right)^\eta \right] \\
+	& = \eta^n \alpha^{-n\eta} \left(\prod_{i=1}^n y_i \right)^{\eta-1} \exp\left[ - \alpha^{-\eta} \sum_{i=1}^n y_i^\eta \right]
+\ea
+and thus,
+\ba
+\boxed{ \ell(\eta, \alpha | \by) = n \log(\eta) - n \eta \log(\alpha) + (\eta - 1) \sum_{i=1}^n \log(y_i) - \sum_{i=1}^n \left(\frac{y_i}{\alpha}\right)^\eta }
+\ea
+Furthermore, 
+\ba
+\pderiv{\ell}{\eta} & = \frac{n}{\eta} - n \log(\alpha) + \sum_{i=1}^n \log(y_i) - \sum_{i=1}^n \left(\frac{y_i}{\alpha}\right)^\eta \log\left(\frac{y_i}{\alpha}\right) 
+\ea
+and
+\ba
+\pderiv{\ell}{\alpha} & = -\frac{n \eta}{\alpha} - \sum_{i=1}^n y_i^\eta \cdot (-\eta) \alpha^{-\eta - 1}
+	= \eta \left( - \frac{n}{\alpha} + \sum_{i=1}^n \frac{y_i^\eta}{\alpha^{\eta + 1}} \right)
+\ea
+which yields the score
+\ba
+\boxed{
+S(\eta, \alpha | \by) = \begin{pmatrix} 
+	\frac{n}{\eta} - n \log(\alpha) + \sum_{i=1}^n \log(y_i) - \sum_{i=1}^n \left(\frac{y_i}{\alpha}\right)^\eta \log\left(\frac{y_i}{\alpha}\right) \\
+	\eta \left( - \frac{n}{\alpha} + \sum_{i=1}^n \frac{y_i^\eta}{\alpha^{\eta + 1}} \right)
+	\end{pmatrix}
+	}
+\ea
+Further-furthermore, we have
+\ba
+\pderiv{^2\ell}{\eta^2} = -\frac{n}{\eta^2} - \sum_{i=1}^n \left(\frac{y_i}{\alpha}\right)^\eta \log^2 \left(\frac{y_i}{\alpha}\right)
+\ea
+\ba
+\pderiv{^\ell}{\alpha^2} = \eta \left[ \frac{n}{\alpha^2} + \sum_{i=1}^n (-\eta - 1) \frac{y_i^\eta}{\alpha^{\eta + 2}} \right]
+\ea
+\ba
+\pderiv{^\ell}{\alpha \pd \eta} & = \left( - \frac{n}{\alpha} + \sum_{i=1}^n \frac{y_i^\eta}{\alpha^{\eta + 1}} \right)
+	+ \eta \left[ \sum_{i=1}^n \frac{1}{\alpha} \left(\frac{y_i}{\alpha}\right)^\eta \log\left(\frac{y_i}{\alpha}\right) \right] \\
+		& = \sum_{i=1}^n \frac{y_i^\eta}{\alpha^{\eta + 1}} \left[ 1 + \eta \log\left(\frac{y_i}{\alpha}\right) \right]
+			- \frac{n}{\alpha}
+\ea
+Hence,
+\ba
+\boxed{ 
+I_n(\estim\eta, \estim\alpha) = - \begin{pmatrix}
+	-\frac{n}{\estim\eta^2} - \sum_{i=1}^n \left(\frac{y_i}{\estim\alpha}\right)^{\estim\eta} \log^2 \left(\frac{y_i}{\estim\alpha}\right) &
+	\sum_{i=1}^n \frac{y_i^{\estim\eta}}{\estim\alpha^{\estim\eta + 1}} \left[ 1 + \estim\eta \log\left(\frac{y_i}{\estim\alpha}\right) \right]
+			- \frac{n}{\estim\alpha} \\
+		\sum_{i=1}^n \frac{y_i^{\estim\eta}}{\estim\alpha^{\estim\eta + 1}} \left[ 1 + \estim\eta \log\left(\frac{y_i}{\estim\alpha}\right) \right]
+			- \frac{n}{\estim\alpha} &
+	\estim\eta \left[ \frac{n }{\estim\alpha^2} + \sum_{i=1}^n (-\estim\eta - 1) \frac{y_i^{\estim\eta}}{\estim\alpha^{\estim\eta + 2}} \right]
+	\end{pmatrix}
+	}
+\ea
+\item
+Setting $S(\eta, \alpha | \by) = \bzero$ yields, in the second coordinate,
+\ba
+-\frac{n}{\alpha} + \sum_{i=1}^n \frac{y_i^\eta}{\alpha^{\eta + 1}} = 0 \\
+	\implies \alpha^\eta n = \sum_{i=1}^n y_i^\eta \\
+	\implies \alpha = \sqrt[\eta]{ \frac{1}{n} \sum_{i=1}^n y_i^\eta }.
+\ea
+Thus, we can plug this into the first coordinate to get 
+\ba
+\frac{n}{\eta} -
+	 n \log\left(\sqrt[\eta]{ \frac{1}{n} \sum_{i=1}^n y_i^\eta }\right)
+	  + \sum_{i=1}^n \log(y_i) - \sum_{i=1}^n \left(\frac{y_i}{\sqrt[\eta]{ \frac{1}{n} \sum_{i=1}^n y_i^\eta }}\right)^\eta \log\left(\frac{y_i}{\sqrt[\eta]{ \frac{1}{n} \sum_{i=1}^n y_i^\eta }}\right)
+= 0
+\ea
+which is the only equation that needs to be solved numerically.
+\item
+Plugging the score equation above into \texttt{multiroot} in the \texttt{rootSolve} package yields the full table below of MLE values for $\eta$ and $\alpha$, along with their corresponding standard errors.
+\input{eta_alpha.tex}
+\enumend
+
+\newpage
+\section*{Appendix A: Problem 1 Source}
+\lstinputlisting{P1.R}
+
+\newpage
+\section*{Appendix B: Problem 2 Source}
+\lstinputlisting{P2.R}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
