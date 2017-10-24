@@ -1,0 +1,296 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\conj{\overline}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\derivation{\begin{tabular} { >{$}l<{$}  >{$}c<{$}  >{$}l<{$}  >{$}r<{$} }}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\text{Var}\left[#1\right]}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bL{\mathbf{L}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\tens{P}_{#1}\left(#2\right)}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left(#1\right) }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+\begin{document}
+\title{STAT 570: Homework 4}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\enum
+\item
+Our likelihood is of the form
+\ba
+L(\lambda| \by) & \propto p(\by| \lambda) \\
+	& = \prod_{i=1}^n \left[\lambda \exp\left(-\lambda y_i\right)\right] \\
+	& = \lambda^n \exp\left(-\lambda \sum_{i=1}^n y_i \right)
+\ea
+whereas our prior density is
+\ba
+\pi(\lambda) & = \frac{b^a}{\Gamma(a)} \lambda^{a - 1} \exp\left(-b \lambda\right).
+\ea
+Thus, our posterior is
+\ba
+p(\lambda | \by) & \propto L(\lambda | \by) \pi(\lambda) \\
+	& = \lambda^n \exp\left(-\lambda \sum_{i=1}^n y_i \right)
+		\frac{b^a}{\Gamma(a)} \lambda^{a - 1} \exp\left(-b \lambda\right) \\
+	& \propto \lambda^{n + a - 1} 
+		\exp\left(-\lambda\left[ b + \sum_{i=1}^n y_i \right] \right)
+\ea
+which is the kernel of a Gamma$\left(n + a, b + \sum_{i=1}^n y_i\right)$ density.
+\item
+Want
+\ba
+0.9 & = \Psub{\lambda}{ 0.1 \le \lambda \le 1} \\
+	& = \Psub{\lambda}{ \lambda \le 1 } - \Psub{\lambda}{\lambda \le 0.1} \\
+	& = F_\lambda(1) - F_\lambda(0.1)
+\ea 
+Note that $\lambda \sim \Gamma(a, b)$ implies
+$\frac{2\lambda}{a} \sim \chi_{2b}^2$. Thus,
+\ba
+\Psub{\lambda}{\lambda \le c} & 
+	= \Psub{\lambda}{ \frac{2\lambda}{a} < \frac{2c}{a} } \\
+	& = \Pr{ \chi_{2b}^2 < \frac{2c}{a} } \\
+	& = \chi_{2b, 2c/a}^2
+\ea
+which implies that
+\ba
+0.9 = \chi_{2b, 2\cdot 1/a}^2 - \chi_{2b, 2\cdot 0.1/a}^2
+	= \chi_{2b, 2/a}^2 - \chi_{2b, 0.2/a}^2
+\ea
+\item
+Below is the table of posterior means and standard deviations.
+\input{mean_sd.tex}
+
+\item
+First, we want
+\ba
+0.9 & = \Psub{\eta}{ 0.5 \le \eta \le 30 }  \\
+	& = \Psub{\eta}{ 0.5 \le \text{LogNormal}(\mu_\eta, \sigma_\eta) \le 30 } \\
+	& = \Psub{\eta}{ 0.5 \le \exp(\mu_\eta + \sigma_\eta Z) \le 30 },
+		\htab Z \sim \mathcal{N}(0, 1) \\
+	& = \Psub{\eta}{ \log(0.5) \le \mu_\eta + \sigma_\eta Z \le \log(30) } \\
+	& = \Psub{\eta}{ \frac{\log(0.5) - \mu_\eta}{\sigma_\eta}
+			\le \mathcal{N}(0, 1) \le
+			\frac{\log(30) - \mu_\eta}{\sigma_\eta} } \\
+	& = \Phi\left( \frac{\log(30) - \mu_\eta}{\sigma_\eta} \right)
+		- \Phi\left( \frac{\log(0.5) - \mu_\eta}{\sigma_\eta} \right)
+\ea
+
+
+
+\enumend
+ 
+\newpage
+\section*{Appendix A: Problem 1 Source}
+\lstinputlisting{P1.R}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
