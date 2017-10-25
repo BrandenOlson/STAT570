@@ -221,44 +221,104 @@ p(\lambda | \by) & \propto L(\lambda | \by) \pi(\lambda) \\
 \ea
 which is the kernel of a Gamma$\left(n + a, b + \sum_{i=1}^n y_i\right)$ density.
 \item
-Want
+Here, we want $a$ and $b$ such that
 \ba
-0.9 & = \Psub{\lambda}{ 0.1 \le \lambda \le 1} \\
-	& = \Psub{\lambda}{ \lambda \le 1 } - \Psub{\lambda}{\lambda \le 0.1} \\
-	& = F_\lambda(1) - F_\lambda(0.1)
+0.9 & = \Psub{\lambda}{ 0.1 \le \lambda \le 1 | a, b} \\
+	& = \Psub{\lambda}{ \lambda \le 1 | a, b} - 
+		\Psub{\lambda}{\lambda \le 0.1 | a, b } \\
+	& = F_{\lambda | a, b}(1) - F_{\lambda | a, b}(0.1)
 \ea 
-Note that $\lambda \sim \Gamma(a, b)$ implies
-$\frac{2\lambda}{a} \sim \chi_{2b}^2$. Thus,
+where $F_{\lambda | a, b}(t)$ is the cdf of a Gamma($a, b$). In particular, since $F$ is a continuous, strictly increasing function, we are warranted in breaking the above equation into two sub-equations, for example,
 \ba
-\Psub{\lambda}{\lambda \le c} & 
-	= \Psub{\lambda}{ \frac{2\lambda}{a} < \frac{2c}{a} } \\
-	& = \Pr{ \chi_{2b}^2 < \frac{2c}{a} } \\
-	& = \chi_{2b, 2c/a}^2
+0.05 & = \Psub{\lambda}{\lambda \le 0.1} \\
+0.05 & = \Psub{\lambda}{\lambda > 1}
 \ea
-which implies that
+which yields the nonlinear system of equations 
 \ba
-0.9 = \chi_{2b, 2\cdot 1/a}^2 - \chi_{2b, 2\cdot 0.1/a}^2
-	= \chi_{2b, 2/a}^2 - \chi_{2b, 0.2/a}^2
+\begin{pmatrix}
+0.05 - F_{\lambda|a, b}(0.1) \\
+0.95 - F_{\lambda|a, b}(1) \\
+\end{pmatrix}
+= \begin{pmatrix} 0 \\ 0 \end{pmatrix}.
 \ea
+This system can be easily solved with the \texttt{nleqslv} package in R (the source can be found in Appendix A). Running our code yields
+\ba
+\boxed{
+a \approx 2.44 \htab b \approx 0.184
+}
+\ea
+
 \item
 Below is the table of posterior means and standard deviations.
+
 \input{mean_sd.tex}
 
-\item
-First, we want
-\ba
-0.9 & = \Psub{\eta}{ 0.5 \le \eta \le 30 }  \\
-	& = \Psub{\eta}{ 0.5 \le \text{LogNormal}(\mu_\eta, \sigma_\eta) \le 30 } \\
-	& = \Psub{\eta}{ 0.5 \le \exp(\mu_\eta + \sigma_\eta Z) \le 30 },
-		\htab Z \sim \mathcal{N}(0, 1) \\
-	& = \Psub{\eta}{ \log(0.5) \le \mu_\eta + \sigma_\eta Z \le \log(30) } \\
-	& = \Psub{\eta}{ \frac{\log(0.5) - \mu_\eta}{\sigma_\eta}
-			\le \mathcal{N}(0, 1) \le
-			\frac{\log(30) - \mu_\eta}{\sigma_\eta} } \\
-	& = \Phi\left( \frac{\log(30) - \mu_\eta}{\sigma_\eta} \right)
-		- \Phi\left( \frac{\log(0.5) - \mu_\eta}{\sigma_\eta} \right)
-\ea
+Here are the histograms:
 
+\includegraphics[width=\linewidth]{histograms.pdf}
+
+Next, note that if
+ $\lambda | \by \sim \text{Gamma}\left(n + a, b + \sum_{i=1}^n y_i\right)$
+we have that
+\ba
+\left(\frac{1}{\lambda} \right) \bigg| \; \by \sim \text{Inv-Gamma}\left(n + a, 
+ 	\frac{1}{b + \sum_{i=1}^n y_i} \right).
+\ea
+\includegraphics[width=\linewidth]{inv_histograms.pdf}
+\item
+First, we note that, for left-probability $l$ and right-probability $r$,
+\ba
+0.9 & = \Psub{\eta}{ \ell \le \eta \le r }  \\
+	& = \Psub{\eta}{ \ell \le \text{LogNormal}(\mu_\eta, \sigma_\eta) \le r } \\
+	& = \Psub{\eta}{ \ell \le \exp(\mu_\eta + \sigma_\eta Z) \le r },
+		\htab Z \sim \mathcal{N}(0, 1) \\
+	& = \Psub{\eta}{ \log(\ell) \le \mu_\eta + \sigma_\eta Z \le \log(r) } \\
+	& = \Psub{\eta}{ \frac{\log(l) - \mu_\eta}{\sigma_\eta}
+			\le \mathcal{N}(0, 1) \le
+			\frac{\log(r) - \mu_\eta}{\sigma_\eta} } \\
+	& = \Phi\left( \frac{\log(r) - \mu_\eta}{\sigma_\eta} \right)
+		- \Phi\left( \frac{\log(\ell) - \mu_\eta}{\sigma_\eta} \right)
+\ea
+which we can deconstruct into the set of equations
+\ba
+\begin{pmatrix}
+0.05 - \Phi\left( \frac{\log(\ell) - \mu_\eta}{\sigma_\eta} \right) \\
+0.95 - \Phi\left( \frac{\log(r) - \mu_\eta}{\sigma_\eta} \right)
+\end{pmatrix}
+=
+\begin{pmatrix} 0 \\ 0 \end{pmatrix}.
+\ea
+In particular, for $\eta$, we have
+\ba
+\begin{pmatrix}
+0.05 - \Phi\left( \frac{\log(0.5) - \mu_\eta}{\sigma_\eta} \right) \\
+0.95 - \Phi\left( \frac{\log(30) - \mu_\eta}{\sigma_\eta} \right)
+\end{pmatrix}
+=
+\begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\ea
+and for $\alpha$,
+\ba
+\begin{pmatrix}
+0.05 - \Phi\left( \frac{0 - \mu_\eta}{\sigma_\eta} \right) \\
+0.95 - \Phi\left( \frac{\log(4) - \mu_\eta}{\sigma_\eta} \right)
+\end{pmatrix}
+=
+\begin{pmatrix} 0 \\ 0 \end{pmatrix}
+\ea
+Solving this with \texttt{nleqslv} yields
+\ba
+\boxed{
+\mu_\eta \approx 1.35, \htab \sigma_\eta \approx 1.25
+}
+\ea
+for $\eta$, and 
+\ba
+\boxed{
+\mu_\alpha \approx 0.693, \htab  \sigma_\alpha \approx 0.421
+}
+\ea
+for $\alpha$.
 
 
 \enumend
