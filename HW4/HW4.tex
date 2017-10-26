@@ -85,7 +85,7 @@
 \newcommand*\enumend{\end{enumerate}}
 \newcommand*\E[1]{\mathsf{E}\left[#1\right]}
 \newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
-\newcommand*\Var[1]{\text{Var}\left[#1\right]}
+\newcommand*\Var[1]{\mathsf{Var}\left(#1\right)}
 \newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
 \newcommand*\iid{\overset{\text{iid}}{\sim}}
 \newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
@@ -136,7 +136,8 @@
 \newcommand*\bsigma{\boldsymbol{\sigma}}
 \newcommand*\bSigma{\boldsymbol{\Sigma}}
 \newcommand*\bOmega{\boldsymbol{\Omega}}
-\newcommand\Psub[2]{\tens{P}_{#1}\left(#2\right)}
+\newcommand\Psub[2]{\mathsf{P}_{#1}\left(#2\right)}
+\newcommand\Vsub[2]{\mathsf{Var}_{#1}\left(#2\right)}
 \newcommand\e{\operatorname{e}}
 \newcommand\prox{\operatorname{prox}}
 \newcommand\T{\mathsf{T}}
@@ -319,7 +320,122 @@ for $\eta$, and
 }
 \ea
 for $\alpha$.
+\item
+Here we show the tables of medians and (0.05, 0.95) quantiles, the latter of which together construct 95\% credible intervals. 
+\input{table1.tex}
+\input{table2.tex}
+\input{table3.tex}
+\input{table4.tex}
 
+Moreover, we include plots of the marginal histograms as well as scatter plots of samples from the joint posterior $p(\eta, \alpha | \by)$, for each of the four lengths in the \texttt{stress} dataset.
+\begin{center}
+\includegraphics[width=\linewidth]{pairs1.pdf}
+\includegraphics[width=\linewidth]{pairs2.pdf}
+\includegraphics[width=\linewidth]{pairs3.pdf}
+\includegraphics[width=\linewidth]{pairs4.pdf}
+\end{center}
+\enumend
+
+\newpage
+\section*{Problem 2}
+\enum
+\item
+We note that
+\ba
+\E{ Y_k | X_k } = n \frac{X_k}{N} \\
+\implies X_k = \frac{N \E{Y_k | X_k}}{n}
+\ea
+The most immediate estimate of $\E{Y_k | X_k}$ is simply the observed $Y_k$, yielding
+\ba
+\estim{X_k} = \frac{N Y_k}{n}
+\ea
+with variance
+\ba
+\Var{\estim{X_k}} & = \frac{N^2}{n^2} \Var{Y_k} \\
+	& = \frac{N^2}{n^2} \cdot
+		n \frac{X_k}{N} \left(1 - \frac{X_k}{N}\right) \frac{N - n}{N - 1} \\
+	& = \frac{N(N -n)}{n(N - 1)} X_k \left(1 - \frac{X_k}{N}\right)
+\ea
+\item
+Assume that the likelihood follows the multinomial distribution in (3) and the prior follows a Dirichlet distribution in (4). 
+\ba
+p(p_1, \dotsc, p_K | x_1, \dotsc, x_K)
+	& \propto L(\bx | \bp) \pi(\bp) \\
+	& \propto \prod_{i=1}^K p_k^{x_k} \prod_{i=1}^K p_k^{\alpha_k - 1} \\
+	& = \prod_{i=1}^K p_k^{x_k + \alpha_k - 1}
+\ea
+which is exactly the kernel of a Dirichlet with parameters
+$x_k + \alpha_k: k = 1, \dotsc, K$.
+\item
+Here we have
+\ba
+p(\tilde \bx) & = \int p_{\bX | \bp}(\tilde \bx | \bp)
+	\pi(\bp) \; \der \bp \\
+	& = \int \frac{N!}{\prod_{k=1}^K x_k!} \prod_{k=1}^K p_k^{x_k}
+		\cdot \frac{\Gamma(\alpha_+)}{\prod_{k=1}^K \Gamma(\alpha_k)}
+		\prod_{k=1}^K p_k^{\alpha_k - 1}
+		\; \der \bp \\
+	& = \frac{N! \Gamma(\alpha_+)}{ \prod_k x_k! \prod_k \Gamma(\alpha_k)}
+		\int \prod_{k=1}^K p_k^{x_k + \alpha_k - 1} \; \der \bp \\
+	& = \frac{N! \Gamma(\alpha_+)}{ \prod_k x_k! \Gamma(\alpha_k)}
+		\frac{ \prod_{k=1}^K \Gamma(\alpha_k + x_k)}
+			{ \Gamma(( \alpha + x)_+ ) } \\
+	& = \frac{N! \Gamma(\alpha_+)}{ \prod_k x_k! \Gamma(\alpha_k)}
+		\frac{ \prod_{k=1}^K \Gamma(\alpha_k + x_k)}
+			{ \Gamma(\alpha_k + N ) } \\
+\ea
+\item
+We have 
+\ba
+\E{X_k} & = \Esub{\bp}{ \Esub{\bX | \bp}{ X_k | \bp } } \\
+	& = \Esub{\bp}{ N p_k } \htab \text{since } \bX \sim \text{Mult}_k(N, \bp) \\
+	& = N \Esub{\bp}{ p_k } \\
+	& = \boxed{ \frac{N \alpha_k}{\alpha_+} }
+\ea
+and
+\ba
+\Var{X_k} & = \Vsub{\bp}{ \Esub{\bX | \bp}{ X_k | \bp} } +
+	\Esub{\bp}{ \Vsub{\bX | \bp}{ X_k | \bp } } \\
+	& = \Vsub{\bp}{ N p_k } +
+	\Esub{\bp}{ N p_k(1 - p_k) } \\
+	& = N^2 \cdot \frac{ \alpha_k (\alpha_+ - \alpha_k) }
+		{\alpha_+^2(\alpha_+ + 1) } +
+		N \Esub{\bp}{ p_k - p_k^2 } \\
+	& = N^2  \frac{ \alpha_k (\alpha_+ - \alpha_k) }
+		{\alpha_+^2(\alpha_+ + 1) } +
+		N \left[ \frac{\alpha_k}{\alpha_+} - \left( \Vsub{\bp}{p_k} +
+			\Esub{\bp}{p_k}^2 \right) \right] \\
+	& = N \left\{  N \frac{ \alpha_k (\alpha_+ - \alpha_k) }
+		{\alpha_+^2(\alpha_+ + 1) } +
+		 \left[ \frac{\alpha_k}{\alpha_+} 
+		 -  \frac{ \alpha_k (\alpha_+ - \alpha_k) }
+		{\alpha_+^2(\alpha_+ + 1) }
+		-	\left( \frac{\alpha_k}{\alpha_+}\right)^2  \right] \right\} \\
+	& = \frac{N \alpha_k}{\alpha_+} \left\{
+		\frac{N(\alpha_+ - \alpha_k)}{\alpha_+(\alpha_+ + 1)}
+		+ 1 - \frac{\alpha_+ - \alpha_k}{\alpha_+(\alpha_+ + 1)}
+		- \frac{\alpha_k}{\alpha_+} \right\} \\
+	& = \frac{N \alpha_k}{\alpha_+} \left\{
+		\frac{(N - 1) (\alpha_+ - \alpha_k)}{\alpha_+(\alpha_+ + 1)}
+		+ 1 - \frac{\alpha_k}{\alpha_+} \right\} \\
+	& = \frac{N \alpha_k}{\alpha_+} \left( 1 - \frac{\alpha_k}{\alpha_+} \right)
+		\left\{ \frac{1}{1 - \frac{\alpha_k}{\alpha_+}}
+		\frac{(N - 1) (\alpha_+ - \alpha_k)}{\alpha_+(\alpha_+ + 1)} + 1
+		 \right\} \\
+	& = \frac{N \alpha_k}{\alpha_+} \left( 1 - \frac{\alpha_k}{\alpha_+} \right)
+		\left\{ \frac{\alpha_+}{\alpha_+ - \alpha_k}
+		\frac{(N - 1) (\alpha_+ - \alpha_k)}{\alpha_+(\alpha_+ + 1)} + 1
+		 \right\} \\
+	& = \frac{N \alpha_k}{\alpha_+} \left( 1 - \frac{\alpha_k}{\alpha_+} \right)
+		\left\{ 
+		\frac{N - 1}{\alpha_+ + 1} + \frac{\alpha_+ + 1}{\alpha_+ + 1}
+		 \right\} \\
+	& = \boxed{ \frac{N \alpha_k}{\alpha_+} 
+		\left( 1 - \frac{\alpha_k}{\alpha_+} \right)
+		\left[
+		\frac{N + \alpha_+ } {\alpha_+ + 1}
+		 \right] }
+\ea
 
 \enumend
  
@@ -327,7 +443,6 @@ for $\alpha$.
 \section*{Appendix A: Problem 1 Source}
 \lstinputlisting{P1.R}
 \end{document}
-
 
 
 

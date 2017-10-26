@@ -1,6 +1,7 @@
 library(data.table)
 library(dplyr)
 library(invgamma)
+library(magrittr)
 library(nleqslv)
 library(rstan)
 library(xtable)
@@ -52,12 +53,13 @@ sink()
 plotHistogram <- function(ys, a, b, length, type) {
     n <- length(ys)
     sample_size <- 10000
+    lambdas <- rgamma(n=sample_size, n + a, b + sum(ys))
     if(type == "gamma") {
-        lambdas <- rgamma(n=sample_size, n + a, b + sum(ys))
+        hist_vals <- lambdas
     } else if(type == "invgamma") {
-        lambdas <- rinvgamma(n=sample_size, n + a, 1/(b + sum(ys)))
+        hist_vals <- 1/lambdas
     }
-    hist(lambdas, breaks=30, main=paste0("Posterior for length = ", length))
+    hist(hist_vals, breaks=30, main=paste0("Posterior for length = ", length))
 }
 
 pdf("histograms.pdf", width=10, height=10)
@@ -86,4 +88,54 @@ normalRoots <- function(params, left_prob, right_prob) {
 
 eta_roots <- nleqslv(c(1, 1), normalRoots, left_prob=0.5, right_prob=30)$x
 alpha_roots <- nleqslv(c(1, 1), normalRoots, left_prob=1, right_prob=4)$x
+
+fitStan <- function(ys) {
+    stress_data <- list(n=length(ys),
+                        y=unlist(ys)
+                        )
+
+    stan_fit <- stan(file="stress_2.stan",
+                     data=stress_data,
+                     chains=4,
+                     warmup=1000,
+                     iter=10000,
+                     cores=4,
+                     refresh=500
+                     )
+    return(stan_fit)
+}
+
+getStanTable <- function(stan_fit) {
+    stan_table <- stan_fit %>%
+        summary(probs=c(0.05, 0.5, 0.95)) %$%
+        c_summary
+    stat_table <- stan_table[, , 1][1:2, 3:5] %>%
+        data.table %>%
+        cbind(c("$\\eta$", "$\\alpha$"), .) %>%
+        setNames(c("Parameter", "5\\%", "Median", "95\\%")) 
+    return(stat_table)
+}
+
+if(!exists("stan_fits")) {
+    stan_fits <- stress %>% apply(1, fitStan)
+}
+
+stan_tables <- stan_fits %>% 
+    lapply(getStanTable)
+
+for(i in 1:4) {
+    sink(paste0("table", i, ".tex"))
+    stan_tables[[i]] %>% 
+        xtable(digits=c(0, 0, 3, 3, 3), 
+               caption=paste("Median and 95\\% quantile estimate for length =",
+                             lengths[i])) %>%
+        print(sanitize.text.function=function(x) { x },
+              include.rownames=FALSE)
+    sink()
+
+    pdf(paste0("pairs", i, ".pdf"), width=10, height=6)
+    pairs(stan_fits[[i]], pars=c("eta", "alpha"), log=FALSE)
+    title(paste0("Marginal histograms and scatterplot of p(eta, alpha | y) for length = ", lengths[i]), outer=TRUE, line=-1)
+    dev.off()
+}
 
