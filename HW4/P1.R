@@ -133,9 +133,18 @@ for(i in 1:4) {
               include.rownames=FALSE)
     sink()
 
+    pdf(paste0("diag", i, ".pdf"), width=6, height=10, onefile=FALSE)
+    stan_diag(stan_fits[[i]])
+    dev.off()
+
+    traceplot(stan_fits[[i]])
+    dev.copy(pdf, paste0("trace", i, ".pdf"), width=6, height=8)
+    dev.off()
+
     pdf(paste0("pairs", i, ".pdf"), width=10, height=6)
     pairs(stan_fits[[i]], pars=c("eta", "alpha"), log=FALSE)
     title(paste0("Marginal histograms and scatterplot of p(eta, alpha | y) for length = ", lengths[i]), outer=TRUE, line=-1)
     dev.off()
+
 }
 

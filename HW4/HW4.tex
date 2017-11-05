@@ -229,7 +229,7 @@ Here, we want $a$ and $b$ such that
 		\Psub{\lambda}{\lambda \le 0.1 | a, b } \\
 	& = F_{\lambda | a, b}(1) - F_{\lambda | a, b}(0.1)
 \ea 
-where $F_{\lambda | a, b}(t)$ is the cdf of a Gamma($a, b$). In particular, since $F$ is a continuous, strictly increasing function, we are warranted in breaking the above equation into two sub-equations, for example,
+where $F_{\lambda | a, b}(t)$ is the cdf of a Gamma($a, b$). In particular, since $F$ is a smooth, strictly increasing function, we are warranted in breaking the above equation into two sub-equations, for example,
 \ba
 0.05 & = \Psub{\lambda}{\lambda \le 0.1} \\
 0.05 & = \Psub{\lambda}{\lambda > 1}
@@ -248,15 +248,21 @@ This system can be easily solved with the \texttt{nleqslv} package in R (the sou
 a \approx 2.44 \htab b \approx 0.184
 }
 \ea
-
+\newpage
 \item
-Below is the table of posterior means and standard deviations.
-
+The table of posterior means and their standard deviations is displayed below.
 \input{mean_sd.tex}
 
-Here are the histograms:
-
-\includegraphics[width=\linewidth]{histograms.pdf}
+Comparing to the frequentist analyses performed in the last homework, we see
+remarkable agreement.
+For reference, the table for the likelihood estimates is given below:
+\input{../HW3/mles.tex}
+\\
+It appears that the standard error of the Bayesian estimates is lower in general than the likelihood-based ones.
+Next, we examine histograms of 10,000 samples from the posterior for each length:
+\begin{center}
+\includegraphics[width=0.9\linewidth]{histograms.pdf}
+\end{center}
 
 Next, note that if
  $\lambda | \by \sim \text{Gamma}\left(n + a, b + \sum_{i=1}^n y_i\right)$
@@ -265,7 +271,10 @@ we have that
 \left(\frac{1}{\lambda} \right) \bigg| \; \by \sim \text{Inv-Gamma}\left(n + a, 
  	\frac{1}{b + \sum_{i=1}^n y_i} \right).
 \ea
+However, if we just want histograms of $1/\lambda$ we can simply simulate from our posterior density and then compute the inverse of each sample point. We show these below.
+\begin{center}
 \includegraphics[width=\linewidth]{inv_histograms.pdf}
+\end{center}
 \item
 First, we note that, for left-probability $l$ and right-probability $r$,
 \ba
@@ -322,11 +331,12 @@ for $\eta$, and
 for $\alpha$.
 \item
 Here we show the tables of medians and (0.05, 0.95) quantiles, the latter of which together construct 95\% credible intervals. 
+\\
 \input{table1.tex}
 \input{table2.tex}
 \input{table3.tex}
 \input{table4.tex}
-
+\\
 Moreover, we include plots of the marginal histograms as well as scatter plots of samples from the joint posterior $p(\eta, \alpha | \by)$, for each of the four lengths in the \texttt{stress} dataset.
 \begin{center}
 \includegraphics[width=\linewidth]{pairs1.pdf}
@@ -334,6 +344,8 @@ Moreover, we include plots of the marginal histograms as well as scatter plots o
 \includegraphics[width=\linewidth]{pairs3.pdf}
 \includegraphics[width=\linewidth]{pairs4.pdf}
 \end{center}
+
+Everything looks reasonable and as expected, but it is still imperative to perform  convergence diagnostics and assessment when dealing with MCMC chains. We perform this MCMC analysis for each length in Appendix B. 
 \enumend
 
 \newpage
@@ -342,8 +354,11 @@ Moreover, we include plots of the marginal histograms as well as scatter plots o
 \item
 We note that
 \ba
-\E{ Y_k | X_k } = n \frac{X_k}{N} \\
-\implies X_k = \frac{N \E{Y_k | X_k}}{n}
+\E{ Y_k | X_k } = n \frac{X_k}{N} 
+\ea
+which suggests the idealized relationship
+\ba
+ X_k = \frac{N \E{Y_k | X_k}}{n}.
 \ea
 The most immediate estimate of $\E{Y_k | X_k}$ is simply the observed $Y_k$, yielding
 \ba
@@ -355,6 +370,12 @@ with variance
 	& = \frac{N^2}{n^2} \cdot
 		n \frac{X_k}{N} \left(1 - \frac{X_k}{N}\right) \frac{N - n}{N - 1} \\
 	& = \frac{N(N -n)}{n(N - 1)} X_k \left(1 - \frac{X_k}{N}\right)
+\ea
+which suggests that
+\ba
+\estim{\mathsf{Var}}(\estim{X_k}) & = 
+	\frac{N^2(N -n)}{n^2(N - 1)} \left(1 - \frac{\frac{N Y_k}{n}}{N}\right) Y_k \\
+	& = \frac{N^2(N -n)}{n^2(N - 1)} \left(1 - \frac{Y_k}{n}\right) Y_k \\
 \ea
 \item
 Assume that the likelihood follows the multinomial distribution in (3) and the prior follows a Dirichlet distribution in (4). 
@@ -384,6 +405,7 @@ p(\tilde \bx) & = \int p_{\bX | \bp}(\tilde \bx | \bp)
 		\frac{ \prod_{k=1}^K \Gamma(\alpha_k + x_k)}
 			{ \Gamma(\alpha_k + N ) } \\
 \ea
+which coincides exactly with the CMult($N, \balpha$) as defined in the problem.
 \item
 We have 
 \ba
@@ -436,12 +458,163 @@ and
 		\frac{N + \alpha_+ } {\alpha_+ + 1}
 		 \right] }
 \ea
+\item
+Letting $W_k = X_k - y_k$, we see that
+\ba
+\sum_{k=1}^K W_k = \sum_{k=1}^K X_k - \sum_{k=1}^K y_k
+	= N - n
+\ea
+so that
+\ba
+W_K & = N - n - \sum_{k=1}^{K - 1} W_k \\
+	& = N - n - \sum_{k=1}^{K - 1} (X_k - y_k) 
+\ea
+Thus,
+\ba
+W_k = \begin{cases} 
+	X_k - y_k, & k < K \\
+	N - n - \sum_{k=1}^{K - 1} (X_k - y_k), & k = K
+	\end{cases}
+\ea
+Moreover,
+\ba
+X_K & = N - \sum_{k=1}^K X_k \\
+	& = N - \sum_{k=1}^K (W_k + y_k) \\
+\ea
+so that
+\ba
+X_k & = \begin{cases}
+	W_k + y_k, & k < K \\
+	N - \sum_{k=1}^K (W_k + y_k), & k = K
+	\end{cases}.
+\ea
+Therefore,
+\ba
+J = \begin{pmatrix}
+	1 & 0 & \dotsc & 0 & 0 \\
+	0 & 1 & \dotsc & 0 & 0\\
+	\vdots & \vdots & \ddots & \vdots & \vdots \\
+	0 & 0 & \dotsc & 1 & 0 \\
+	-1 & -1 & \dotsc & -1 & 1
+\end{pmatrix}
+\ea
+and thus
+\ba
+\det(J) = \prod_{i=1}^K j_{ii} = 1.
+\ea
+Hence, noting that $\sum_k y_k = n$,
+\ba
+f_{W_1, \dotsc, W_k}(w_1, \dotsc, w_K)
+	& = f_{X_1, \dotsc, X_K}(w_1 + y_1, \dotsc, w_K + y_K) \cdot \det(J) \\
+	& = \frac{N! \Gamma(\alpha_+)}{\Gamma(N + \alpha_+)}
+		\prod_{k=1}^K \frac{ \Gamma( w_k + y_k + \alpha_k ) }
+			{ (w_k + y_k)! \Gamma(\alpha_k) } \\
+	& = \frac{N! \Gamma(\alpha_+)}
+		{\Gamma(N + \alpha_+ - n + n)}
+		\prod_{k=1}^K \frac{ \Gamma( w_k + y_k + \alpha_k ) }
+			{ (w_k + y_k)! \Gamma(\alpha_k) } \cdot 
+			 \\
+	& = \frac{N! \Gamma(\alpha_+)}
+		{\Gamma(N - n + \alpha_+ + \by_+)}
+		\prod_{k=1}^K \frac{ \Gamma( w_k + y_k + \alpha_k ) }
+			{ (w_k + y_k)! \Gamma(\alpha_k) } \cdot 
+			 \\
+\ea
+\item
+Note that
+\ba
+\Pr{ \bX = \bx | \bY = \by }
+	& = \Pr{ \bW + \bY = \bx | \bY = \by } \\
+	& = \Pr{ \bW = \bx - \by | \bY = \by }
+\ea
+which makes sense because the probability of the total underlying counts equal to the probability of the unobserved counts given that we have observed the counts $\bY = \by$. But as shown in (e),
+$\bW | \bY = \by \sim \text{CMult}(N - n, \balpha + \by)$.
+Thus, from (d), we have
+\ba
+\Esub{\bX | \bY}{ X_k | \bY = \by}
+	& = \Esub{ \bW | \bY }{ W_k + y_k | \bY = \by } \\
+	& = \E{ \text{CMult}(N - n, \balpha + \by) } + y_k \\
+	& = \boxed{ \frac{(N - n) \left(\alpha_k + y_k \right)}{\alpha_+ + n} + y_k }
+\ea
+and
+\ba
+\Vsub{\bX | \bY}{ X_k | \bY = \by}
+	& = \Vsub{\bW | \bY}{ W_k + y_k | \bY = \by} \\
+	& = \Vsub{\bW | \bY}{ W_k | \bY = \by } \\
+	& = \Var{ \text{CMult}(N - n, \balpha + \by) } \\
+	& = \frac{(N - n) \left(\alpha_k + y_k \right)}{\alpha_+ + n} 
+		\left( 1 - \frac{\alpha_k + y_k }{\alpha_+ + n} \right)
+		\left[
+		\frac{(N - n) + \alpha_+ + n} {\alpha_+ + n + 1}
+		 \right] \\
+	& = \boxed{  \frac{(N - n) \left(\alpha_k + y_k \right)}{\alpha_+ + n} 
+		\left( 1 - \frac{\alpha_k + y_k }{\alpha_+ + n} \right)
+		\left[
+		\frac{N + \alpha_+ } {\alpha_+ + n + 1}
+		 \right] } \\
+\ea
+Assuming that $N > n$, i.e., that we haven't sampled the entire population, we see that we will get a positive estimate for both the posterior mean and standard deviation/error, since $\alpha_k + y_k > 0$ and $N + \alpha+ > 0$. Furthermore, if
+$\alpha = 0$ for each $k$ (which technically isn't allowed by the model), we get
+\ba
+\E{X_k | \bY = \by} & = \frac{(N - n) y_k }{ n } + y_k \\
+	& = \frac{(N - n)(1 + y_k)}{n}
+\ea   
+and
+\ba
+\Var{X_k | \bY = \by} & = 
+	 \frac{(N - n) \left( y_k \right)}{ n} 
+		\left( 1 - \frac{ y_k }{ n} \right)
+		\left[
+		\frac{N  } { n + 1}
+		 \right]
+\ea
+which is strictly less than the variance of the method of moments estimator, since, for example, we have $n + 1$ in the denominator rather than $n - 1$, and we are missing a factor of $\frac{N}{n} > 1$. 
+\item
+Below is the table of the method of moment estimators $\estim{X_k}_\text{,MME}$,
+$k = 1, 2, 3$, and their associated standard errors based on the square root of
+$\estim{\text{Var}}$ given in (a).
+\\
+\input{mm_df.tex}
+Note that the standard error of $\estim{X_3}$ is zero, which is an artifact of the variance depending on $\estim{X}$ multiplicatively. This is clearly nonsense, as we only have 50/800 of the total population. The source can be found in Appendix C.
+\item
+Below is the table of posterior means given by $\estim{X_k}_\text{, Bayes}$, along with their empirical standard deviations. We see that for $k = 1, 2$, both estimators yield similar values for both the mean estimate and the standard errors. However, the Bayesian estimate for $X_3$ is positive and has a positive standard error, which can be viewed as an advantage over the method of moments estimator, which is unable to do either. The source can be found in Appendix C.
 
+\input{bayes_df.tex}
 \enumend
  
 \newpage
 \section*{Appendix A: Problem 1 Source}
 \lstinputlisting{P1.R}
+
+\section*{Appendix B: MCMC Convergence Analysis}
+First, we examine the default plots given by the \texttt{stan\_diag} command, which yields three subplots:
+\begin{enumerate}
+\item
+A histogram of the accumulated log-posterior of the parameters
+\item
+A histogram of the mean Metropolis acceptance of the parameters
+\item
+A scatter plot of the values of the first two plots, namely, a scatterplot of log-posterior vs mean. Metropolis acceptance.
+\end{enumerate}
+We expect that the mean Metropolis acceptance would be higher for values with a higher log-posterior. Indeed, this is the case for each of the four considered lengths, shown below in increasing order of fiber length.
+\begin{center}
+\includegraphics[width=0.6 \linewidth]{diag1.pdf}
+\includegraphics[width=0.5\linewidth]{diag2.pdf}
+\includegraphics[width=0.5\linewidth]{diag3.pdf}
+\includegraphics[width=0.5\linewidth]{diag4.pdf}
+\end{center}
+Furthermore, we examine scatter plots of the MCMC chains to ensure their convergence. In particular, we expect the chains to exhibit mostly indistinguishable behavior with respect to the other chains. Indeed, for each parameter and each length, the four chains overlap to a high degree, and there is no visual evidence of non-convergence. Again, the plots are shown in order of increasing fiber length.
+\begin{center}
+\includegraphics[width=0.8\linewidth]{trace1.pdf}
+\includegraphics[width=0.8\linewidth]{trace2.pdf}
+\includegraphics[width=0.8\linewidth]{trace3.pdf}
+\includegraphics[width=0.8\linewidth]{trace4.pdf}
+\end{center}
+
+\newpage
+\section*{Appendix C: Problem 2 Source}
+\lstinputlisting{P2.R}
+
 \end{document}
 
 

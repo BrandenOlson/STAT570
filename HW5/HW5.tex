@@ -1,0 +1,665 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\conj{\overline}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\derivation{\begin{tabular} { >{$}l<{$}  >{$}c<{$}  >{$}l<{$}  >{$}r<{$} }}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\mathsf{Var}\left(#1\right)}
+\newcommand*\SD[1]{\mathsf{SD}\left(#1\right)}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bL{\mathbf{L}}
+\renewcommand*\bm{\mathbf{m}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bV{\mathbf{V}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\mathsf{P}_{#1}\left(#2\right)}
+\newcommand\Vsub[2]{\mathsf{Var}_{#1}\left(#2\right)}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left(#1\right) }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+\begin{document}
+\title{STAT 570: Homework 4}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\enum
+\item
+We have
+\ba
+\theta & = 
+	\frac{ \frac{ \Pr{Y = 1 | X = 1} }{\Pr{Y = 0| X = 1} } }
+	{ \frac{\Pr{Y = 1 | X = 0}}{ \Pr{ Y = 0 | X = 0} } } \\
+	& = \frac{ \Pr{Y = 1 | X = 1} }{\Pr{Y = 0| X = 1} }
+		\cdot \frac{ \Pr{ Y = 0 | X = 0} }{\Pr{Y = 1 | X = 0}} \\
+	& = \frac{ \Pr{X = 1 | Y = 1} \cdot \frac{\Pr{Y = 1}}{\Pr{X = 1}} }
+		{\Pr{X = 1 | Y = 0} \cdot \frac{\Pr{Y = 0}}{\Pr{X = 1}}}
+		\cdot
+		\frac{ \Pr{X = 0| Y = 0} \cdot \frac{\Pr{Y = 0}}{\Pr{X = 0}} }
+		{ \Pr{X = 0| Y = 1} \cdot \frac{\Pr{Y = 1}}{\Pr{X = 0}} } 
+		\htab \text{(Bayes thm applied 4$\times$)} \\
+	& = \frac{ \Pr{X = 1 | Y = 1} \cdot \Pr{Y = 1} }
+		{\Pr{X = 1 | Y = 0} \cdot \Pr{Y = 0} }
+		\cdot
+		\frac{ \Pr{X = 0| Y = 0} \cdot \Pr{Y = 0} }
+		{ \Pr{X = 0| Y = 1} \cdot\Pr{Y = 1} } \\
+	& = \frac{ \Pr{X = 1 | Y = 1}  }
+		{\Pr{X = 1 | Y = 0} }
+		\cdot
+		\frac{ \Pr{X = 0| Y = 0}  }
+		{ \Pr{X = 0| Y = 1}  } \\
+	& = \frac{ \Pr{X = 1 | Y = 1}  / \Pr{ X = 0 | Y = 1 } }
+		{\Pr{X = 1 | Y = 0} / \Pr{ X = 0 | Y = 0 } } \\
+	& = \frac{ p_1 /(1 - p_1) }{ p_2 / (1 - p_2) } \qed
+\ea
+\item
+Since MLEs are invariant under transformations, we can find 
+$\estim{p_1}_\text{MLE}$ and $\estim{p_2}_\text{MLE}$.
+Indeed, a standard result tells us that
+\ba
+\sqrt{n}\left( \begin{pmatrix} \estim{p_1} \\ \estim{p_2} \end{pmatrix}
+	 - \begin{pmatrix} p_1 \\ p_2 \end{pmatrix} \right)
+	\to_d 
+	\mathcal{N} \left( \bzero,
+		\begin{pmatrix} p_1(1 - p_1) & 0 \\
+		0 & p_2(1 - p_2)
+		\end{pmatrix} \right).
+\ea
+with
+\ba
+\estim{p_i} = \frac{ X_i }{ n_i }
+\ea
+Let $g(p_1, p_2) = \frac{p_1/(1 - p_1)}{p_2/(1 - p_2)} \equiv \theta$. 
+Then
+\ba
+\pderiv{g}{p_1} & = \frac{1 - p_2}{p_2} 
+	\cdot \frac{(1-p_1) - p_1(-1)}{(1 - p_1)^2} \\
+	& = \frac{1 - p_2}{p_2} \frac{1}{(1 - p_1)^2}.
+\ea
+\ba
+\pderiv{g}{p_2} & = \frac{p_1}{1 - p_1} \cdot
+	\frac{ p_2 (-1) - (1 - p_2) }{ p_2^2 } \\
+	& = \frac{ -p_1}{(1 - p_1) p_2^2 } .
+\ea
+
+Hence, assuming that $\frac{n_1}{n_1 + n_2} \to c \in (0, 1)$,
+\ba 
+\sqrt{n_1 + n_2} \left(g(\estim{p_1}, \estim{p_2}) - g(p_1, p_2)\right)
+	\to \mathcal N \left( 0, \nabla g(p_1, p_2)^T 
+	\Sigma \nabla g(p_1, p_2) \right)
+\ea
+where
+\ba
+\nabla g(p_1, p_2)^T 
+	\Sigma \nabla g(p_1, p_2)
+	& = \left( \frac{1 - p_2}{p_2(1 - p_1)^2}, -\frac{p_1}{p_2^2(1 - p_1)} \right) 
+		\begin{pmatrix} p_1(1 - p_1) & 0 \\
+		0 & p_2(1 - p_2)
+		\end{pmatrix}
+		\begin{pmatrix} \frac{1 - p_2}{p_2(1 - p_1)^2} \\ -\frac{p_1}{p_2^2(1 - p_1)}  \end{pmatrix} \\
+	& = \left( \frac{p_1(1 - p_2)}{p_2 (1 - p_1)}, - \frac{p_1 (1 - p_2)}{ p2(1 - p_1) } \right)
+		\begin{pmatrix} \frac{1 - p_2}{p_2(1 - p_1)^2} \\ -\frac{p_1}{p_2^2(1 - p_1)}  \end{pmatrix} \\
+	& = \frac{ p_1 (1 - p_2)^2 }{ p_2^2 (1 - p_1)^3} + \frac{ p_1^2 ( 1 - p_2) }{p_2^3 (1 - p_1)^2 } \\
+	& = \frac{ p_1 p_2 (1 - p_2)^2 + p_1^2 (1 - p_1)(1 - p_2) }{ p_2^3 (1 - p_1)^3 } \\
+	& = \frac{ p_1(1 - p_2)\left[ p_2(1 - p_2) + p_1(1 - p_1) \right] }{ p_2^3 (1 - p_1)^3 } \\
+\ea
+That is, we have
+\ba
+\sqrt{n_1 + n_2} \left( \estim{\theta} - \theta \right) \to_d \mathcal{N}\left(0, 
+	\frac{ p_1(1 - p_2)\left[ p_2(1 - p_2) + p_1(1 - p_1) \right] }{ p_2^3 (1 - p_1)^3 } \right)
+\ea
+which yields the following estimate of standard error:
+\ba
+\text{SE}\left(\estim{\theta}\right) = 
+ \sqrt{ \frac{ \estim{p_1}(1 - \estim{p_2})\left[ \estim{p_2}(1 - \estim{p_2}) 
+ 	+ \estim{p_1}(1 - \estim{p_1}) \right] }
+	{ (n_1 + n_2) \estim{p_2}^3 (1 - \estim{p_1})^3 } }
+\ea
+Hence, a confidence interval is
+\ba
+\estim{\theta} \in \estim{\theta} \pm z_{1 - 0.1/2} \text{SE}\left(\estim{\theta}\right)
+	= (4.60, 6.68).
+\ea
+\item
+Using Bayes' formula, we have
+\ba
+p(p_i | x_i) & \propto
+	L(x_i | p_i) \pi(p_i) \\
+	& \propto {n_i \choose x_i} p_i^{x_i} (1 - p_i)^{n_i - x_i}
+		\cdot p_i^{a - 1} (1 - p_i)^{b - 1} \\
+	& \propto p_i^{x_i + a - 1} (1 - p_i)^{n_i - x_i + b - 1}
+\ea
+which is exactly the kernel of a Beta($a + x_i$, $b + n_i - x_i$). 
+\item
+Note that for $X \sim \text{Beta}(\alpha, \beta)$, we have
+\ba
+\E{X} = \frac{\alpha}{\alpha + \beta},
+\ea
+\ba
+\text{Mode}(X) = \frac{\alpha - 1}{\alpha + \beta - 2}
+\ea
+and
+\ba
+\Var{X} = \frac{ \alpha \beta }{(\alpha + \beta)^2 (\alpha + \beta + 1) } \\
+\implies \SD{X} = \frac{\sqrt{\alpha \beta}}
+	{(\alpha + \beta) \sqrt{\alpha + \beta + 1} }
+\ea
+If $a = b = 1$, $p_i | x_i \sim \text{Beta}(1 + x_i, 1 + n_i - x_i)$, and we have
+\ba
+\E{p_i | X_i} & = \frac{1 + X_i}{1 + X_i + 1 + n_i - X_i} \\
+	& = \frac{X_i + 1}{ n_i + 2 },
+\ea
+\ba
+\text{Mode}(p_i | X_i) = \frac{X_i}{ n_i + 2 - 2} = \frac{X_i}{n_i}
+\ea
+and
+\ba
+\SD{p_i | X_i} & = \frac{\sqrt{(1 + x_i)(1 + n_i - x_i)}}
+	{ (2 + n_i)\sqrt{2 + n_i + 1} } \\
+	& = \frac{\sqrt{(X_i + 1)(n_i - X_i + 1)}}
+		{(n_i + 2)\sqrt{n_i + 3}}.
+\ea
+These summaries for the case and control groups, as well as 90\% credible intervals given by 5\% and 95\% posterior quantiles, are shown in the table below.
+\input{bayes.tex}
+\item
+We have that
+\ba
+\left( \estim{p_i}_\text{Bayes} | X_i \right) & \to_d \mathcal N \left( \E{ \estim{p_i}_\text{MLE} | X_i },
+ \Var{ \estim{p_i}_\text{MLE} | X_i } \right) \\
+	& = \mathcal N \left( p_i, p_i (1 - p_i) \right)
+\ea
+so that an approximate credible interval is given by the 0.05 and 0.95 quantiles of a $\mathcal{N}\left(\estim{p_i}, \frac{\estim{p_i}(1 - \estim{p_i})}{\sqrt{n_i}}\right)$,
+where $\estim{p_i} = X_i/n_i$ for $i = 1, 2$.
+The numerical approximations are shown below.
+\input{asymp.tex}
+We see that they match quite well with the ones given from the finite-sample Beta quantiles above.
+\item
+\begin{center}
+\includegraphics[width=\linewidth]{hist_case.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{hist_control.pdf}
+\end{center}
+The table of sample quantiles is shown below:
+\input{samp.tex}
+\item
+Here we compute the samples and histogram based on our samples of $p_1$ and $p_2$ in part (f). 
+
+\begin{center}
+\includegraphics[width=\linewidth]{theta.pdf}
+\end{center}
+\newpage
+Moreover, the corresponding sample quantiles are shown below.
+\input{theta.tex}
+\item
+The given rate corresponds to $\Pr{Y = 1}$. Thus, by Bayes' theorem,
+\ba
+q_1 & = \Pr{Y = 1 | X = 1} \\
+	& = \Pr{X = 1 | Y = 1} \frac{\Pr{Y = 1}}{\Pr{X = 1}} \\
+	& = \frac{ \Pr{X = 1|Y = 1} \Pr{Y = 1} }
+		{ \Pr{X = 1|Y = 1}\Pr{Y = 1} + \Pr{X = 1|Y = 0}\Pr{Y = 0} } \\
+	& \approx \frac{ \estim{p_1} \frac{17}{100,000} }
+		{ \estim{p_1} \frac{17}{100,000} 
+			+ \estim{p_2} \left[ 1 - \frac{17}{100,000} \right] }
+\ea
+Similarly, we have
+\ba
+q_2 & = \Pr{Y = 1 | X = 0} \\
+	& = \frac{ \Pr{X = 0 | Y = 1} \Pr{Y = 1} }{ \Pr{X = 0} } \\
+	& \approx 
+		\frac{(1 - \estim{p_1}) \frac{17}{100,000} }
+		{ (1 - \estim{p_1}) \frac{17}{100,000}
+			+ (1 - \estim{p_2}) \left[1-\frac{17}{100,000}\right] }.
+\ea
+\enumend
+
+\section*{Problem 2}
+By Bayes' theorem, we have
+\ba
+p(\theta | \estim{\theta}) & \propto
+	\exp\left( - \frac{ (\theta - \estim{\theta})^2 }{ V } \right)
+	\exp\left(-\frac{\theta^2}{W}\right) \\
+	& = \exp\left( -\frac{\theta^2 - 2\theta \estim{\theta} 
+		+ \estim{\theta}^2}{V} - \frac{\theta^2}{W} \right) \\
+	& = \exp\left( - \left[ 
+		\theta^2\left(\frac{1}{V} + \frac{1}{W}\right) 
+		- \frac{2\estim{\theta}}{V} \theta 
+		+ \frac{\estim{\theta}^2}{V}
+		\right] \right) \\
+	& = \exp\left( 
+		- \frac{ \theta^2 
+		- \frac{2\estim{\theta}}{V\left(\frac{V + W}{VW}\right)} \theta
+		+ \frac{\estim{\theta}^2}{V\left(\frac{V + W}{VW}\right)} }
+		{ \frac{VW}{V + W} } \right) \\
+	& = \exp\left( 
+		- \frac{ \theta^2 
+		- \frac{2\estim{\theta}W}{V + W} \theta
+		+ \frac{\estim{\theta}^2W}{V + W} 
+		+ \left(\frac{\estim{\theta} W}{V + W}\right)^2
+		- \left(\frac{\estim{\theta} W}{V + W}\right)^2 
+		}
+		{ \frac{VW}{V + W} } \right) \\
+	& \propto \exp\left(
+		- \frac{ \left(\theta - \frac{\estim{\theta} W}{ V + W}\right)^2 }
+		{ \frac{VW}{V + W } } \right)
+\ea
+which is the kernel of a $\mathcal N \left(\frac{\estim{\theta}W}{V + W},
+\frac{VW}{V + W}\right) = \mathcal N\left( r\estim{\theta}, rV\right)$. \qed
+
+\section*{Problem 3}
+\enum
+\item
+Noting that $Y_i \sim \mathcal N(\beta_0 + \beta_1 x_i, \sigma^2)$, we have
+\ba
+p(\beta_0, \beta_1, \sigma^2 | \by)
+	& \propto p(\by | \beta_0, \beta_1, \sigma^2) 
+		\pi(\beta_0, \beta_1, \sigma^2) \\
+	& = \prod_{i=1}^n p(y_i | \beta_0, \beta_1, \sigma^2)
+		\pi(\beta_0, \beta_1) \pi(\sigma^{-2}) \\
+	& \propto \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}
+		\exp\left(-\frac{ (y_i - \beta_0 - \beta_1 x_i)^2 }{2\sigma^2} \right)
+		\exp\left( - (m_0, m_1) \Sigma^{-1} 
+		\begin{pmatrix} m_0 \\ m_1 \end{pmatrix} \right) \\
+	& \htab \times (\sigma^{-2})^{a - 1} \exp\left(-b \sigma^{-2}\right)
+\ea
+First, we have
+\ba
+p(\beta_0 | \beta_1, \sigma^2, \by) 
+	& = \frac{p(\beta_0, \beta_1, \sigma^2 | \by)}{p(\beta_1, \sigma^2 | \by) } \\
+	& = \frac{L(\beta_0, \beta_1, \sigma^2 | \by) \pi(\beta_0, \beta_1, \sigma^2)}
+		{ L(\beta_1, \sigma^2 | \by) \pi(\beta_1, \sigma^2) }  \\
+	& = \frac{p(\beta_0 | \beta_1, \sigma^2, \by) p(\by | \beta_1, \sigma^2) \pi(\beta_0 | \beta_1, \sigma^2)}{p(\beta_1, \sigma^2 | \by)} \\
+	& = L(\beta_0 | \beta_1, \sigma^2, \by) \pi(\beta_0 | \beta_1)
+\ea
+where $\pi(\beta_0 | \beta_1 , \sigma^2) = \pi(\beta_0 | \beta_1) $
+by independence of the priors $\pi(\beta_0, \beta_1)$ and $\pi(\sigma^{-2})$. 
+But by properties of the normal distribution, we know that
+\ba
+\beta_0 | \beta_1 \sim \mathcal N \left( m_0 - \frac{v_{01}}{v_{11}} 
+	\left( \beta_1 - m_1 \right),
+	v_{00} - \frac{v_{01} v_{10}}{v_{11}} \right).
+\ea
+Similar reasoning yields
+\ba
+p(\beta_0 | \beta_1, \sigma^2, \by) & \propto 
+p(\by | \beta_0, \beta_1, \sigma^2) \pi(\beta_0 | \beta_1) \\
+& \sim \mathcal N(\bX \bbeta, \sigma^2)
+ \mathcal N \left( m_0 - \frac{v_{01}}{v_{11}} 
+	\left( \beta_1 - m_1 \right),
+	v_{00} - \frac{v_{01} v_{10}}{v_{11}} \right)
+\ea
+which can be computed using the result of Problem 2. By symmetry, we also have
+\ba
+p(\beta_1 | \beta_0, \sigma^2, \by) & \propto
+	p(\by | \beta_0, \beta_1, \sigma^2) \pi(\beta_1 | \beta_0) \\
+	& \sim \mathcal N(\bX \bbeta, \sigma^2)
+		\mathcal N\left( m_1 - \frac{v_{10}}{v_{00}} (\beta_0 - m_0),
+		v_{11} - \frac{v_{10} v_{01}}{v_{00}} \right).
+\ea
+Moreover,
+\ba
+p(\sigma^{2} | \bbeta, \by) 
+	& \propto p(\by | \bbeta, \sigma^2) \pi(\sigma^2 | \bbeta) \\
+	& = \frac{ p(\by | \bbeta, \sigma^2) \pi(\sigma^2, \bbeta)}
+		{ \pi(\bbeta) } \\
+	& = \frac{ p(\by | \bbeta, \sigma^2) \pi(\sigma^{-2}) \pi(\bbeta)}
+		{ \pi(\bbeta) } \\
+	& = p(\by | \bbeta, \sigma^2) \pi(\sigma^{-2})
+\ea
+with density proportional to
+\ba
+\; & (\sigma^{-2})^{n/2} \exp\left(- \frac{1}{2\sigma^2} 
+	\left[ (\by - \bX \bbeta)^T (\by - \bX \bbeta) \right] \right)
+	\frac{b^a}{\Gamma(a)} (\sigma^{-2})^{a - 1} \exp\left(-b\sigma^{-2}\right) \\
+	& = (\sigma^{2})^{-\frac{n}{2} - a + 2 - 1}\exp\left( -\frac{1}{\sigma^2}
+		\left[ \frac{1}{2}(\by - \bX \bbeta)^T (\by - \bX \bbeta) + b) \right]
+		\right)
+\ea
+which is the kernel of a InvGamma$\left(a + \frac{n}{2} - 2, b + \norm{\by - \bX \bbeta}_2^2\right)$
+for $\sigma^2$.
+\item
+Here, we see that
+\ba
+p(\bbeta | \sigma^2, \by) & \propto p(\by | \bbeta, \sigma^2) \pi(\bbeta) \\
+	& \propto \exp\left(-\frac{1}{2\sigma^2} 
+		(\by - \bX \bbeta)^T (\by - \bX \bbeta) \right)
+		\exp\left( -\frac{1}{2} (\bbeta - \bm)^T \bV^{-1} ( \bbeta - \bm )
+		 \right) \\
+	& \propto 
+		\exp\left\{ - \frac{1}{2} \left[
+		\bbeta^T \left(\frac{\bX^T \bX}{\sigma^2}\right) \bbeta
+		- 2 \bbeta^T \frac{\bX^T \bY}{\sigma^2} \right]
+		- \frac{1}{2} \left[ \bbeta^T \bV^{-1} \bbeta
+		- 2 \bbeta^T (\bV^{-1} \bm) \right]
+		\right\} \\
+	& = \exp\left\{ - \frac{1}{2} \left[ \bbeta^T
+		\left( \bV^{-1} + \frac{\bX^T \bX}{\sigma^2} \right)^{-1} \bbeta
+		- 2 \bbeta^T \left( \bV^{-1} \bm + \frac{\bX^T \bY}{\sigma^2} \right)
+		\right]
+		\right\} \\
+	& = \exp\left\{ - \frac{1}{2} \left[ \bbeta^T
+		\bA \bbeta
+		+ \bbeta^T \bb
+		\right]
+		\right\}, 
+		\htab \bA = \left(\bV^{-1} + \frac{\bX^T \bX}{\sigma^2} \right)^{-1},
+		\bb = -2 \left(\bV^{-1} \bm + \frac{\bX^T \bY}{\sigma^2} \right)\\
+	& \propto \exp\left\{ -\frac{1}{2} \left[ 
+		\left( \bbeta + \frac{1}{2} \bA^{-1} \bb \right)^T \bA
+		\left( \bbeta + \frac{1}{2} \bA^{-1} \bb \right)
+		\right]
+		\right\} \\
+\ea
+which is a MVN with 
+\ba
+\bmu & = - \frac{1}{2} \bA^{-1} \bb \\
+	& =  \left(\bV^{-1} + \frac{\bX^T\bX}{\sigma^2} \right)
+		\left(\bV^{-1} \bm + \frac{\bX^T \bY}{\sigma^2} \right)
+		\bV^{-1} \bV^{-1} \bm + \bV^{-1} \frac{\bX^T\bY}{\sigma^2}
+		+ \frac{\bX^T\bY}{\sigma^2} \bV^{-1} \bm 
+		+ \frac{1}{\sigma^4} 
+\ea
+... yikes, this isn't working out.
+Given the derived distributions, we simply alternate between sampling from 
+$p(\bbeta | \by, \sigma^2)$ and $p(\sigma^{-2} | \bbeta, \by)$, using the current iterates as placeholders. More specifically, we have
+\ba
+\;&\bbeta^{(0)} \gets \bbeta_0 \\
+\;&\sigma^{2, (0)} \gets \sigma_0^2 \\
+\;&\text{for } k = 1, \dotsc, K \\
+\;&\htab  \bbeta^{(0)} \gets \mathcal N(\bm^\star, \bV^\star | \sigma^{2, (0)},
+ \by) \\
+\;&\htab  \sigma^{2, (0)} \gets \text{Gamma}
+\left(a + \frac{n}{2}, b + \frac{1}{2} (\by - \bX \bbeta^{(0)})^T 
+(\by - \bX \bbeta^{(0)})
+\bigg| \by
+\right) \\
+\;&\text{end}\\
+\ea
+
+
+\enumend
+
+\section*{Problem 4}
+\enum
+\item
+The implementation for this problem can be found in Appendix B. Below, we show histograms of the posteriors, after discarding the burn-in of 1,000 samples.
+We also show pairwise scatterplots of each parameter. First shown are the plots for the first chain, and the second ones correspond to the second chain. 
+\begin{center}
+\includegraphics[width=\linewidth]{hists_1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{scat_1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{hists_2.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{scat_2.pdf}
+\end{center}
+
+
+
+\item
+\input{mcmc_1.tex}
+\input{mcmc_2.tex}
+\item
+For our first chain, we find that
+\ba
+\Pr{\beta_1 > 0.5} \approx  0.9998.
+\ea
+Likewise, for the second chain, we have
+\ba
+\Pr{\beta_1 > 0.5} \approx 0.9993.
+\ea
+\item
+For our burn-in, we use a general rule of thumb and discard the first 10\% of the samples. Of course, this is dependent on how many samples we have to begin with, so we must investigate trace plots to be thorough. Trace plots for both chains are shown below.
+\begin{center}
+\includegraphics[width=\linewidth]{trace_1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{trace_2.pdf}
+\end{center}
+
+
+Indeed, both sets of trace plots suggest a well-explored parameter space and a high degree of convergence. 
+
+\enumend
+
+\newpage
+\section*{Problem 5}
+\enum
+\item
+Below are the marginal posterior densities running the default \texttt{inla} command.
+\begin{center}
+\includegraphics[width=\linewidth]{lin_mod_a.pdf}
+\end{center}
+Moreover, we display a table including the posterior means, standard deviations, and $p$-quantiles, with $p \in \set{0.05, 0.5, 0.975}$. 
+\input{inla.tex}
+\item
+Note that if $X \sim \text{LogNormal}(\mu, \sigma)$,
+then $Y = \log(X) \sim \mathcal N(m, s^2)$. 
+\enumend
+
+\newpage
+\section*{Appendix: Problem 1 Source}
+\lstinputlisting{P1.R}
+
+\section*{Appendix: Problem 4 Source}
+\lstinputlisting{P4.R}
+
+\section*{Appendix: Problem 5 Source}
+\lstinputlisting{P5.R}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
