@@ -1,0 +1,341 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\mean[1]{\overline{#1}}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\mathsf{Var}\left(#1\right)}
+\newcommand*\SD[1]{\mathsf{SD}\left(#1\right)}
+\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bL{\mathbf{L}}
+\renewcommand*\bm{\mathbf{m}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bV{\mathbf{V}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\mathsf{P}_{#1}\left(#2\right)}
+\newcommand\Vsub[2]{\mathsf{Var}_{#1}\left(#2\right)}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left(#1\right) }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+\begin{document}
+\title{STAT 570: Midterm}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\enum
+\item Since a random sample implies that $Y_1, \dotsc, Y_n$ are a i.i.d, we have
+\ba
+\E{\estim{\mu}} & = 
+    \frac{1}{n} \sum_{i=1}^n \E{Y_i} \\
+    & = \frac{1}{n} \sum_{i=1}^n \E{Y_1} \htab \text{(by i.i.d)} \\
+    & = \frac{ n \cdot \E{Y_1} }{n} \\
+    & = \E{Y_1} \qed
+\ea
+Moreover,
+\ba
+\Var{\estim{\mu}}
+    & = \frac{1}{n^2} \Var{\sum_{i=1}^n Y_i } \\
+    & = \frac{1}{n^2} \sum_{i=1}^n \Var{Y_i} \htab \text{(by independence)} \\
+    & = \frac{1}{n^2} \sum_{i=1}^n \Var{Y_1} \htab \text{(by i.i.d)} \\
+    & = \frac{ n \cdot \Var{Y_1} }{n^2} \\
+    & = \frac{\Var{Y_1}}{n}
+\ea
+
+\item
+    Here, if we assume independence of $Y_i$ and $Z_j$ $\forall i, j$, then
+    \ba
+    \E{\estim{\mu}_\text{rat}} & = \overline{z_P} 
+        \E{\overline{Y} \cdot \frac{1}{\overline{Z}} } \\
+        & = \overline{z_P} \E{\overline{Y}} \E{\frac{1}{\overline{Z}}} 
+    \ea
+which is unbiased only if $\E{\frac{1}{\overline{Z}}} = \frac{1}{\overline{z_P}}$.
+Otherwise, if $Y_i$ and $Z_i$ are dependent, then we would need for 
+$\E{\frac{\overline{Y}}{\overline{Z}}} = \frac{1}{\overline{z_P}}$, which is unlikely to be the case. 
+On the other hand, given that $\E{Y} < \infty$ and $\E{Z} < \infty$, by the WLLN, we have both $\overline{Y} \to_P \E{Y}$ and 
+$\overline{Z} \to_P \overline{z_P}$, so that by slutsky and continuous mapping,
+$\frac{\overline{Y}}{\overline{Z}} \to_P \frac{\E{Y}}{\overline{z_P}}$. 
+Thus,
+\ba
+\estim{\mu}_\text{rat} \to_P \overline{z_P} \frac{ \E{Y} }{\overline{z_P}} 
+    = \E{Y}.
+\ea
+That is, $\estim{\mu}_\text{rat}$ is a consistent estimator.
+As for an approximate variance, if we want to avoid imposing assumptions such as independence of $Y_i$ and $Z_i$, we can consider
+\ba
+\Var{\estim{\mu}_\text{rat}} 
+& = \overline{z_P}^2 \Var{ \frac{\mean{Y}}{\mean{Z}} } \\
+& \approx \mean{z_P}^2 \frac{1}{n - 1} 
+\sum_{i=1}^n \left( \frac{Y_i}{Z_i} - \mean{\left(\frac{Y}{Z}\right)} \right)^2
+\ea
+i.e., the sample variance of the quantities $Y_i/Z_i$, $i = 1, \dotsc, n$.
+\item
+    Assuming that the usual linear regression assumptions are met, and that 
+    $\E{\estim{\beta_1} | \bZ} = \beta_1$, a constant, we have
+    \ba
+        \E{\estim{\mu}_\text{reg}}
+        & = \E{\overline{Y}} + \E{\estim{\beta_1} 
+    \left(\overline{Z} - \overline{z_P}\right)} \\
+    & = \mu + \E{\E{ \estim{\beta_1} (\overline{Z} - \overline{z_P}) | \bZ } } \\
+    & = \mu + \E{ \left(\overline{Z} - \overline{z_P}\right) \E{ \beta_1 | \bZ } } \\
+    & = \mu + \E{\left(\overline{Z} - \overline{z_P}\right) \cdot \beta_1 } \\
+    & = \mu + \beta_1 \E{ \overline{Z} - \overline{z_P} } \\
+    & = \mu + 0 \\
+    & = \mu
+    \ea
+    Moreover, if $\E{Y} < \infty$ and $\E{Z} < \infty$, by WLLN, $\mean{Y} \to_P \mu$ and $\mean{Z} \to_p \mean{z_P}$. Additionally, under the least squares assumptions, Wald's theorem yields $\estim{\beta_1} \to_p \beta_1$.
+    Thus, we have by Slutsky that
+\ba
+\estim{\mu}_\text{reg} \to \mu + \beta_1 \cdot (\mean{z_P} - \mean{z_P}) = \mu.
+\ea
+Thus, $\estim{\mu}_\text{reg}$ is consistent.
+\item 
+    Here, we have
+    \ba
+        \E{\estim{\mu}} 
+        & = \frac{1}{n} \sum_{i=1}^n \E{Y_i} \\
+        & = \frac{1}{n} \left[
+            \sum_{i: X_i = 0} \E{Y_i} + \sum_{i: X_i = 1} \E{Y_i} \right] \\
+        & = \frac{1}{n} \left[
+            n_0 \cdot \mu_0 + n_1 \cdot \mu_1
+        \right] \\
+        & = \boxed{ \frac{ n_0 \mu_0 + n_1 \mu_1 }{n} }
+    \ea
+    whereas
+    \ba
+        \Var{\estim{\mu}}
+        & = \frac{1}{n^2} \sum_{i=1}^n \Var{Y_i} \htab \text{(by independence)} \\
+        & = \frac{1}{n^2} \left[
+            \sum_{i:X_i = 0} \Var{Y_i} + \sum_{i:X_i = 1} \Var{Y_i}
+        \right] \\
+        & = \boxed{ \frac{ n_0 \sigma_0^2 + n_1 \sigma_1^2 }{n^2} }
+    \ea
+\item
+    The estimator $\estim{\mu}$ solves $G(\estim\mu) = 0$, i.e. 
+    \ba
+    0 = G(\estim\mu) = \sum_{i=1}^n w_i (Y_i - \estim\mu) = \sum_{i=1}^n w_i Y_i - \estim\mu \sum_{i=1}^n w_i \\
+    \implies \estim\mu \sum_{i=1}^n w_i = \sum_{i=1}^n w_i Y_i \\
+\implies \estim\mu = \frac{\sum_{i=1}^n w_i Y_i}{\sum_{i=1}^n w_i} \qed
+    \ea
+    In our case,
+    \ba
+        w_i = \frac{1}{\pi_i} 
+        & = \begin{cases}
+        \frac{1}{N_0/N}, & X_i = 0 \\
+        \frac{1}{N_1/N}, & X_i = 1
+    \end{cases} 
+    = \begin{cases}
+        \frac{N}{N_0}, & X_i = 0 \\
+        \frac{N}{N_1}, & X_i = 1
+    \end{cases}
+    \ea
+    yielding
+    \ba
+        \E{\estim{\mu}_w} & = \frac{1}{\sum_{i=1}^n w_i} \sum_{i=1}^n w_i \E{Y_i} \\
+        & = \frac{1}{n_0 \cdot \frac{N}{N_0} + n_1 \cdot \frac{N}{N_1}}
+            \left[ \sum_{i:X_i=0} w_i \E{Y_i} + \sum_{i:X_i=1} w_i \E{Y_i} \right] \\
+        & = \frac{1}{\frac{n_0 N_1 N + n_1 N_0 N}{N_0 N_1}}
+            \left[ n_0 \frac{N}{N_0} \mu_0 + n_1 \frac{N}{N_1} \mu_1 \right] \\
+        & = \frac{ n_0 N_1 \mu_0 + n_1 N_0 \mu_1}{ n_0 N_1 + n_1 N_0 }
+    \ea
+    and
+    \ba
+        \Var{\estim{\mu}_w}
+        & = \frac{1}{\left(\sum_i w_i\right)^2}
+            \sum_{i=1}^n w_i^2 \Var{Y_i} \\
+            & = \frac{1}{ \left(\frac{n_0 N_1 N + n_1 N_0 N}{N_0 N_1} \right)^2 }
+            \left[ \sum_{i:X_i=0} w_i^2 \Var{Y_i}
+                    + \sum_{i:X_i=1} w_i^2 \Var{Y_i}
+                \right] \\
+        & = \frac{ N_0^2 N_1^2 \left[ n_0 \left(\frac{N}{N_0}\right)^2 \sigma_0^2
+        + n_1 \left(\frac{N}{N_1}\right)^2 \sigma_1^2 \right]}
+        { (n_0 N_1 + n_1 N_0)^2 N^2 } \\
+        & = \frac{ n_0 N_1^2 \sigma_0^2 + n_1 N_0^2 \sigma_1^2 }
+            { (n_0 N_1 + n_1 N_0)^2}
+    \ea
+\enumend
+
+\section*{Appendix A: Problem 1 Source}
+\lstinputlisting{P1.R}
+\end{document}
+
