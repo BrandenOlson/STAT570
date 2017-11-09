@@ -204,7 +204,8 @@
 
 \section*{Problem 1}
 \enum
-\item Since a random sample implies that $Y_1, \dotsc, Y_n$ are a i.i.d, we have
+\item  % Part (a)
+    Since a random sample implies that $Y_1, \dotsc, Y_n$ are a i.i.d, we have
 \ba
 \E{\estim{\mu}} & = 
     \frac{1}{n} \sum_{i=1}^n \E{Y_i} \\
@@ -222,16 +223,13 @@ Moreover,
     & = \frac{\Var{Y_1}}{n}
 \ea
 
-\item
-    Here, if we assume independence of $Y_i$ and $Z_j$ $\forall i, j$, then
+\item % Part(b)
+    Here, we have
     \ba
     \E{\estim{\mu}_\text{rat}} & = \overline{z_P} 
-        \E{\overline{Y} \cdot \frac{1}{\overline{Z}} } \\
-        & = \overline{z_P} \E{\overline{Y}} \E{\frac{1}{\overline{Z}}} 
+        \E{\frac{\mean{Y}}{\mean{Z}}} \\
     \ea
-which is unbiased only if $\E{\frac{1}{\overline{Z}}} = \frac{1}{\overline{z_P}}$.
-Otherwise, if $Y_i$ and $Z_i$ are dependent, then we would need for 
-$\E{\frac{\overline{Y}}{\overline{Z}}} = \frac{1}{\overline{z_P}}$, which is unlikely to be the case. 
+which is unbiased only if $\E{\frac{\mean{Y}}{\overline{Z}}} = \frac{\mu}{\overline{z_P}}$, which is not the case in general.
 On the other hand, given that $\E{Y} < \infty$ and $\E{Z} < \infty$, by the WLLN, we have both $\overline{Y} \to_P \E{Y}$ and 
 $\overline{Z} \to_P \overline{z_P}$, so that by slutsky and continuous mapping,
 $\frac{\overline{Y}}{\overline{Z}} \to_P \frac{\E{Y}}{\overline{z_P}}$. 
@@ -241,14 +239,64 @@ Thus,
     = \E{Y}.
 \ea
 That is, $\estim{\mu}_\text{rat}$ is a consistent estimator.
-As for an approximate variance, if we want to avoid imposing assumptions such as independence of $Y_i$ and $Z_i$, we can consider
+As for the variance, we can use Taylor approximations as follows.
+First, note that
 \ba
-\Var{\estim{\mu}_\text{rat}} 
-& = \overline{z_P}^2 \Var{ \frac{\mean{Y}}{\mean{Z}} } \\
-& \approx \mean{z_P}^2 \frac{1}{n - 1} 
-\sum_{i=1}^n \left( \frac{Y_i}{Z_i} - \mean{\left(\frac{Y}{Z}\right)} \right)^2
+f(y, z) = f(\mu_Y, \mu_Z) + f_Y(\mu_Y, \mu_Z) (y - \mu_Y) 
+	+ f_Z(\mu_Y, \mu_Z)(z - \mu_Z) + \mathcal O(yz)
 \ea
-i.e., the sample variance of the quantities $Y_i/Z_i$, $i = 1, \dotsc, n$.
+which means that
+\ba
+\E{ f(Y, Z) } & = f(\mu_Y, \mu_Z) + f_Y(\mu_Y, \mu_Z) \E{Y - \mu_Y}
+	+ f_Z(\mu_Y, \mu_Z) \E{Z - \mu_Z} + \E{\mathcal O(YZ)} \\
+	& = f(\mu_Y, \mu_Z) + 0 + 0 + \E{\mathcal O(YZ) } \\
+	& \approx f(\mu_Y, \mu_Z).
+\ea
+Thus,
+\ba
+\Var{f(Y, Z)} & \equiv \E{(f(Y, Z) - \E{f(Y, Z)})^2 } \\
+	& \approx \E{( f(Y, Z) - f(\mu_Y, \mu_Z) )^2 }.
+\ea
+Taking another Taylor approximation,
+\ba
+\Var{f(Y, Z)} & \approx
+	\E{ \left( f(\mu_Y, \mu_Z) + f_Y(\mu_Y, \mu_Z) (Y - \mu_Y) 
+	+ f_Z(\mu_Y, \mu_Z)(Z - \mu_Z) 
+	+ \mathcal O(YZ) - f(\mu_Y, \mu_Z) \right)^2 } \\
+	& = \E{ \left( f_Y(\mu_Y, \mu_Z) (Y - \mu_Y) + f_Z(\mu_Y, \mu_Z)(Z - \mu_Z)
+		+ \mathcal O(YZ) \right)^2 } \\ 
+	& \approx
+	f_Y^2(\mu_Y, \mu_Z) \E{(Y - \mu_Y)^2}
+	+ 2 f_Y(\mu_Y, \mu_Z) f_Z(\mu_Y, \mu_Z) \E{(Y - \mu_Y)(Z - \mu_Z)} \\
+	& \htab + f_Z^2(\mu_Y, \mu_Z) \E{(Z - \mu_Z)^2} \\
+	& = f_Y^2(\mu_y, \mu_Z) \Var{Y} 
+	+ 2 f_Y(\mu_Y, \mu_Z) f_Z(\mu_Y, \mu_Z) \Cov{Y, Z} 
+	+ f_Z^2(\mu_Y, \mu_Z)\Var{Z} \\
+\ea
+In particular, for $f(\mean{Y}, \mean{Z}) = \frac{\mean{Y}}{\mean{Z}}$, we have
+\ba
+f_y(y, z) = \frac{1}{z} 
+\implies f_y(\mu_Y, \mu_Z) = \frac{1}{\mu_Z} 
+\ea
+\ba
+f_z(y, z) = -\frac{y}{z^2}
+\implies f_z(\mu_Y, \mu_Z) = - \frac{\mu_Y}{\mu_Z^2}
+\ea
+\ba
+\Var{\frac{\mean{Y}}{\mean{Z}}} & \approx
+	\left[\frac{1}{\mu_Z}\right]^2 \Var{\mean Y}
+	+ 2 \frac{1}{\mu_Z} \left(\frac{- \mu_Y}{\mu_Z^2}\right) \Cov{\mean Y, \mean Z}
+	+ \left[\frac{-\mu_Y}{\mu_Z^2} \right]^2 \Var{\mean Z} \\
+	& = \frac{\sigma_Y^2}{n \mu_Z^2}
+		- \frac{ 2 \mu_Y \frac{1}{n^2} \sum_i \sum_j \Cov{Y_i, Z_j} }
+			{ \mu_Z^3 }
+		+ \frac{ \mu_Y^2 \sigma_Z^2 }{n \mu_Z^4} \\
+	& = \frac{1}{n \mu_Z^2} \left[ \sigma_Y^2
+		- \frac{2 \mu_Y \Cov{Y_i, Z_i} }{ \mu_Z }
+		+ \frac{\mu_Y^2 \sigma_Z^2}{ \mu_Z^2 }
+		\right]
+\ea
+ 
 \item
     Assuming that the usual linear regression assumptions are met, and that 
     $\E{\estim{\beta_1} | \bZ} = \beta_1$, a constant, we have
@@ -269,6 +317,11 @@ i.e., the sample variance of the quantities $Y_i/Z_i$, $i = 1, \dotsc, n$.
 \estim{\mu}_\text{reg} \to \mu + \beta_1 \cdot (\mean{z_P} - \mean{z_P}) = \mu.
 \ea
 Thus, $\estim{\mu}_\text{reg}$ is consistent.
+As for an approximate variance, we have
+\ba
+\Var{\estim{\mu}_\text{reg}} 
+& = \Var{ \mean{Y} + \estim{\beta_1} (\mean{Z} - \mean{z_P} }
+\ea
 \item 
     Here, we have
     \ba
