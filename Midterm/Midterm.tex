@@ -82,11 +82,12 @@
 \newcommand*\eps{\epsilon}
 \newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
 \newcommand*\enumend{\end{enumerate}}
-\newcommand*\E[1]{\mathsf{E}\left[#1\right]}
+\newcommand*\E[1]{\;\mathsf{E}\left[#1\right]}
 \newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
-\newcommand*\Var[1]{\mathsf{Var}\left(#1\right)}
-\newcommand*\SD[1]{\mathsf{SD}\left(#1\right)}
-\newcommand*\Cov[1]{\;\text{Cov}\left[#1\right]}
+\newcommand*\Var[1]{\;\mathsf{Var}\left(#1\right)}
+\newcommand*\SD[1]{\;\mathsf{SD}\left(#1\right)}
+\newcommand*\SE[1]{\;\mathsf{SE}\left(#1\right)}
+\newcommand*\Cov[1]{\;\mathsf{Cov}\left(#1\right)}
 \newcommand*\iid{\overset{\text{iid}}{\sim}}
 \newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
 \newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
@@ -106,6 +107,7 @@
 \newcommand*\bB{\mathbf{B}}
 \newcommand*\bc{\mathbf{c}}
 \newcommand*\be{\mathbf{e}}
+\newcommand*\bG{\mathbf{G}}
 \newcommand*\bh{\mathbf{h}}
 \newcommand*\bI{\mathbf{I}}
 \newcommand*\bL{\mathbf{L}}
@@ -197,7 +199,7 @@
 }
 \vspace{-1in}
 \begin{document}
-\title{STAT 570: Midterm}
+\title{STAT 570 Midterm}
 \author{Branden Olson}
 \date{}
 \maketitle
@@ -292,10 +294,24 @@ f_z(y, z) = -\frac{y}{z^2}
 			{ \mu_Z^3 }
 		+ \frac{ \mu_Y^2 \sigma_Z^2 }{n \mu_Z^4} \\
 	& = \frac{1}{n \mu_Z^2} \left[ \sigma_Y^2
-		- \frac{2 \mu_Y \Cov{Y_i, Z_i} }{ \mu_Z }
+		- \frac{2 \mu_Y \rho_{Y, Z} }{ \mu_Z }
 		+ \frac{\mu_Y^2 \sigma_Z^2}{ \mu_Z^2 }
 		\right]
 \ea
+Plugging in the usual estimates $\estim{\mu}, \estim{\sigma^2}, \estim{\rho}$ yields the approximate variance
+\ba
+\boxed{
+\Var{\estim{\mu}_\text{rat}}
+	\approx \frac{ \mean{z_P}^2 }{n \estim{\mu_Z}^2}
+	\left[ \estim{\sigma_Y^2}
+		- \frac{2 \estim{\mu_Y} \estim{\rho_{Y, Z}} }
+		{ \estim{\mu_Z} }
+		+ \frac{\estim{\mu_Y}^2 \estim{\sigma_Z^2}}{ \estim{\mu_Z}^2 }
+		\right]
+		}
+\ea
+I don't think this is a very sensible estimator since it does not convey intuition behind the relationship of $Y$ and $Z$. In essence, it scales the sample mean of $Y$ by the "relative accuracy" of $\mean{Z}$ with respect to its population mean 
+$\mean{z_P}$, which to me isn't obviously beneficial.
  
 \item
     Assuming that the usual linear regression assumptions are met, and that 
@@ -303,11 +319,13 @@ f_z(y, z) = -\frac{y}{z^2}
     \ba
         \E{\estim{\mu}_\text{reg}}
         & = \E{\overline{Y}} + \E{\estim{\beta_1} 
-    \left(\overline{Z} - \overline{z_P}\right)} \\
-    & = \mu + \E{\E{ \estim{\beta_1} (\overline{Z} - \overline{z_P}) | \bZ } } \\
-    & = \mu + \E{ \left(\overline{Z} - \overline{z_P}\right) \E{ \beta_1 | \bZ } } \\
-    & = \mu + \E{\left(\overline{Z} - \overline{z_P}\right) \cdot \beta_1 } \\
-    & = \mu + \beta_1 \E{ \overline{Z} - \overline{z_P} } \\
+    \left(\overline{z_P} - \overline{Z}\right)} \\
+    & = \mu + \E{\E{ \estim{\beta_1} 
+    	(\overline{z_P} - \overline{Z}) | \bZ } } \\
+    & = \mu + \E{ \left(\overline{z_P} 
+    	- \overline{Z}\right) \E{ \beta_1 | \bZ } } \\
+    & = \mu + \E{\left(\overline{z_P} - \overline{Z}\right) \cdot \beta_1 } \\
+    & = \mu + \beta_1 \E{ \overline{z_P} - \overline{Z} } \\
     & = \mu + 0 \\
     & = \mu
     \ea
@@ -317,11 +335,43 @@ f_z(y, z) = -\frac{y}{z^2}
 \estim{\mu}_\text{reg} \to \mu + \beta_1 \cdot (\mean{z_P} - \mean{z_P}) = \mu.
 \ea
 Thus, $\estim{\mu}_\text{reg}$ is consistent.
-As for an approximate variance, we have
+As for an approximate variance, we can use Taylor approximations again.
+Using that $f(x, y, z) \approx f(\mu_x, \mu_y, \mu_z)$ when expanding about 
+$\bmu = (\mu_x, \mu_y, \mu_z)$, and similar steps as in (b), we have
 \ba
-\Var{\estim{\mu}_\text{reg}} 
-& = \Var{ \mean{Y} + \estim{\beta_1} (\mean{Z} - \mean{z_P} }
+\Var{f(X, Y, Z)} 
+	& \approx \E{ \left(f(X, Y, Z) - f(\bmu)\right)^2 } \\
+	& \approx \E{ \left( f_x(\bmu)(X - \mu_X) + f_y(\bmu)(Y - \mu_Y)
+		+ f_z(\bmu)(Z - \mu_Z) \right)^2 } \\
+	& = f_x^2(\bmu) \Var{X} + 2 (f_x f_y)(\bmu) \Cov{X, Y}
+		+ 2(f_x f_z)(\bmu) \Cov{X, Z} + f_y^2(\bmu) \Var{Y} \\
+		& \htab + 2 (f_y f_z)(\bmu) \Cov{Y, Z} + f_z^2(\bmu) \Var{Z}
 \ea
+Hence, with $\mean Y + \estim{\beta_1}(\mean{z_P} - \mean{Z}) 
+= f(\mean Y, \estim{\beta_1}, \mean{z_P} - \mean{Z}) \equiv f(X, Y, Z) = X + YZ$, we have $\bmu = \left(\mu_Y, \beta_1, 0\right)$, and
+\ba
+f_x(X, Y, Z) \equiv 1 \implies f_x(\bmu) \equiv 1 \\
+f_y(X, Y, Z) = Z  \implies f_y(\bmu) = 0 \\
+f_z(X, Y, Z) = Y \implies f_z(\bmu) = \beta_1.
+\ea
+Therefore,
+\ba
+\Var{\mean{Y} + \estim{\beta_1} \left(\mean{z_P} - \mean{Z}\right) }
+	& \approx \Var{\mean{Y}} + 2 \cdot 1 \cdot \beta_1 \Cov{\mean{Y}, -\mean{Z}} 
+	+ \beta_1^2 \Var{\mean{Z}} \\
+	& = \frac{\sigma_Y^2}{n} - 2 \beta_1 \frac{\Cov{Y, Z}}{n}
+		+ \beta_1^2 \frac{\sigma_Z^2}{n} \\
+	& = \frac{1}{n} \left[ \sigma_Y^2 - 2 \beta_1 \rho_{Y, Z}
+	 + \beta_1^2 \sigma_Z^2 \right] \\
+	& \approx \boxed{ \frac{1}{n} \left[ \estim{\sigma_Y^2} - 2 \estim{\beta_1}
+		\estim{ \rho_{Y, Z} }
+	 + \estim{\beta_1}^2 \estim{\sigma_Z^2} \right] } \\
+\ea
+I believe this is a more sensible estimator since it is unbiased, consistent, and relates $\mean{Y}$ and $\mean{Z}$ in a more natural linear way as opposed to a ratio. Furthermore, its form is similar to a linearization, in that we can write
+\ba
+\estim{\mu}_\text{reg} - \mean{Y} = \estim{\beta_1} ( \mean{z_P} - \mean{Z} ),
+\ea
+in point-slope form.
 \item 
     Here, we have
     \ba
@@ -386,9 +436,114 @@ As for an approximate variance, we have
         & = \frac{ n_0 N_1^2 \sigma_0^2 + n_1 N_0^2 \sigma_1^2 }
             { (n_0 N_1 + n_1 N_0)^2}
     \ea
+\item
+The source code for the rest of this problem can be found in Appendix A. We show a table of the estimated means and standard errors for each estimator below.
+\input{mus.tex} \\
+There seems to be high agreement between both the means and standard errors, with $\estim{\mu}_\text{reg}$ exhibiting the lowest SE. This is perhaps my preferred estimator, as it is has the tightest uncertainty bounds, has a nice linear form, and attempts to include information about $\bZ$ without resorting to ratios (which can be more unstable for smaller sample sizes).
+\item
+Below we include a table of the estimated means and standard errors for each estimator below.
+\input{mu2.tex}
 \enumend
 
+\section*{Problem 2}
+The source code for this problem can be found in Appendix B.
+\enum
+\item
+Using \texttt{lm} in R, we find that
+\ba
+\estim{\beta_1} & \approx 0.04596 \\
+\SE{\estim{\beta_1}} & \approx 0.004991
+\ea
+\item
+Again using \texttt{lm}, we find that
+\ba
+\estim{\beta_1} & \approx 0.02803 \\
+\SE{\estim{\beta_1}} & \approx 0.006510
+\ea
+However, this is not an appropriate analysis if the modeler intends to understand the differences of SBP between strata. A quick look at a plot of the data along with the fitted line from the above slope paints the picture:
+\begin{center}
+\includegraphics[width=\linewidth]{fit_b.pdf}
+\end{center}
+It is clear that we are fitting a line between two different clusters, instead of fitting two separate lines as we should, unless we don't care about differences between strata. Including an interaction between birthweight and race would do the trick.
+\item
+Including race as a covariate, our values become
+\ba
+\estim{\beta_1} & \approx 0.02988 \\
+\SE{\estim{\beta_1}} & \approx 0.0006527
+\ea
+Note that this model takes the form
+\ba
+\E{\text{SBP}_i} & = \beta_0 + \beta_1 \text{BirthWeight}_i + \beta_2 \text{Race}_i \\
+	& = \begin{cases}
+		\beta_0 + \beta_1 \text{BirthWeight}_i, \htab \text{Race}_i = 0 \\
+		\beta_0 + \beta_1 \text{BirthWeight}_i + \beta_2 \cdot 1, \htab \text{Race}_i = 1
+		\end{cases} \\
+	& = \begin{cases}
+		\beta_0 + \beta_1 \text{BirthWeight}_i, \htab \text{Race $i$ is African American} \\
+		\left(\beta_0 + \beta_2 \right) + \beta_1 \text{BirthWeight}_i, \htab \text{Race $i$ is European American}
+	\end{cases}
+\ea
+Thus, AA and EA individuals are assumed to have different intercepts but the same slope. This allows for the interpretation of $\beta_1$ as the associated response in a unit change in SBP regardless of race, but given that the race intercepts have been separately inferred.
+\item
+Including sample weights, our values become
+\ba
+\estim{\beta_1} & \approx 0.02988 \\
+\SE{\estim{\beta_1}} & \approx 0.0006527
+\ea
+This model takes the form
+\ba
+\E{\text{SBP}_i} & = \beta_0 + \beta_1 \text{BirthWeight}_i 
+	+ \beta_2 w_i \\
+	& = \begin{cases}
+		\beta_0 + \beta_1 \text{BirthWeight}_i + \beta_2 \frac{N}{N_0},
+		 \htab \text{Race}_i = 0 \\
+		\beta_0 + \beta_1 \text{BirthWeight}_i 
+		+ \beta_2 \frac{N}{N_1}, \htab \text{Race}_i = 1
+		\end{cases} \\
+	& = \begin{cases}
+		\left(\beta_0 + \frac{\beta_2 N}{N_0} \right)
+		+ \beta_1 \text{BirthWeight}_i, 
+		\htab \text{Race $i$ is African American} \\
+		\left(\beta_0 + \frac{\beta_2 N}{N_1} \right) 
+		+ \beta_1 \text{BirthWeight}_i,
+		 \htab \text{Race $i$ is European American}
+	\end{cases}
+\ea
+The slope $\beta_1$ represents the associated response in a unit change in SBP regardless of race, given that the intercepts are regressed on the design weights with a common intercept. 
+\item
+The estimating equation estimator satisfies
+\ba
+0 = \bG(\bbeta) = \bx^T \bw (\bY - \bx \bbeta) 
+	= \bx^T \bw \bY  - \bx^T \bw \bx \bbeta
+\ea
+so that, assuming $\bx^T \bw \bx \in \reals^{2 \times 2}$ is invertible, we have
+\ba
+\implies \bx^T \bw \bx \estim\bbeta_w = \bx^T \bw \bY \\
+\implies \estim\bbeta_w = \left(\bx^T \bw \bx\right)^{-1} \bx^T \bw \bY
+\ea
+Furthermore, we have
+\ba
+\Var{\estim{\beta}_w} 
+& = \Var{\left(\bx^T \bw \bx\right)^{-1} \bx^T \bw \bY } \\
+& = \left(\bx^T \bw \bx\right)^{-1} \bx^T \bw \Var{\bY}
+	\left[ \left(\bx^T \bw \bx\right)^{-1} \bx^T \bw \right]^T \\
+& = \sigma_Y^2 \left(\bx^T \bw \bx\right)^{-1} \bx^T \bw 
+	\bw^T \bx \left(\bx^T \bw \bx\right)^{-T}
+\ea
+These expressions yield the estimates
+\ba
+\estim{\beta}_w & \approx 0.01673 \\
+\SE{\estim{\beta}_w} & \approx 0.008831
+\ea
+\item
+In conclusion, it seems that including birthweight, race, and their interaction, would be the most sensible way to model the SBP data. This matches our intuition that each stratum will possibly have its own trend, i.e. its own slope and intercept, in general. 
+\enumend
+
+\tiny
 \section*{Appendix A: Problem 1 Source}
 \lstinputlisting{P1.R}
+
+\section*{Appendix B: Problem 2 Source}
+\lstinputlisting{P2.R}
 \end{document}
 
