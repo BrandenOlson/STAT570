@@ -1,0 +1,356 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\mean[1]{\overline{#1}}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\;\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\;\mathsf{Var}\left(#1\right)}
+\newcommand*\SD[1]{\;\mathsf{SD}\left(#1\right)}
+\newcommand*\SE[1]{\;\mathsf{SE}\left(#1\right)}
+\newcommand*\Cov[1]{\;\mathsf{Cov}\left(#1\right)}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bG{\mathbf{G}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bell{\boldsymbol{\ell}}
+\newcommand*\bL{\mathbf{L}}
+\renewcommand*\bm{\mathbf{m}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bV{\mathbf{V}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\mathsf{P}_{#1}\left(#2\right)}
+\newcommand\Vsub[2]{\mathsf{Var}_{#1}\left(#2\right)}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left(#1\right) }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+\begin{document}
+\title{STAT 570: Homework 6}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\enum
+\item
+To explore the datasets, we first examine a joint plot of the two empirical cumulative distribution functions:
+\begin{center}
+\includegraphics[width=\linewidth]{cdfs.pdf}
+\end{center}
+Next, we look at a table of the quartiles, means, minima and maxima:
+\input{summary.tex}
+
+From these two summaries, we do see evidence of a difference in the two distributions, so we should conduct formal analyses to determine if the difference is significant. 
+\item
+For (i), we consider the model
+\begin{equation}
+\E{Y_i} = \beta_0 + \beta_1 x_i,
+\end{equation}
+where as in (c),
+\ba
+x_i = \begin{cases}
+		[1, 0], & i = 1, \dotsc, n \\
+		[1, 1], & i = n + 1, \dotsc, 2n
+	\end{cases}.
+\ea
+According to this model, $\beta_1$ represents the difference in means between the two datasets. Hence, a 90\% confidence interval for differences between distributions is a 90\% confidence interval for $\estim{\beta_1}$. Furthermore, we can see if this interval contains zero to determine whether we believe the difference to be significant or not. 
+
+For (ii) and (iii), we consider the models 
+\begin{equation}\label{logmodel}
+\E{\ln{Y_i}} = \beta_0 + \beta_1 x_i
+\end{equation}
+and
+\begin{equation}\label{sqrtmodel}
+\E{\sqrt{Y_i}} = \beta_0 + \beta_1 x_i
+\end{equation}
+respectively. Similar reasoning yields that $\beta_1$ represents the difference in means between the two datasets on their transformed scale. Hence, we will also examine 90\% confidence intervals for $\estim{\beta_1}$ in \eqref{logmodel} and \eqref{sqrtmodel}. 
+The table of confidence intervals for each model is shown below.
+\input{ci.tex}
+In each case, we see that the CI does not contain zero, although it does come closer for the two transformed scales. When choosing a scale, we would like to meet the least squares assumptions as closely as possible since we are using \texttt{lm} for fitting. Perhaps the most straightforward way to assess each fit is to examine the residuals, shown below for each case. 
+\begin{center}
+\includegraphics[width=\linewidth]{resids.pdf}
+\end{center}
+The log transform seems to give the highest degree of heteroskedasticity.
+For thoroughness we can also examine normal QQ-plots to assess normality of the residuals.
+\begin{center}
+    \includegraphics[width=\linewidth]{qqplots.pdf}
+\end{center}
+In each case there is good agreement, with some occassional skew that might be attributable to a small sample size.
+We conclude that the log scale is likely the appropriate for analysis given these model assumption diagnostics.
+\item
+Here, we use similar modeling as in (b) but via the GLM framework. For a Poisson GLM, the canonical link is the logarithm, so that we have
+\begin{equation}
+\log\left(\E{Y_i}\right) = \beta_0 + \beta_1 x_i.
+\end{equation}
+For the Gamma distribution, the canonical link is the inverse function, so that
+\begin{equation}
+\frac{1}{\E{Y_i}} = \beta_0 + \beta_1 x_i
+\end{equation}
+Lastly, for the inverse Gaussian distribution, the canonical link is the inverse square, so that
+\ba
+\frac{1}{\left(\E{Y_i}\right)^2} = \beta_0 + \beta_1 x_i
+\ea
+
+For case (i),
+\ba
+\mu_i & = \exp\left(\beta_0 + \beta_1 x_i\right) \\
+\mu_0 & = \e^{\beta_0} \\
+\mu_1 & = \e^{\beta_0 + \beta_1}
+\ea
+Thus, equal means implies
+\ba
+\mu_1 - \mu_0 = 0 & \implies \e^{\beta_0 + \beta_1} - \e^{\beta_0} = 0 \\
+    & \implies \beta_1 = 0.
+\ea
+Moreover, we have that
+$f(\beta_0, \beta_1) := \e^{\beta_0 + \beta_1} - \e^{\beta_0}$ transforms the data to the original scale. Similarly, we see that taking $\beta_0' = \log(\beta_0)$ and $\beta_1' = \log(\beta_1)$ would equate the means and the sum of the $\beta_i$'s. 
+\\
+For case (ii),
+\ba
+\mu_i & = \frac{1}{\beta_0 + \beta_1 x_i} \\
+\mu_0 & = \frac{1}{\beta_0} \\
+\mu_1 & = \frac{1}{\beta_0 + \beta_1}
+\ea
+Thus, equal means would imply
+\ba
+\mu_1 - \mu_0 = 0 = \frac{1}{\beta_0 + \beta_1} - \frac{1}{\beta_0} \\
+\implies \beta_1 = 0.
+\ea
+Moreover, we have that $f(\beta_0, \beta_1) = \frac{1}{\beta_0 + \beta_1} - \frac{1}{\beta_0}$ returns to the original scale.
+Alternatively, we can take $\beta_0' = \frac{1}{\beta_0}$ and
+\ba
+\mu_1 = \frac{1}{\frac{1}{\beta_0} + \beta_1' } = \beta_1 \\
+\implies \frac{1}{\beta_1} = \frac{1}{\beta_0} + \beta_1' \\
+\implies \beta_1' = \frac{1}{\beta_1} - \frac{1}{\beta_0}. 
+\ea
+\\
+For case (iii),
+\ba
+\mu_i & = \frac{1}{\sqrt{\beta_0 + \beta_1 x_i}} \\
+\mu_0 & = \frac{1}{\sqrt{\beta_0}} \\
+\mu_1 & = \frac{1}{\sqrt{\beta_0 + \beta_1}}
+\ea
+So that
+\ba
+\mu_1 - \mu_0 = 0 = \frac{1}{\sqrt{\beta_0 + \beta_1}} - \frac{1}{\sqrt{\beta_0}} \\
+\implies \beta_1 = 0
+\ea
+Here, $f(\beta_0, \beta_1) = \frac{1}{\sqrt{\beta_0 + \beta_1}} - \frac{1}{\sqrt{\beta_0}}$ puts the problem on the original scale. Alternatively, set
+\ba
+\frac{1}{\sqrt{\beta_0'}} = \beta_0 \\
+\frac{1}{\beta_0} = \sqrt{\beta_0'} \\
+\beta_0' = \frac{1}{\beta_0^2}
+\ea
+and
+\ba
+\beta_1 = \frac{1}{\sqrt{ \frac{1}{\beta_0^2} + \beta_1' }} \\
+\sqrt{\frac{1}{\beta_0^2} + \beta_1'} = \frac{1}{\beta_1} \\
+\frac{1}{\beta_0^2} + \beta_1' = \frac{1}{\beta_1^2} \\
+\beta_1' = \frac{1}{\beta_1^2} - \frac{1}{\beta_0^2}. 
+\ea
+
+\item
+We use the \texttt{confint} function in R which automatically constructs the MLE-based confidence interval for a \texttt{glm} object.
+A table displaying the 90\% CI for each model is given below.
+\input{ci2.tex}
+Under each model assumption, the confidence interval does not contain zero, and hence we would conclude that the means are not equal. 
+Care needs to be taken, however, as a 95\% CI for the inverse Gaussian model does actually contain zero.
+
+\enumend
+\newpage
+\section*{Appendix A: Source Code}
+\lstinputlisting{P1.R}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
