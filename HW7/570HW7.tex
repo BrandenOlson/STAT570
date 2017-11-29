@@ -1,0 +1,504 @@
+\documentclass[11pt]{article}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{cite}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{bigstrut}
+\usepackage{rotating}
+\usepackage{ mathrsfs }
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{setspace}
+
+\pagenumbering{gobble}
+
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{}
+\SetMathAlphabet{\mathsfit}{bold}{\encodingdefault}{\sfdefault}{bx}{}
+
+\newcommand{\tens}[1]{\bm{\mathsfit{#1}}}
+
+\usepackage{color}
+\lstset{language=R,basicstyle=\ttfamily,breaklines=true,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{magenta}\ttfamily,
+                showstringspaces=false,
+                }
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand*\mb{\mathbf}
+\newcommand*\reals{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\nats{\naturals}
+\newcommand*\integers{\mathbb{Z}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\irrationals{\mathbb{J}}
+\newcommand*\pd{\partial}
+\newcommand*\htab{\hspace{4 mm}}
+\newcommand*\vtab{\vspace{0.5 in}}
+\newcommand*\lsent{\mathcal{L}}
+\newcommand*\mean[1]{\overline{#1}}
+\newcommand*\union{\cup}
+\newcommand*\intersect{\cap}
+\newcommand*\cl{\cancel}
+\newcommand*\ANS{\text{ANS}}
+\newcommand*\As{\text{As}}
+\newcommand*\then{\rightarrow}
+\newcommand*\elim{\text{E}}
+\newcommand*\intro{\text{I}}
+\newcommand*\absurd{\curlywedge}
+\newcommand*\NK{\vdash_{\text{NK}}}
+\newcommand*\interp{\mathcal{I}}
+\newcommand*\ba{\[ \begin{aligned}}
+\newcommand*\ea{\end{aligned} \]}
+\newcommand*\C{\mathcal{C}}
+\newcommand*\card[1]{\text{card}\left(#1\right)}
+\newcommand*\D{\mathscr{D}}
+\newcommand*\df{=_{\text{def}}}
+\newcommand*\eps{\epsilon}
+\newcommand*\enum{\begin{enumerate}[label=(\alph*)]}
+\newcommand*\enumend{\end{enumerate}}
+\newcommand*\E[1]{\;\mathsf{E}\left[#1\right]}
+\newcommand*\Esub[2]{\mathsf{E}_{#1}\left[#2\right]}
+\newcommand*\Var[1]{\;\mathsf{Var}\left(#1\right)}
+\newcommand*\SD[1]{\;\mathsf{SD}\left(#1\right)}
+\newcommand*\SE[1]{\;\mathsf{SE}\left(#1\right)}
+\newcommand*\Cov[1]{\;\mathsf{Cov}\left(#1\right)}
+\newcommand*\iid{\overset{\text{iid}}{\sim}}
+\newcommand*\Exp[1][\lambda]{\text{Exp}(\text{rate}=#1)}
+\newcommand*\ind[1]{\mathbf{1}\left(#1\right)}
+\newcommand*\set[1]{\left\{#1\right\}}
+\newcommand*\estim[1]{\widehat{#1}}
+\newcommand*\der{\text{d}}
+\newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
+\newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
+\newcommand*\norm[1]{\left\|#1\right\|}
+\newcommand*\dist[2]{\;\text{dist}\left(#1, #2\right)}
+\newcommand*\interior{\text{int}\;}
+\newcommand*\exterior{\text{ext}\;}
+\newcommand*\boundary{\text{bd}\;}
+\newcommand*\lh{\overset{\text{L'H}}{=}}
+\newcommand*\bA{\mathbf{A}}
+\newcommand*\bb{\mathbf{b}}
+\newcommand*\bB{\mathbf{B}}
+\newcommand*\bc{\mathbf{c}}
+\newcommand*\bD{\mathbf{D}}
+\newcommand*\be{\mathbf{e}}
+\newcommand*\bG{\mathbf{G}}
+\newcommand*\bh{\mathbf{h}}
+\newcommand*\bI{\mathbf{I}}
+\newcommand*\bell{\boldsymbol{\ell}}
+\newcommand*\bL{\mathbf{L}}
+\renewcommand*\bm{\mathbf{m}}
+\newcommand*\bo{\mathbf{o}}
+\newcommand*\br{\mathbf{r}}
+\newcommand*\bs{\mathbf{s}}
+\newcommand*\bS{\mathbf{S}}
+\newcommand*\bt{\mathbf{t}}
+\newcommand*\bu{\mathbf{u}}
+\newcommand*\bv{\mathbf{v}}
+\newcommand*\bV{\mathbf{V}}
+\newcommand*\bx{\mathbf{x}}
+\newcommand*\bw{\mathbf{w}}
+\newcommand*\bW{\mathbf{W}}
+\newcommand*\bX{\mathbf{X}}
+\newcommand*\by{\mathbf{y}}
+\newcommand*\bY{\mathbf{Y}}
+\newcommand*\bZ{\mathbf{Z}}
+\newcommand*\bz{\mathbf{z}}
+\newcommand*\bp{\mathbf{p}}
+\newcommand*\bzero{\mathbf{0}}
+\newcommand*\bone{\mathbf{1}}
+\newcommand*\balpha{\boldsymbol{\alpha}}
+\newcommand*\bbeta{\boldsymbol{\beta}}
+\newcommand*\bgamma{\boldsymbol{\gamma}}
+\newcommand*\beps{\boldsymbol{\varepsilon}}
+\newcommand*\btheta{\boldsymbol{\theta}}
+\newcommand*\bTheta{\boldsymbol{\Theta}}
+\newcommand*\bmu{\boldsymbol{\mu}}
+\newcommand*\bsigma{\boldsymbol{\sigma}}
+\newcommand*\bSigma{\boldsymbol{\Sigma}}
+\newcommand*\bOmega{\boldsymbol{\Omega}}
+\newcommand\Psub[2]{\mathsf{P}_{#1}\left(#2\right)}
+\newcommand\Vsub[2]{\mathsf{Var}_{#1}\left(#2\right)}
+\newcommand\e{\operatorname{e}}
+\newcommand\prox{\operatorname{prox}}
+\newcommand\T{\mathsf{T}}
+
+\newread\tmp
+\newcommand\getcount{
+	\openin\tmp=knot_count.txt
+	\read\tmp to \knots
+	\closein\tmp
+	
+	\openin\tmp=span.txt
+	\read\tmp to \spanval
+	\closein\tmp
+	
+	\openin\tmp=span_g.txt
+	\read\tmp to \spantwo
+	\closein\tmp
+	
+	\openin\tmp=span_g_2.txt
+	\read\tmp to \spanthree
+	\closein\tmp
+}
+
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+\DeclareMathOperator*{\argmin}{arg\;min}
+\DeclareMathOperator*{\argmax}{arg\;max}
+\renewcommand\;{\,}
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\rho{\varrho}
+\renewcommand\phi{\varphi}
+\renewcommand\mod{\hspace{0.2em} \textbf{mod}\hspace{0.2em}}
+\renewcommand\Pr[1]{ \mathsf{Pr}\left(#1\right) }
+
+\lstset{breaklines=true,
+        numbersep=5pt,
+        xleftmargin=.25in,
+        xrightmargin=.25in}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\sgn}{sgn}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+\vspace{-1in}
+\begin{document}
+\title{STAT 570: Homework 7}
+\author{Branden Olson}
+\date{}
+\maketitle
+
+\section{}
+Our likelihood is
+\ba
+L(\lambda | \by, \bt)
+	& \propto p(\by | \lambda, \bt) \\
+	& \propto \prod_{i=1}^n
+		\exp(-t_i \lambda) (t_i \lambda)^{y_i} \\
+	& \exp\left(-\lambda \sum_{i=1}^n t_i \right)
+		\prod_{i=1}^n t_i^{y_i} \times \lambda^{\sum_{i=1}^n y_i }
+\ea
+yielding the log-likelihood
+\ba
+\ell(\lambda) = -\lambda \sum_i t_i + \sum_i y_i \log(t_i)
+		+ \sum_i y_i \log(\lambda).
+\ea
+Taking the derivative and setting to zero,
+\ba
+\pderiv{\ell}{\lambda}
+	& = - \sum_i t_i + \sum_i y_i \cdot \frac{1}{\lambda} = 0 \\
+\ea
+\ba
+\implies \estim{\lambda} = 
+	\boxed{ \frac{\sum_{i=1}^n y_i}{\sum_{i=1}^n t_i} }
+\ea
+Moreover,
+\ba
+\pderiv{^2\ell}{\lambda^2}
+	& = \sum_i y_i \cdot \frac{-1}{\lambda^2}
+\ea
+yielding the information number
+\ba
+I(\lambda) & = -\E{ \ddot{\ell}_{\lambda \lambda}} \\
+	& = \frac{1}{\lambda^2} \sum_i \E{Y_i} \\
+	& = \frac{1}{\lambda^2} \sum_i t_i \lambda \\
+	& = \frac{1}{\lambda} \sum_{i=1}^n t_i
+\ea
+Thus, using the asymptotic result for MLEs,
+\ba
+\sqrt{n}\left(\frac{\estim{\lambda} - \lambda}
+	{\sqrt{ \frac{\lambda}{\sum_i t_i} } } \right) \to_d
+	 \mathcal N\left(0, 1 \right).
+\ea
+Hence, a standard error estimate is
+\ba
+\text{SE}(\estim\lambda)
+	 = \sqrt{ \frac{\lambda}{\sum_{i=1}^n t_i } } 
+\ea
+Using these forms yields the following table:
+\input{a.tex}
+\section{}
+Here, we have
+\ba
+\E{ Y_i | \lambda } = t_i \lambda = \mu_i = (\bmu(\lambda))_i
+\ea
+\ba
+\Var{ Y_i | \lambda } = \kappa \mu_i
+	\equiv \alpha \bV(\mu(\lambda))
+\ea
+So that $\mu(\lambda) = \bt \lambda$,
+$\alpha = \kappa$, and $\bV(\bmu) = \text{diag}(\bmu) 
+	= \lambda\text{diag}(\bt)$. 
+\ba
+\pderiv{\mu_i}{\lambda} 
+	& = t_i
+	\implies
+	\bD = \bt
+\ea
+Noting that
+\ba
+\bV^{-1} = \frac{1}{\lambda} \text{diag}\left(\frac{1}{\bt}\right)
+\ea
+Hence, our estimating equation is
+\ba
+\bD^T \tilde\bV^{-1} \left[ \bY - \mu(\lambda) \right]/\alpha = \bzero \\
+	\implies
+		\bt^T \tilde\bV^{-1} \left[ \bY - \bt \lambda \right]/\alpha = 0 \\
+	\implies
+		\lambda \bt^T \tilde\bV^{-1} \bt = \bt^T \bV^{-1} \bY \\
+	\implies
+		\lambda = \frac{\bt^T \tilde\bV^{-1} \bY}{\bt^T \bV^{-1} \bt}
+\ea
+where $\tilde \bV^{-1} = \text{diag}(1/\bt)$. 
+We can use
+\ba
+\estim{\alpha} = \frac{1}{n - 1}
+	\sum_{i=1}^n \frac{ \left(Y_i - \estim{\mu_i} \right)^2 }
+		{ \estim{\mu_i} }
+\ea
+yielding
+\ba
+\text{SE} = \sqrt{ \frac{ \bt^T \bV^{-1} \bt }{\estim{\alpha} } }
+\ea
+The numerical values of $\estim{\lambda}$ and its standard error are shown below. 
+\input{b.tex}
+\section{}
+Here we use the estimating equation
+\ba
+\pderiv{\ell}{\lambda} = 0
+	\iff
+	\sum_{i=1}^n \left( \frac{y_i}{\lambda} - t_i \right) = 0
+\ea
+implying that
+\ba
+G(\lambda, Y_i) = \frac{Y_i}{\lambda} - t_i
+\ea
+\ba
+\estim{A} & = \frac{1}{n} \sum_{i=1}^n
+		\pderiv{}{\lambda} \left[ \frac{y_i}{\lambda} 
+		- t_i \right]_{\lambda = \estim\lambda} \\
+	& = -\frac{1}{n} \sum_{i=1}^n \frac{y_i}{\estim\lambda^2}
+\ea
+\ba
+\estim B = \frac{1}{n} \sum_{i=1}^n 
+	\left( \frac{y_i}{\estim{\lambda}} - t_i \right)^2
+\ea
+Hence,
+\ba
+\Var{\estim{\lambda}}
+	& \approx
+	\frac{\estim A^{-1} \estim B \estim A^{-1}}{n} \\
+	& = \frac{ \frac{1}{n} \sum_{i=1}^n 
+	\left( \frac{y_i}{\estim{\lambda}} - t_i \right)^2 }
+	{ n \left[ -\frac{1}{n} \sum_{i=1}^n \frac{y_i}{\estim\lambda^2} \right]^2 }
+\ea
+The numerical results for this part are shown below.
+\input{c.tex}
+\section{}
+We have
+\ba
+\E{Y_i} & = \E{\E{Y_i | \theta_i}} \\
+	& = \E{\E{ \text{Poisson}(t_i \theta_i) | \theta_i } } \\
+	& = \E{ t_i \theta_i } \\
+	& = \boxed{ \frac{ t_i \alpha }{\beta} }
+\ea
+Moreover, we have
+\ba
+\Var{ Y_i } & = \E{ \Var{Y_i | \theta_i} }
+		+ \Var{ \E{ Y_i | \theta_i } } \\
+	& = \E{ t_i \theta_i } + \Var{ t_i \theta_i } \\
+	& = \frac{t_i \alpha}{\beta} + t_i^2 \cdot \frac{\alpha}{\beta^2} \\
+	& = \boxed{ \frac{t_i \alpha}{\beta} \left[ 1 + \frac{t_i}{\beta} \right] }
+\ea
+
+\section{}
+The likelihood is
+\ba
+L(\alpha, \beta | \by) 
+	& \propto p(\by | \alpha, \beta) \\
+	& = \int p(\by | \btheta, \alpha, \beta) p(\btheta | \alpha, \beta)
+		 \; \der \btheta \\
+	& = \int \prod_{i=1}^n p(y_i | \theta_i, \alpha, \beta)
+		\prod_{i=1}^n p(\theta_i | \alpha, \beta) \der \btheta \\
+	& = \int \prod_{i=1}^n p(y_i | \theta_i, \alpha, \beta)
+		p(\theta_i | \alpha, \beta) \; \der \btheta \\
+	& = \prod_{i=1}^n \int 
+		\frac{ \e^{-t_i \theta_i} (t_i \theta_i)^{y_i} }{y_i!}
+		\frac{\beta^\alpha}{\Gamma(\alpha)} \theta_i^{\alpha - 1}
+		\e^{- \beta \theta_i } \; \der \theta_i \\
+	& = \prod_{i=1}^n \frac{t_i^{y_i}}{y_i!}
+		\frac{\beta^\alpha}{\Gamma(\alpha)} \int
+		\theta_i^{y_i + \alpha - 1}
+		\e^{-(\beta + t_i) \theta_i}
+		\der \theta_i \\
+	& = \prod_{i=1}^n \frac{t_i^{y_i}}{y_i!}
+		\frac{\beta^\alpha}{\Gamma(\alpha)}
+		\frac{\Gamma(\alpha + y_i)}{(\beta + t_i)^{\alpha + y_i}} \\
+	& \propto
+		\prod_{i=1}^n 
+		\frac{\beta^\alpha}{\Gamma(\alpha)}
+		\frac{\Gamma(\alpha + y_i)}{(\beta + t_i)^{\alpha + y_i}} \\
+\ea
+which gives
+\ba
+\ell(\alpha, \beta | \by)
+	= \sum_{i=1}^n \left\{
+		\alpha \log(\beta) + \log \Gamma(\alpha + y_i)
+		- \log \Gamma(\alpha) 
+		- (\alpha + y_i) \log(\beta + t_i)
+		\right\}
+\ea
+This yields
+\ba
+\pderiv{\ell}{\alpha}
+	 = \sum_{i=1}^n \left\{
+		\log(\beta) + \frac{\Gamma'(\alpha + y_i)}{\Gamma(\alpha + y_i)}
+		- \frac{\Gamma'(\alpha)}{\Gamma(\alpha)}
+		- \log(\beta + t_i) \right\}
+	 \overset{\text{set}}{=} 0 \\
+	\implies
+	\sum_{i=1}^n \left\{
+		\log(\beta) +\psi(\alpha + y_i)
+		- \psi(\alpha)
+		- \log(\beta + t_i) \right\}
+		= 0 
+\ea
+\ba
+\pderiv{\ell}{\beta}
+	& = \sum_{i=1}^n \left\{
+		\frac{\alpha}{\beta} 
+		- \frac{\alpha + y_i}{\beta + t_i}
+		\right\}
+	 \overset{\text{set}}{=} 0
+\ea
+We find estimates $\estim\alpha, \estim\beta$ using \texttt{rootSolve} in R:
+\input{alphabeta.tex}.
+\section{}
+With
+\ba
+L(\theta_1, \dotsc, \theta_{10} | \by)
+	& \propto
+		\prod_{i=1}^n
+			\frac{\exp(-t_i \theta_i)(t_i \theta_i)^{y_i}}
+			{ y_i! } \\
+	& \propto \exp\left(-\sum_i t_i \theta_i\right)
+		\prod_i (t_i \theta_i)^{y_i}
+\ea
+The posterior has the form
+\ba
+p(\theta_1, \dotsc, \theta_{10} | \by, \estim\alpha, \estim\beta)
+	& \propto L(\theta_1, \dotsc, \theta_{10} | \by, \estim\alpha, \estim\beta) 
+	\pi(\theta_1, \dotsc, \theta_{10} | \estim\alpha, \estim\beta) \\
+	& \propto \exp\left(-\sum_i t_i \theta_i\right)
+		\prod_i (t_i \theta_i)^{y_i}
+		\prod_{i=1}^n \left\{
+		\frac{\estim\beta^{\estim\alpha}}{\Gamma(\estim\alpha)}
+		\theta_i^{\estim\alpha - 1}
+		\exp\left(-\estim\beta \theta_i\right)
+		\right\} \\
+	& \propto \prod_{i=1}^n \theta_i^{y_i + \estim\alpha - 1}
+		\exp\left(- \sum_{i=1}^n (t_i + \estim\beta) \theta_i \right) \\
+	& = \prod_{i=1}^n
+		\theta_i^{y_i + \estim\alpha - 1}
+		\exp\left(-(t_i + \estim\beta) \theta_i\right)
+\ea
+which is a product of independent Gamma densities. That is, the marginal posterior for $\theta_i, i = 1, \dotsc, 10$, is 
+Gamma$(y_i + \estim\alpha, t_i + \estim\beta)$. Thus, since we have a closed-form density for each marginal (up to proportionality), we can sample each $\theta_i$ and form the product to obtain a sample from the joint distribution.
+
+\section{}
+The implementation details can be found in the appendix.
+Our quantiles for both $\estim{\theta_1}$ and $\estim{\theta_{10}}$ are shown below.
+\input{q.tex}
+
+\section{}
+\ba
+p(\btheta, \alpha, \beta | \by)
+	& \propto L(\by | \btheta, \alpha, \beta) \pi(\btheta, \alpha, \beta) \\
+	& \propto L(\by | \btheta, \alpha, \beta) p(\theta | \alpha, \beta)
+		\pi(\alpha, \beta) \\
+	& = L(\by | \btheta, \alpha, \beta) p(\theta | \alpha, \beta)
+		\pi(\alpha) \pi(\beta) \\
+	& = \prod_{i=1}^n
+		\frac{\exp(-t_i \theta_i)(t_i \theta_i)^{y_i}}{y_i!}
+		\frac{\beta^\alpha}{\Gamma(\alpha)}
+		\theta_i^{\alpha - 1} \exp(-\beta \theta_i)
+		\times \exp(- \alpha)
+		\times \frac{0.1^0.1}{\Gamma(0.1)} \beta^{0.1 - 1}
+			\exp(-0.1 \beta) \\
+	& \propto \boxed{ 
+		\prod_{i=1}^n
+		\frac{\exp\{-t_i \theta_i - \beta \theta_i 
+		- \alpha - 0.1 \beta)\}
+		\theta_i^{y_i + \alpha - 1}
+		\beta^{\alpha + 0.1 - 1}}{\Gamma(\alpha)} }
+\ea
+Here, we could use a Metropolis-Hastings method, proposing a new value of  
+$(\btheta^T, \alpha, \beta)^T$, $q(x \to x')$, e.g. a multivariate normal kernel.
+Gibbs sampling can be utilized if conditional distributions are found.
+
+\section{} Sorry, ran out of time. :(
+
+\section{}
+
+\section{}
+In this situation, doing a full Bayesian analysis would be my preference for a couple of reasons. First, since the sample size is small, the MLE estimates are not as reliable (since the asymptotic results might not have "kicked in"), whereas the Bayesian approach will account for this uncertainty more explicitly. Secondly, I personally prefer not to mix the frequentist and Bayesian approaches unless it's necessarily. Since we have an algorithm to sample from the "pure" posterior, I believe this is the best path to take.
+
+\section*{Appendix: Source Code}
+\lstinputlisting{P1.R}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
