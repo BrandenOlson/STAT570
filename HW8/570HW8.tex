@@ -93,7 +93,7 @@
 \newcommand*\ind[1]{\mathbb{1}\left(#1\right)}
 \newcommand*\set[1]{\left\{#1\right\}}
 \newcommand*\estim[1]{\widehat{#1}}
-\newcommand*\der{\text{d}}
+\newcommand*\der{\text{d}}d
 \newcommand*\deriv[2]{\frac{\der #1}{\der #2}}
 \newcommand*\pderiv[2]{\frac{\pd #1}{\pd #2}}
 \newcommand*\norm[1]{\left\|#1\right\|}
@@ -294,6 +294,16 @@ and, using the definitions of $p_i$ and $d$, we can write $\tau^2$ in terms of t
 \ea
 
 \enumend
+
+\section{}
+
+Binary data, despite their simplicity, can be difficult to model accurately.
+In particular, a phenomenon known as overdispersion, in which the data's  variance is larger than what traditional binomial modeling allows, can lead to erroneous standard error estimates. Long and McCullagh present two main model classes that address overdispersed data, discuss their respective strengths and weaknesses, and guide the reader's intuition through multiple case examples from the literature using residual analysis and formal model comparisons as diagnostics.
+
+Often, data transgress the standard binomial assumption, most commonly in the form of overdispersion. The authors introduce various remedies which fall into two categories. First, parametric models can be sought, usually fit via maximum likelihood. A prominent example is the beta-binonial model which generalizes the binomial variance. Unfortunately, these likelihoods are often intractable due to the intricacies that accompany numerical maximization schemes, and also lead to lots of software variants to hack through. Alternatively, parametrics can be avoided by assuming a mean-variance relationship of the data inspired by common distributions. The canonical example of this is quasi-likelihood fitting. This strategy can result in a loss of efficiency, especially if the distribution is strongly believed to match an aforementioned parametric form. Unsurprisingly, the model choice will ultimately come down to the nature of the empirical data.
+
+To assess the nature and level of overdispersion, the authors present two conplimentary techniques. The first is a residual analysis, standardizing the residuals in relation to the index $m$, and looking for evidence of model inconsistencies. The second is a formal comparison of the variance assumptions based on whether the dispersion factor is constant or linearly related to the index size. As expected, the modeling decisions turn out to be highly context-dependent, indicating that the modeler must carefully assess their assumptions before committing to a model incorporating overdispersion. In particular, the diagnostics are most worthwhile for small sample sizes, and should be used in tandem for a more complete picture. 
+
 
 
 \end{document}
