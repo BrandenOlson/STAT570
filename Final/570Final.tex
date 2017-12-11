@@ -149,6 +149,9 @@
 \newcommand\prox{\operatorname{prox}}
 \newcommand\T{\mathsf{T}}
 
+\newcolumntype{C}{>{$}c<{$}}
+\def\arraystretch{1.5}
+
 \newread\tmp
 \newcommand\getcount{
 	\openin\tmp=knot_count.txt
@@ -201,14 +204,268 @@
 }
 \vspace{-1in}
 \begin{document}
-\title{STAT 570: Final}
+\title{STAT 570: Final Exam}
 \author{Branden Olson}
 \date{}
 \maketitle
+Quick note: The data for $Y$ came in values $\set{1, 2, 3, 4}$, so I subtracted one from each value to match the assumed form in the problem, i.e., $Y \in \set{0, 1, 2, 3}$. 
+\section{}
+Perhaps the most natural assessment of the relationship of the true probability of $Z = 1$ given our covariates is to examine the empirical frequency observed in the data for each value of $x_1$ and $x_2$. We plot these frequency by LE, which is assumed to be continuous, and color by SES:
+\begin{center}
+\includegraphics[width=\linewidth]{plot1.pdf}
+\end{center}
+There are several things to note about this plot. An obvious deficiency is the small sample size of each subset 
+$(x_1, x_2)$, leading to high levels of noise. In fact, there were no responses corresponding to $x1 = 7, x2 = 0$, which leads to a gap in the plot. Nonetheless, if we are to make conclusions based on the plot alone, it does appear that for high socioeconomic status, a higher value of LE may lead to a higher probability of impairment, with a drop-off for the highest levels of LE. On the other hand, the signal is much less clear for low socioeconomic status, which is exacerbated by absent data. Moreover, there could be confounding in the two covariates, e.g., a higher socioeconomic status might generally lead to more life events.
 
 \section{}
+Since $Z_i | q_i \sim \text{Binomial}(1, q_i(\bx_i))$, we need to write $q_i(\bx_i)$ in terms of $\bgamma$. Note that
+\ba
+\log\left(\frac{q_i}{1 - q_i}\right) = \bx_i^T \gamma 
+	& \implies \frac{q_i}{1 - q_i} = \exp\left( \bx_i^T \bgamma \right) \\
+	& \implies q_i = \exp\left( \bx_i^T \bgamma \right) (1 - q_i)
+		= \exp\left( \bx_i^T \bgamma \right) - \exp\left( \bx_i^T \bgamma \right) q_i \\
+	& \implies q_i \left[1 + \exp\left( \bx_i^T \bgamma \right)\right] = \exp\left( \bx_i^T \bgamma \right) \\
+	& \implies q_i = q_i(\bx_i | \bgamma) 
+		= \frac{ \exp\left( \bx_i^T \bgamma \right) }{1 + \exp\left( \bx_i^T \bgamma \right)}
+\ea
+Hence, the likelihood of $\bgamma$ is 
+\ba
+L(\bgamma | \bz) & = p(\bz | \bgamma) \\
+	& = \prod_{i=1}^{40} p(z_i | \bgamma) \htab \text{(independence)} \\
+	& = \prod_{i=1}^{40} {40 \choose z_i} q_i(\bgamma)^{z_i} (1 - q_i(\bgamma))^{1 - z_i} \\
+	& \propto \prod_{i=1}^{40} q_i(\bgamma)^{z_i} (1 - q_i(\bgamma))^{1 - z_i}
+\ea
+which means that the log-likelihood is
+\ba
+\ell(\bgamma | \bz)
+	& = \sum_{i=1}^{40} \left\{ z_i \log q_i(\bgamma) + (1 - z_i) \log(1 - q_i(\bgamma)) \right\} \\
+	& = \sum_{i=1}^{40} \left\{ 
+		z_i \log \left( \frac{ \exp\left( \bx_i^T \bgamma \right) }{1 + \exp\left( \bx_i^T \bgamma \right)} \right)
+		+ (1 - z_i) \log\left( 1 - 
+		\frac{ \exp\left( \bx_i^T \bgamma \right) }{1 + \exp\left( \bx_i^T \bgamma \right)}
+		\right)
+		\right\} \\
+	& = \sum_{i=1}^{40} \left\{ z_i
+		\left[ \bx_i^T \bgamma - \log\left(1 + \exp(\bx_i^T \bgamma) \right) \right]
+		+ (1 - z_i) \log \left( \frac{1}{1 + \exp(\bx_i^T \bgamma)} \right)
+		\right\} \\
+	& = \sum_{i=1}^{40} \left\{ z_i
+		\left[ \bx_i^T \bgamma - \log\left(1 + \exp(\bx_i^T \bgamma) \right) \right]
+		- (1 - z_i) \log \left( 1 + \exp(\bx_i^T \bgamma) \right)
+		\right\} \\
+	& = \sum_{i=1}^{40} \left\{ 
+		z_i \bx_i^T \bgamma - z_i \log\left(1 + \exp(\bx_i^T \bgamma) \right) 
+		-  \log \left( 1 + \exp(\bx_i^T \bgamma) \right)
+		+ z_i \log \left( 1 + \exp(\bx_i^T \bgamma) \right) 
+		\right\} \\
+	& = \boxed{ \sum_{i=1}^{40} \left\{ z_i \bx_i^T \bgamma - \log\left(1 + \exp(\bx_i^T \bgamma)\right) \right\} }
+\ea
 
+\section{}
+We use \texttt{glm} to fit the model in 2, using the argument
+\texttt{family=binomial(link="logit")}. 
+The coefficient estimates and 95\% confidence interval endpoints are listed below.
 
+\input{mod3.tex}
+
+Now, the odds ratio for a success when going from $X_1 = k$ to $X_1 = \ell$, holding $X_2$ constant, is
+\ba
+\frac{ \frac{q_i(\ell, x_2)}{1 - q_i(\ell, x_2)} }
+	{ \frac{q_i(k, x_2)}{1 - q_i(k, x_2) } }
+	& = \frac{ \exp\left(\gamma_0 + \gamma_1 \cdot \ell + \gamma_2 x_2\right) }
+		{ \exp\left(\gamma_0 + \gamma_1 \cdot k + \gamma_2 x_2\right) } \\
+	& = \exp(\gamma_1(\ell - k)).
+\ea
+In particular, choosing $k = \ell - 1$ (e.g., WLOG, 
+$k = 0$ and $\ell = 1$), corresponding a unit increase in $X_2$, yields
+\ba
+\frac{ \frac{q_i(1, x_2)}{1 - q_i(1, x_2)} }
+	{ \frac{q_i(0, x_2)}{1 - q_i(0, x_2) } }
+	= \exp(\gamma_1)
+\ea
+Thus, confidence intervals of this odds ratio can be found using the intervals found for $\gamma_1$ above. That is, if $\ell(\gamma_1 | \bZ)$ and $r(\gamma_1 | \bZ)$ are the left- and right-hand endpoints of the CI for $\gamma_1$, we have
+\ba
+0.95 & = \Pr{ l(\gamma_1| \bZ) \le \gamma_1 \le u(\gamma_1 | \bZ) } \\
+	& = \Pr{ \exp(l(\gamma_1| \bZ)) \le \exp(\gamma_1) \le 
+		\exp(u(\gamma_1 | \bZ)) } 
+\ea
+\ba
+\implies \text{Odds-ratio}(\gamma_1) \in \left( \e^{l(\gamma_1|\bZ)},
+	\e^{r(\gamma_1|\bZ)}  \right)
+\ea
+
+Similarly, for $X_2$, the odds ratio for a success when going from $X_2 = 0$ to $X_2 = 1$ is
+\ba
+\text{Odds-ratio}(\gamma_2) \in \left( \e^{l(\gamma_2|\bZ)},
+	\e^{r(\gamma_2|\bZ)}  \right)
+\ea
+
+Note that $\e^{\gamma_0}$ is the odds of disease at exposure $x_1 = x_2 = 0$, i.e., the odds of disease for an individual with zero important life events and a low socioeconomic status. Indeed, a confidence interval for this value can be constructed in the same manner as the previous two cases, although keeping in mind its different interpretation.
+
+Performing these computations on the dataset yields the below table.
+
+\input{odds.tex}
+
+Thus, holding $X_2$ constant, a unit increase in $X_1$ appears to correspond to a multiplicative change in the odds that is greater than one. That is, there seems to be a positive association of the values of "life events" with the odds of mental impairment, holding all else constant. On the other hand, holding $X_1$ constant, the presence of $X_2$ appears to correspond to a multiplicative change in the odds that is less than one. That is, there seems to be a negative association of high socioeconomic status with the odds of mental impairment. However, there may be significant confounding between the covariates, which, along with the small sample size, prevents us from making strong claims about the relationship of mental impairment with either predictor.
+
+\section{}
+Note that, for $J = 3$, and $\bbeta_{J - 1} = \bbeta_2 = \bzero = (0, 0)^T$, 
+\ba
+\Pr{Y_i = j | \bx_i}
+	& \equiv p_{ij}(\bx_i) \\
+	& \equiv \frac{\exp(\bx_i^T \bbeta_j)}
+		{\sum_{\ell = 0}^{J - 1} \exp(\bx_i^T \bbeta_\ell) } \\
+	& = \frac{ \exp\left( \beta_{j0} + \beta_{j1} x_i \right) }
+		{ \sum_{\ell=0}^2 \exp\left(\beta_{\ell 0} + \beta_{\ell 1} x_i\right) } \\
+	& = \frac{ \exp\left( \beta_{j0} + \beta_{j1} x_i \right) }
+		{ \exp\left(\beta_{0 0} + \beta_{0 1} x_i\right) 
+			+ \exp\left(\beta_{10} + \beta_{11} x_i\right)
+			+ \exp\left(\beta_{20} + \beta_{21} x_i\right) } \\
+	& = \begin{cases}
+	\frac{ \exp\left( \beta_{j0} + \beta_{j1} x_i \right) }
+		{ \exp\left(\beta_{0 0} + \beta_{0 1} x_i\right) 
+			+ \exp\left(\beta_{10} + \beta_{11} x_i\right)
+			+ 1 }, & j \in \set{0, 1} \\
+	\frac{ 1 }
+		{ \exp\left(\beta_{0 0} + \beta_{0 1} x_i\right) 
+			+ \exp\left(\beta_{10} + \beta_{11} x_i\right)
+			+ 1 } , & j = 2 \\
+	\end{cases}
+\ea
+Putting this into a table:
+\begin{center}
+\begin{tabular}{C|CC}
+  & x = 0 & x = 1 \\
+  \hline
+  j = 0 & \frac{\e^{\beta_{00} + \beta_{01} \cdot 0}}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 0} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 0 } } & 
+  	\frac{\e^{\beta_{00} + \beta_{01} \cdot 1}}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 1} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 1 } } \\
+	j = 1 & 
+		\frac{\e^{\beta_{10} + \beta_{11} \cdot 0}}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 0} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 0 } }
+		& 
+		\frac{\e^{\beta_{10} + \beta_{11} \cdot 1}}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 1} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 1 } } \\
+	j = 2 & \frac{1}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 0} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 0 } }
+		& \frac{1}
+  	{1 + \e^{\beta_{00} + \beta_{01} \cdot 0} 
+	+ \e^{\beta_{10} + \beta_{11}\cdot 0 } }
+\end{tabular}
+\end{center}
+which, after simplifying, yields
+\begin{center}
+\boxed{
+\begin{tabular}{C|CC}
+  & x = 0 & x = 1 \\
+  \hline
+  j = 0 & 
+  	\frac{\e^{\beta_{00}}}{ 1 + \e^{\beta_{00}} + \e^{\beta_{10}} } & 
+  	\frac{\e^{\beta_{00} + \beta_{01} }}
+		{ 1 + \e^{\beta_{00} + \beta_{01}} 
+			+ \e^{\beta_{10} + \beta_{11}}} \\
+	j = 1 & 
+		\frac{\e^{\beta_{10}}}
+		{1 + \e^{\beta_{00}} + \e^{\beta_{10}}}
+		& 
+		\frac{\e^{\beta_{10} + \beta_{11}}}
+  	{1 + \e^{\beta_{00} + \beta_{01} } +
+		\e^{\beta_{10} + \beta_{11} } } \\
+	j = 2 & \frac{1}
+		{1 + \e^{\beta_{00}} + \e^{\beta_{10}}}
+		& 
+		\frac{1}
+  	{1 + \e^{\beta_{00} + \beta_{01} } +
+		\e^{\beta_{10} + \beta_{11} } } \\
+\end{tabular}
+}
+\end{center}
+Moreover, note that
+\ba
+\frac{ \frac{p_{ij}(1)}{1 - p_{ij}(1)} }
+	{ \frac{p_{ij}(0)}{1 - p_{ij}(0)} }
+	& = \frac{ \exp(\beta_{j0} + \beta_{j1}) }
+		{ \exp(\beta_{j0}) } \\
+	& = \exp(\beta_{j1})
+\ea
+So that $\e^{\beta_{j1}}$ is the odds-ratio for going from $x = 0$ to $x = 1$, for $j = 0, 1$. 
+On the other hand, $\e^{\beta_{j0}}$ is the "baseline" odds of observing $Y_i = j$ given that $x_i = 0$, for $j = 0, 1$.  
+The interpretation difficulties inherent in this model, along with the need for identifiability constraints suggests that we consider other, better models for ordinal data.
+\section{}
+Noting that for a discrete random variable taking on successive integer values,
+\ba
+\Pr{Y_i = j} = \Pr{Y_i \le j} - \Pr{Y_i \le j - 1} 
+\ea
+Thus, noting that
+\ba
+\Pr{Y_i \le j } \equiv 
+\pi_{i,j} = \frac{\exp\left(\alpha_j - \bx_i^T \bbeta\right)}
+	{1 + \exp\left(\alpha_j - \bx_i^T \bbeta\right)},
+\ea
+we have
+\ba
+p_{ij} & \equiv \Pr{Y_i = j|\bx_i}  \\
+	& = \Pr{Y_i \le j | \bx_i} - \Pr{Y_i \le j - 1 | \bx_i} \\
+	& = \pi_{i,j} - \pi_{i, j-1} \\
+	& = \frac{\exp\left(\alpha_j - \bx_i^T \bbeta\right)}
+		{1 + \exp\left(\alpha_j - \bx_i^T \bbeta\right)}
+		- \frac{\exp\left(\alpha_{j - 1} - \bx_i^T \bbeta\right)}
+		{1 + \exp\left(\alpha_{j - 1} - \bx_i^T \bbeta\right)}.
+\ea
+Hence,
+\ba
+\ell(\balpha, \bbeta)
+	& = \sum_{i=1}^n \log p_{ij}(Y_i | \balpha, \bbeta) \\
+	& = \sum_{i=1}^n \log\left\{
+		\frac{\exp\left(\alpha_j - \bx_i^T \bbeta\right)}
+		{1 + \exp\left(\alpha_j - \bx_i^T \bbeta\right)}
+		- \frac{\exp\left(\alpha_{j - 1} - \bx_i^T \bbeta\right)}
+		{1 + \exp\left(\alpha_{j - 1} - \bx_i^T \bbeta\right)}
+		\right\}
+\ea
+
+\section{}
+Perhaps the most natural representation of the association between 
+$\bp(\bx_i)$ and $\bx_i$ is to plot the empirical frequencies of 
+$\set{(Y_i | \bx_i) = j}, j = 0, 1, 2, 3$. This is done below.
+\begin{center}
+\includegraphics[width=\linewidth]{plot2.pdf}
+\end{center}
+Clearly a lot is going on in this plot, which is an artifact of plotting the frequencies of a response that can take four values, against two covariates.
+Thus, it is imperative that we examine the association through formal statistical modeling if we wish to make conclusions on the effects of LE and SES on MI. 
+
+\section{}
+According to the \texttt{polr} documentation, the model assumes the same form for the values $\pi_{ij}$ as given in the problems. Hence, we can call `polr` and treat the coefficient and intercept output as-is. 
+
+We can perform a likelihood ratio test for each reduced model to each fuller model (computing ${4 \choose 2} - 1 = 6 - 1 = 5$ in total, since we exclude the comparison of models (2) and (3)) using the \texttt{lrtest} function in the \texttt{lmtest} package. 
+
+\input{lr.tex}
+
+It appears that the fullest model, Model 4, is enough of a better fit that it warrants the inclusion of more parameters. However, there is evidence that Model 2 could suffice if we really did want as small of a model as possible, since it is a significant improvement over Model 1, but stepping up from Model 2 to Model 4 is not significant at the level $\alpha = 0.05$. Nonetheless, we will choose Model 4 since it generally appears to be an upgrade over the reduced models, and is a nearly significant upgrade over Model 2 at $\alpha = 0.05$. Having said this, there is the possibility that Model 4 is overfitting the data since the sample size is small, and hence claims about the parameters should be made in caution.
+
+The coefficients $\bbeta$ and $\balpha$ of Model 4 are listed below, along with their standard error estimates.
+
+\input{coef.tex}
+
+From the table, we see that there is apparent evidence of a positive association of LE with mental impairment, and a negative association of high socioeconomic status with mental impairment. 
+
+\section{}
+Below we show plots of the estimated probabilities of observing $Y = i$, 
+$i = 0, \dotsc, 3$, as a function of $x_1$ (LE) and $x_2$ (SES).
+\begin{center}
+\includegraphics[width=\linewidth]{probs.pdf}
+\end{center}
+Consistent with our parameter interpretations in 7, we see that higher values of $Y_i$ are inferred to be generally more probable when LE is higher. Furthermore, higher values of $Y_i$ are inferred to be generally more probable with low levels of SES. However, it is important to reiterate that confounding might be present within the data, e.g., high SES might lead to more significant life events in the first place.
+
+\scriptsize
+\section*{Appendix: Source Code}
+\lstinputlisting{Final.R}
 
 \end{document}
 
